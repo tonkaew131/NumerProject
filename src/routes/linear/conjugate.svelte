@@ -14,29 +14,58 @@
 </Label>
 
 <div class="flex items-center gap-2 mt-2">
-	<Label>
-		Matrix A
+	<Label class="text-center">
+		[A]
 		<div
 			class="grid auto-cols-auto gap-1 mt-2"
-			style={`grid-template-columns: repeat(${matrixSize}, minmax(0, 3rem));`}
+			style={`grid-template-columns: repeat(${matrixSize}, minmax(0, 5rem));`}
 		>
-			{#each Array.from(Array(Math.pow(matrixSize, 2)).keys()) as i}
-				<Input class="h-12 w-12" />
+			{#each Array(Math.pow(matrixSize, 2)) as _, i (`matrix_a_${i}`)}
+				<Input
+					class="h-20 w-20 text-center"
+					placeholder={`a${Math.floor(i / matrixSize) + 1}${(i % matrixSize) + 1}`}
+				/>
 			{/each}
 		</div>
 	</Label>
 
-	<Label
-		>Matrix B
+	<Label class="text-center"
+		>&lcub;X&rcub;
 		<div
 			class="grid auto-cols-auto gap-1 mt-2"
-			style={`grid-template-columns: repeat(${1}, minmax(0, 3rem));`}
+			style="grid-template-columns: repeat(1, minmax(0, 5rem));"
 		>
-			{#each Array.from(Array(matrixSize).keys()) as i}
-				<Input class="h-12 w-12" />
+			{#each Array(Number(matrixSize)) as _, i (`matrix_x_${i}`)}
+				<Input class="h-20 w-20 text-center" disabled value={`x${i + 1}`} />
+			{/each}
+		</div>
+	</Label>
+
+	<p>=</p>
+
+	<Label class="text-center"
+		>&lcub;B&rcub;
+		<div
+			class="grid auto-cols-auto gap-1 mt-2"
+			style="grid-template-columns: repeat(1, minmax(0, 5rem));"
+		>
+			{#each Array(Number(matrixSize)) as _, i (`matrix_b_${i}`)}
+				<Input class="h-20 w-20 text-center" placeholder={`b${i + 1}`} />
 			{/each}
 		</div>
 	</Label>
 </div>
+
+<Label>
+	Intial value
+	<div
+		class="grid auto-cols-auto gap-1"
+		style={`grid-template-columns: repeat(${matrixSize}, minmax(0, 5rem));`}
+	>
+		{#each Array(Number(matrixSize)) as _, i (`initial_x_${i}`)}
+			<Input class="h-20 w-20 text-center" placeholder={`x${i + 1}`} />
+		{/each}
+	</div>
+</Label>
 
 <Button>Calculate!</Button>
