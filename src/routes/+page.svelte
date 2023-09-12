@@ -2,13 +2,17 @@
 	import Label from '$lib/components/ui/label/label.svelte';
 
 	import * as Select from '$lib/components/ui/select';
+	import Conjugate from './linear/conjugate.svelte';
 
 	let mode: string = '';
 	let solutionMode: string = '';
 </script>
 
 <div class="prose max-w-6xl mx-auto pt-24">
-	<h1 class="text-center">Project of Numerical methods</h1>
+	<h1 class="text-center w-fit mx-auto">
+		Project of Numerical methods
+		<div class="h-[2px] w-full bg-primary my-2 rounded-full" />
+	</h1>
 
 	<div class="flex gap-4 items-center flex-wrap justify-center">
 		<Label class="flex items-center gap-2">
@@ -55,5 +59,7 @@
 		</Label>
 	</div>
 
-	<h2>{solutionMode}</h2>
+	{#if solutionMode === 'linear-conjugate'}
+		<Conjugate />
+	{/if}
 </div>
