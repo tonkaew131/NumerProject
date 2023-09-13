@@ -8,7 +8,7 @@
 	let solutionMode: string = '';
 </script>
 
-<div class="prose max-w-6xl mx-auto pt-24 w-11/12">
+<div class="prose max-w-6xl mx-auto pt-24 pb-48 w-11/12">
 	<h1 class="text-center w-fit mx-auto">
 		Project of Numerical methods
 		<div class="h-[2px] w-full bg-primary my-2 rounded-full" />

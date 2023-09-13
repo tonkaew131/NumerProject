@@ -5,6 +5,20 @@
 
 	import Icon from '@iconify/svelte';
 
+	import { conjugateGradientMethods } from '$lib/solutions/conjugate';
+
+	const result = conjugateGradientMethods(
+		[
+			[5, 2, 0, 0],
+			[2, 5, 2, 0],
+			[0, 2, 5, 2],
+			[0, 0, 2, 5]
+		],
+		[12, 17, 14, 7],
+		[0, 0, 0, 0],
+		0.001
+	);
+
 	let matrixSize: number = 3;
 </script>
 
@@ -83,3 +97,7 @@
 </Label>
 
 <Button class="mt-2">Calculate!</Button>
+
+<div class="font-mono whitespace-break-spaces mt-2">
+	{JSON.stringify(result, null, 4)}
+</div>
