@@ -6,9 +6,25 @@
 
 	let mode: string = '';
 	let solutionMode: string = '';
+
+	function onChangeProblemType(e) {
+		const value = e?.value;
+		if (value == undefined) mode = '';
+		else mode = String(value);
+
+		solutionMode = '';
+	}
 </script>
 
-<div class="prose max-w-6xl mx-auto pt-24 pb-48 w-11/12">
+<svelte:head>
+	<title>Numerical methods calculator</title>
+	<meta
+		name="description"
+		content="Numerical methods calculator made with love (for score) by @tonkaew131"
+	/>
+</svelte:head>
+
+<div class="prose max-w-6xl mx-auto pt-16 pb-48 w-11/12">
 	<h1 class="text-center w-fit mx-auto">
 		Project of Numerical methods
 		<div class="h-[2px] w-full bg-primary my-2 rounded-full" />
@@ -17,21 +33,14 @@
 	<div class="flex gap-4 items-center flex-wrap justify-center">
 		<Label class="flex items-center gap-2">
 			Type of Problem:
-			<Select.Root
-				onSelectedChange={(e) => {
-					const value = e?.value;
-					if (value == undefined) mode = '';
-					else mode = String(value);
-
-					solutionMode = '';
-				}}
-			>
+			<Select.Root onSelectedChange={onChangeProblemType}>
 				<Select.Trigger class="w-64 bg-white">
 					<Select.Value placeholder="-" />
 				</Select.Trigger>
 				<Select.Content>
 					<Select.Item value="root">Root of Equation</Select.Item>
 					<Select.Item value="linear">Linear algebra equation</Select.Item>
+					<Select.Item value="inter_extra">Interpolation and Extrapolation</Select.Item>
 				</Select.Content>
 			</Select.Root>
 		</Label>
@@ -52,7 +61,10 @@
 					{#if mode === 'root'}
 						<!-- <Select.Item value="root">Root of Equation</Select.Item> -->
 					{:else if mode === 'linear'}
+						<Select.Item value="linear-jacobi">Jacobi Iteration Methods</Select.Item>
 						<Select.Item value="linear-conjugate">Conjudate Gradient Methods</Select.Item>
+					{:else if mode === 'inter_extra'}
+						<!-- <Select.Item value="root">Root of Equation</Select.Item> -->
 					{/if}
 				</Select.Content>
 			</Select.Root>

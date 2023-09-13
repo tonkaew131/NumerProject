@@ -2,6 +2,7 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
+	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Table from '$lib/components/ui/table';
 	import * as Card from '$lib/components/ui/card';
 	import * as Tabs from '$lib/components/ui/tabs';
@@ -13,17 +14,7 @@
 	import { conjugateGradientMethods, type ConjugateType } from '$lib/solutions/conjugate';
 	import { formatMatrix } from '$lib/components/kaTeX';
 
-	let result: ConjugateType = conjugateGradientMethods(
-		[
-			[5, 2, 0, 0],
-			[2, 5, 2, 0],
-			[0, 2, 5, 2],
-			[0, 0, 2, 5]
-		],
-		[12, 17, 14, 7],
-		[0, 0, 0, 0],
-		0.001
-	);
+	let result: ConjugateType;
 
 	const createMatrix = (matrixSize: number) => {
 		const matrix = new Array(Number(matrixSize));
@@ -46,7 +37,45 @@
 	let matrixX = createArray(matrixSize);
 	$: matrixX = createArray(matrixSize);
 
-	// $: console.log({ matrixA, matrixB, matrixX });
+	let modalMessage = {
+		title: '',
+		description: ''
+	};
+	function computeResult() {
+		const isArrayFill = (array: number[]) => {
+			let isFill = true;
+			for (let i = 0; i < matrixSize; i++) {
+				if (array[i] == undefined || array[i] == null) {
+					isFill = false;
+					break;
+				}
+			}
+			return isFill;
+		};
+
+		if (!isArrayFill(matrixB)) {
+			modalMessage.title = 'Matrix B is empty!';
+			modalMessage.description = 'Please fill every number in Matrix B';
+			document.getElementById('trigger-modal')!.click();
+			return;
+		}
+
+		if (!isArrayFill(matrixX)) {
+			modalMessage.title = 'Matrix X is empty!';
+			modalMessage.description = 'Please fill every number in Matrix X';
+			document.getElementById('trigger-modal')!.click();
+			return;
+		}
+
+		result = conjugateGradientMethods(matrixA, matrixB, matrixX, 0.001);
+		if (result.error) {
+			modalMessage.title = 'Calculation error';
+			modalMessage.description = result.error;
+			document.getElementById('trigger-modal')!.click();
+		}
+
+		console.log(result);
+	}
 
 	function onMatrixAInput(e: InputEvent, idx: number) {
 		const target = e.target as HTMLInputElement;
@@ -73,6 +102,11 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Conjugate Gradient Methods</title>
+	<meta name="description" content="Conjugate Gradient Methods" />
+</svelte:head>
+
 <h3 class="text-center">🥹 Conjugate Gradient Methods</h3>
 
 <div class="flex items-end gap-2 mx-auto w-fit">
@@ -88,7 +122,7 @@
 	<Button variant="destructive" size="icon">
 		<Icon icon="bx:reset" class="text-xl" />
 	</Button>
-	<Button class="mt-2">Calculate!</Button>
+	<Button class="mt-2" on:click={computeResult}>Calculate!</Button>
 </div>
 
 <div class="flex items-center gap-2 mt-2 justify-center">
@@ -160,7 +194,19 @@
 	</div>
 </Label>
 
-<Tabs.Root value="table" class="w-full pb-24 mt-12 overflow-auto">
+<Dialog.Root>
+	<Dialog.Trigger id="trigger-modal" />
+	<Dialog.Content>
+		<Dialog.Header>
+			<Dialog.Title>{modalMessage.title}</Dialog.Title>
+			<Dialog.Description>
+				{modalMessage.description}
+			</Dialog.Description>
+		</Dialog.Header>
+	</Dialog.Content>
+</Dialog.Root>
+
+<Tabs.Root value="table" class="w-full mt-12 overflow-auto">
 	<Tabs.List>
 		<Tabs.Trigger value="table">Table</Tabs.Trigger>
 		<Tabs.Trigger value="solution">Solution</Tabs.Trigger>
@@ -169,7 +215,13 @@
 		<Card.Root class="w-full">
 			<Card.Content>
 				<Table.Root>
-					<Table.Caption>Total number of rounds: {result.iterations.length}</Table.Caption>
+					<Table.Caption>
+						{#if result?.iterations != undefined}
+							Total number of rounds: {result.iterations.length}
+						{:else}
+							Please enter the matrix
+						{/if}
+					</Table.Caption>
 					<Table.Header>
 						<Table.Row>
 							<Table.Head class="w-12">
@@ -193,28 +245,30 @@
 						</Table.Row>
 					</Table.Header>
 					<Table.Body>
-						{#each result.iterations as it}
-							<Table.Row class="py-8">
-								<Table.Cell>
-									<KaTeX data={it.iter.toString()} />
-								</Table.Cell>
-								<Table.Cell>
-									<KaTeX data={Number(it.lk_1).toFixed(6)} />
-								</Table.Cell>
-								<Table.Cell>
-									<KaTeX data={formatMatrix(it.dk_1)} />
-								</Table.Cell>
-								<Table.Cell>
-									<KaTeX data={formatMatrix(it.xk)} />
-								</Table.Cell>
-								<Table.Cell>
-									<KaTeX data={formatMatrix(it.rk)} />
-								</Table.Cell>
-								<Table.Cell>
-									<KaTeX data={it.ek.toFixed(6)} />
-								</Table.Cell>
-							</Table.Row>
-						{/each}
+						{#if result?.iterations != undefined}
+							{#each result.iterations as it}
+								<Table.Row class="py-8">
+									<Table.Cell>
+										<KaTeX data={it.iter.toString()} />
+									</Table.Cell>
+									<Table.Cell>
+										<KaTeX data={Number(it.lk_1).toFixed(6)} />
+									</Table.Cell>
+									<Table.Cell>
+										<KaTeX data={formatMatrix(it.dk_1)} />
+									</Table.Cell>
+									<Table.Cell>
+										<KaTeX data={formatMatrix(it.xk)} />
+									</Table.Cell>
+									<Table.Cell>
+										<KaTeX data={formatMatrix(it.rk)} />
+									</Table.Cell>
+									<Table.Cell>
+										<KaTeX data={it.ek.toFixed(6)} />
+									</Table.Cell>
+								</Table.Row>
+							{/each}
+						{/if}
 					</Table.Body>
 				</Table.Root>
 			</Card.Content>
@@ -229,6 +283,6 @@
 	</Tabs.Content>
 </Tabs.Root>
 
-<div class="font-mono whitespace-break-spaces mt-2">
+<!-- <div class="font-mono whitespace-break-spaces mt-2">
 	{JSON.stringify(result, null, 4)}
-</div>
+</div> -->
