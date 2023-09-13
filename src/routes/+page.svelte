@@ -61,6 +61,10 @@
 					{#if mode === 'root'}
 						<!-- <Select.Item value="root">Root of Equation</Select.Item> -->
 					{:else if mode === 'linear'}
+						<Select.Item value="linear-cramer">Cramer's rule</Select.Item>
+						<Select.Item value="linear-guass">Guass elimination</Select.Item>
+						<Select.Item value="linear-jordan">Guass Jordan elimination</Select.Item>
+						<Select.Item value="linear-inversion">Matrix Inversion</Select.Item>
 						<Select.Item value="linear-jacobi">Jacobi Iteration Methods</Select.Item>
 						<Select.Item value="linear-conjugate">Conjudate Gradient Methods</Select.Item>
 					{:else if mode === 'inter_extra'}
