@@ -21,7 +21,8 @@ export function conjugateGradientMethods(
 	matrixA: number[][],
 	matrixB: number[],
 	initialX: number[],
-	errorPercentage: number
+	errorPercentage: number,
+	logging = false
 ): ConjugateType {
 	const calculateResidual = (
 		A: number[][] | math.Matrix,
@@ -130,14 +131,17 @@ export function conjugateGradientMethods(
 		rk = calculateResidual(matrixA, matrixB, xk);
 		ek = calculateError(rk);
 
-		console.log('\niter:', iter);
-		if (iter >= 2 && ak_1 != undefined) console.log('alpha:', ak_1.toString());
-		console.log('dk_1:', dk_1.toString());
-		console.log('lk_1:', lk_1.toString());
-		console.log('xk:', xk.toString());
-		console.log('rk:', rk.toString());
-		console.log('ek:', ek.toString());
-		result.iterations.push({
+		if (logging) {
+			console.log('\niter:', iter);
+			if (iter >= 2 && ak_1 != undefined) console.log('alpha:', ak_1.toString());
+			console.log('dk_1:', dk_1.toString());
+			console.log('lk_1:', lk_1.toString());
+			console.log('xk:', xk.toString());
+			console.log('rk:', rk.toString());
+			console.log('ek:', ek.toString());
+		}
+		
+        result.iterations.push({
 			iter: iter,
 			dk_1: dk_1.toArray(),
 			lk_1: lk_1,
