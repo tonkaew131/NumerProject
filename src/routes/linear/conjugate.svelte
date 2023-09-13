@@ -2,6 +2,7 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
+	import { Skeleton } from '$lib/components/ui/skeleton';
 	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Table from '$lib/components/ui/table';
 	import * as Card from '$lib/components/ui/card';
@@ -288,7 +289,11 @@
 		<Card.Title class="mt-0">Contour Graph</Card.Title>
 	</Card.Header>
 	<Card.Content class="flex flex-col">
-		<span class="text-sm text-muted-foreground text-center w-full">Please enter the matrix</span>
+		{#if result?.iterations}
+			<Skeleton class="w-full max-w-3xl aspect-[4_/_3] rounded-radius" />
+		{:else}
+			<span class="text-sm text-muted-foreground text-center w-full">Please enter the matrix</span>
+		{/if}
 	</Card.Content>
 </Card.Root>
 
