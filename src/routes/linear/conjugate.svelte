@@ -28,9 +28,20 @@
 		return matrix;
 	};
 
+	const createArray = (matrixSize: number) => {
+		const array = new Array(Number(matrixSize));
+		return array;
+	};
+
 	let matrixSize: number = 3;
 	let matrixA = craeteMatrix(matrixSize);
 	$: matrixA = craeteMatrix(matrixSize);
+	let matrixB = createArray(matrixSize);
+	$: matrixB = createArray(matrixSize);
+	let matrixX = createArray(matrixSize);
+	$: matrixX = createArray(matrixSize);
+
+	$: console.log({ matrixA, matrixB, matrixX });
 
 	function onMatrixAInput(e: InputEvent, idx: number) {
 		const target = e.target as HTMLInputElement;
@@ -39,6 +50,20 @@
 		const row = Math.floor(idx / matrixSize);
 		const col = idx % matrixSize;
 		matrixA[row][col] = value;
+		return;
+	}
+	function onMatrixBInput(e: InputEvent, idx: number) {
+		const target = e.target as HTMLInputElement;
+		const value = Number(target.value);
+
+		matrixB[idx] = value;
+		return;
+	}
+	function onMatrixXInput(e: InputEvent, idx: number) {
+		const target = e.target as HTMLInputElement;
+		const value = Number(target.value);
+
+		matrixX[idx] = value;
 		return;
 	}
 </script>
@@ -100,7 +125,11 @@
 			style="grid-template-columns: repeat(1, minmax(0, 5rem));"
 		>
 			{#each Array(Number(matrixSize)) as _, i (`matrix_b_${i}`)}
-				<Input class="h-20 w-20 text-center placeholder:text-gray-300" placeholder={`b${i + 1}`} />
+				<Input
+					on:input={(e) => onMatrixBInput(e, i)}
+					class="h-20 w-20 text-center placeholder:text-gray-300"
+					placeholder={`b${i + 1}`}
+				/>
 			{/each}
 		</div>
 	</Label>
@@ -113,14 +142,16 @@
 		style={`grid-template-columns: repeat(${matrixSize}, minmax(0, 5rem));`}
 	>
 		{#each Array(Number(matrixSize)) as _, i (`initial_x_${i}`)}
-			<Input class="h-20 w-20 text-center placeholder:text-gray-300" placeholder={`x${i + 1}`} />
+			<Input
+				on:input={(e) => onMatrixXInput(e, i)}
+				class="h-20 w-20 text-center placeholder:text-gray-300"
+				placeholder={`x${i + 1}`}
+			/>
 		{/each}
 	</div>
 </Label>
 
 <Button class="mt-2">Calculate!</Button>
-
-{matrixA}
 
 <!-- <Table.Root>
 	<Table.Caption>A list of your recent invoices.</Table.Caption>
