@@ -9,8 +9,9 @@
 	import Icon from '@iconify/svelte';
 
 	import { conjugateGradientMethods } from '$lib/solutions/conjugate';
+	import KaTex from '$lib/components/kaTex.svelte';
 
-	const result = conjugateGradientMethods(
+	let result = conjugateGradientMethods(
 		[
 			[5, 2, 0, 0],
 			[2, 5, 2, 0],
@@ -82,7 +83,10 @@
 			class="w-40 placeholder:text-gray-300 mt-2"
 		/>
 	</Label>
-	<Button variant="destructive"><Icon icon="bx:reset" class="text-xl" /></Button>
+	<Button variant="destructive" size="icon">
+		<Icon icon="bx:reset" class="text-xl" />
+	</Button>
+	<Button class="mt-2">Calculate!</Button>
 </div>
 
 <div class="flex items-center gap-2 mt-2">
@@ -153,9 +157,7 @@
 	</div>
 </Label>
 
-<Button class="mt-2">Calculate!</Button>
-
-<Tabs.Root value="table" class="w-full pb-24">
+<Tabs.Root value="table" class="w-full pb-24 mt-12">
 	<Tabs.List>
 		<Tabs.Trigger value="table">Table</Tabs.Trigger>
 		<Tabs.Trigger value="solution">Solution</Tabs.Trigger>
@@ -174,12 +176,12 @@
 						</Table.Row>
 					</Table.Header>
 					<Table.Body>
-						<Table.Row>
-							<Table.Cell class="font-medium">INV001</Table.Cell>
+						<!-- <Table.Row>
+							<Table.Cell class="font-medium">1</Table.Cell>
 							<Table.Cell>Paid</Table.Cell>
 							<Table.Cell>Credit Card</Table.Cell>
 							<Table.Cell class="text-right">$250.00</Table.Cell>
-						</Table.Row>
+						</Table.Row> -->
 					</Table.Body>
 				</Table.Root>
 			</Card.Content>
@@ -189,6 +191,7 @@
 		<Card.Root class="w-full">
 			<Card.Content>
 				<p class="mb-0">SOLUTIONS GOES HERE</p>
+				<KaTex />
 			</Card.Content>
 		</Card.Root>
 	</Tabs.Content>

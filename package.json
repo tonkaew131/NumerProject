@@ -42,6 +42,7 @@
 	"dependencies": {
 		"bits-ui": "^0.5.7",
 		"clsx": "^2.0.0",
+		"katex": "^0.16.8",
 		"lucide-svelte": "^0.276.0",
 		"mathjs": "^11.11.0",
 		"tailwind-merge": "^1.14.0",
