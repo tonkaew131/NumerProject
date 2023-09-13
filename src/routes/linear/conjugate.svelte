@@ -3,6 +3,8 @@
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
 	import * as Table from '$lib/components/ui/table';
+	import * as Card from '$lib/components/ui/card';
+	import * as Tabs from '$lib/components/ui/tabs';
 
 	import Icon from '@iconify/svelte';
 
@@ -153,25 +155,44 @@
 
 <Button class="mt-2">Calculate!</Button>
 
-<!-- <Table.Root>
-	<Table.Caption>A list of your recent invoices.</Table.Caption>
-	<Table.Header>
-		<Table.Row>
-			<Table.Head class="w-[100px]">Iter</Table.Head>
-			<Table.Head>Status</Table.Head>
-			<Table.Head>Method</Table.Head>
-			<Table.Head class="text-right">Amount</Table.Head>
-		</Table.Row>
-	</Table.Header>
-	<Table.Body>
-		<Table.Row>
-			<Table.Cell class="font-medium">INV001</Table.Cell>
-			<Table.Cell>Paid</Table.Cell>
-			<Table.Cell>Credit Card</Table.Cell>
-			<Table.Cell class="text-right">$250.00</Table.Cell>
-		</Table.Row>
-	</Table.Body>
-</Table.Root> -->
+<Tabs.Root value="table" class="w-full pb-24">
+	<Tabs.List>
+		<Tabs.Trigger value="table">Table</Tabs.Trigger>
+		<Tabs.Trigger value="solution">Solution</Tabs.Trigger>
+	</Tabs.List>
+	<Tabs.Content value="table">
+		<Card.Root class="w-full">
+			<Card.Content>
+				<Table.Root>
+					<Table.Caption>A list of your recent invoices.</Table.Caption>
+					<Table.Header>
+						<Table.Row>
+							<Table.Head class="w-12">Iter</Table.Head>
+							<Table.Head>Status</Table.Head>
+							<Table.Head>Method</Table.Head>
+							<Table.Head class="text-right">Amount</Table.Head>
+						</Table.Row>
+					</Table.Header>
+					<Table.Body>
+						<Table.Row>
+							<Table.Cell class="font-medium">INV001</Table.Cell>
+							<Table.Cell>Paid</Table.Cell>
+							<Table.Cell>Credit Card</Table.Cell>
+							<Table.Cell class="text-right">$250.00</Table.Cell>
+						</Table.Row>
+					</Table.Body>
+				</Table.Root>
+			</Card.Content>
+		</Card.Root>
+	</Tabs.Content>
+	<Tabs.Content value="solution">
+		<Card.Root class="w-full">
+			<Card.Content>
+				<p class="mb-0">SOLUTIONS GOES HERE</p>
+			</Card.Content>
+		</Card.Root>
+	</Tabs.Content>
+</Tabs.Root>
 
 <div class="font-mono whitespace-break-spaces mt-2">
 	{JSON.stringify(result, null, 4)}
