@@ -71,9 +71,9 @@
 	}
 </script>
 
-<h3 class="">🥹 Conjugate Gradient Methods</h3>
+<h3 class="text-center">🥹 Conjugate Gradient Methods</h3>
 
-<div class="flex items-end gap-2">
+<div class="flex items-end gap-2 mx-auto w-fit">
 	<Label>
 		Matrix size (NxN)
 		<Input
@@ -89,7 +89,7 @@
 	<Button class="mt-2">Calculate!</Button>
 </div>
 
-<div class="flex items-center gap-2 mt-2">
+<div class="flex items-center gap-2 mt-2 justify-center">
 	<Label class="text-center">
 		[A]
 		<div
@@ -141,10 +141,10 @@
 	</Label>
 </div>
 
-<Label>
+<Label class="text-center flex  flex-col justify-center items-center gap-2 mt-2">
 	Intial value
 	<div
-		class="grid auto-cols-auto gap-1"
+		class="grid auto-cols-auto gap-1 w-fit mx-auto"
 		style={`grid-template-columns: repeat(${matrixSize}, minmax(0, 5rem));`}
 	>
 		{#each Array(Number(matrixSize)) as _, i (`initial_x_${i}`)}
