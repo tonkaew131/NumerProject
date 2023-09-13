@@ -283,6 +283,15 @@
 	</Tabs.Content>
 </Tabs.Root>
 
+<Card.Root class="w-full mt-4">
+	<Card.Header>
+		<Card.Title class="mt-0">Contour Graph</Card.Title>
+	</Card.Header>
+	<Card.Content class="flex flex-col">
+		<span class="text-sm text-muted-foreground text-center w-full">Please enter the matrix</span>
+	</Card.Content>
+</Card.Root>
+
 <!-- <div class="font-mono whitespace-break-spaces mt-2">
 	{JSON.stringify(result, null, 4)}
 </div> -->

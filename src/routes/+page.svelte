@@ -71,7 +71,11 @@
 		</Label>
 	</div>
 
-	{#if solutionMode === 'linear-conjugate'}
+	{#if solutionMode === ''}
+		<p class="text-center py-16">Cool stats goes here</p>
+	{:else if solutionMode === 'linear-conjugate'}
 		<Conjugate />
+	{:else}
+		<p class="text-center py-16">Not implemented yet</p>
 	{/if}
 </div>
