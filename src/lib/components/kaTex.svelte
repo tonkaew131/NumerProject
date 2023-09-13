@@ -1,8 +1,16 @@
 <script lang="ts">
 	import katex from 'katex';
 
-	import type { PageData } from '../../routes/$types';
-	let data: PageData;
+	export let data;
+
+	let str = '';
+	try {
+		str = katex.renderToString(data, {
+			throwOnError: false
+		});
+	} catch (error) {
+		console.log(error);
+	}
 </script>
 
 <svelte:head>
@@ -14,6 +22,4 @@
 	/>
 </svelte:head>
 
-{@html katex.renderToString('c = \\pm\\sqrt{a^2 + b^2}', {
-	throwOnError: false
-})}
+{@html str}

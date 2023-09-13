@@ -26,7 +26,7 @@
 					solutionMode = '';
 				}}
 			>
-				<Select.Trigger class="w-64">
+				<Select.Trigger class="w-64 bg-white">
 					<Select.Value placeholder="-" />
 				</Select.Trigger>
 				<Select.Content>
@@ -45,7 +45,7 @@
 					else solutionMode = String(value);
 				}}
 			>
-				<Select.Trigger class="w-64">
+				<Select.Trigger class="w-64 bg-white">
 					<Select.Value placeholder="-" />
 				</Select.Trigger>
 				<Select.Content>

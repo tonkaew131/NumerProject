@@ -6,12 +6,14 @@
 	import * as Card from '$lib/components/ui/card';
 	import * as Tabs from '$lib/components/ui/tabs';
 
+	import KaTeX from '$lib/components/kaTeX.svelte';
+
 	import Icon from '@iconify/svelte';
 
-	import { conjugateGradientMethods } from '$lib/solutions/conjugate';
-	import KaTex from '$lib/components/kaTex.svelte';
+	import { conjugateGradientMethods, type ConjugateType } from '$lib/solutions/conjugate';
+	import { formatMatrix } from '$lib/components/kaTeX';
 
-	let result = conjugateGradientMethods(
+	let result: ConjugateType = conjugateGradientMethods(
 		[
 			[5, 2, 0, 0],
 			[2, 5, 2, 0],
@@ -23,7 +25,7 @@
 		0.001
 	);
 
-	const craeteMatrix = (matrixSize: number) => {
+	const createMatrix = (matrixSize: number) => {
 		const matrix = new Array(Number(matrixSize));
 		for (let i = 0; i < matrixSize; i++) {
 			matrix[i] = new Array(Number(matrixSize));
@@ -37,14 +39,14 @@
 	};
 
 	let matrixSize: number = 3;
-	let matrixA = craeteMatrix(matrixSize);
-	$: matrixA = craeteMatrix(matrixSize);
+	let matrixA = createMatrix(matrixSize);
+	$: matrixA = createMatrix(matrixSize);
 	let matrixB = createArray(matrixSize);
 	$: matrixB = createArray(matrixSize);
 	let matrixX = createArray(matrixSize);
 	$: matrixX = createArray(matrixSize);
 
-	$: console.log({ matrixA, matrixB, matrixX });
+	// $: console.log({ matrixA, matrixB, matrixX });
 
 	function onMatrixAInput(e: InputEvent, idx: number) {
 		const target = e.target as HTMLInputElement;
@@ -80,7 +82,7 @@
 			bind:value={matrixSize}
 			type="number"
 			min="1"
-			class="w-40 placeholder:text-gray-300 mt-2"
+			class="w-40 placeholder:text-gray-300 bg-white mt-2"
 		/>
 	</Label>
 	<Button variant="destructive" size="icon">
@@ -99,7 +101,7 @@
 			{#each Array(Math.pow(matrixSize, 2)) as _, i (`matrix_a_${i}`)}
 				<Input
 					on:input={(e) => onMatrixAInput(e, i)}
-					class="h-20 w-20 text-center placeholder:text-gray-300"
+					class="h-20 w-20 text-center placeholder:text-gray-300 bg-white"
 					placeholder={`a${Math.floor(i / matrixSize) + 1}${(i % matrixSize) + 1}`}
 				/>
 			{/each}
@@ -114,9 +116,10 @@
 		>
 			{#each Array(Number(matrixSize)) as _, i (`matrix_x_${i}`)}
 				<Input
-					class="h-20 w-20 text-center placeholder:text-gray-300"
+					placeholder={`x${i + 1}`}
+					bind:value={matrixX[i]}
+					class="h-20 w-20 text-center placeholder:text-gray-300 bg-white"
 					disabled
-					value={`x${i + 1}`}
 				/>
 			{/each}
 		</div>
@@ -133,7 +136,7 @@
 			{#each Array(Number(matrixSize)) as _, i (`matrix_b_${i}`)}
 				<Input
 					on:input={(e) => onMatrixBInput(e, i)}
-					class="h-20 w-20 text-center placeholder:text-gray-300"
+					class="h-20 w-20 text-center placeholder:text-gray-300 bg-white"
 					placeholder={`b${i + 1}`}
 				/>
 			{/each}
@@ -150,14 +153,14 @@
 		{#each Array(Number(matrixSize)) as _, i (`initial_x_${i}`)}
 			<Input
 				on:input={(e) => onMatrixXInput(e, i)}
-				class="h-20 w-20 text-center placeholder:text-gray-300"
+				class="h-20 w-20 text-center placeholder:text-gray-300 bg-white"
 				placeholder={`x${i + 1}`}
 			/>
 		{/each}
 	</div>
 </Label>
 
-<Tabs.Root value="table" class="w-full pb-24 mt-12">
+<Tabs.Root value="table" class="w-full pb-24 mt-12 overflow-auto">
 	<Tabs.List>
 		<Tabs.Trigger value="table">Table</Tabs.Trigger>
 		<Tabs.Trigger value="solution">Solution</Tabs.Trigger>
@@ -166,22 +169,52 @@
 		<Card.Root class="w-full">
 			<Card.Content>
 				<Table.Root>
-					<Table.Caption>A list of your recent invoices.</Table.Caption>
+					<Table.Caption>Total number of rounds: {result.iterations.length}</Table.Caption>
 					<Table.Header>
 						<Table.Row>
-							<Table.Head class="w-12">Iter</Table.Head>
-							<Table.Head>Status</Table.Head>
-							<Table.Head>Method</Table.Head>
-							<Table.Head class="text-right">Amount</Table.Head>
+							<Table.Head class="w-12">
+								<KaTeX data="\text&lcub;iter&rcub;" />
+							</Table.Head>
+							<Table.Head>
+								<KaTeX data="\lambda_&lcub;k-1&rcub;" />
+							</Table.Head>
+							<Table.Head>
+								<KaTeX data="D_&lcub;k-1&rcub;" />
+							</Table.Head>
+							<Table.Head>
+								<KaTeX data="X_k" />
+							</Table.Head>
+							<Table.Head>
+								<KaTeX data="R_k" />
+							</Table.Head>
+							<Table.Head class="w-12">
+								<KaTeX data="error_k" />
+							</Table.Head>
 						</Table.Row>
 					</Table.Header>
 					<Table.Body>
-						<!-- <Table.Row>
-							<Table.Cell class="font-medium">1</Table.Cell>
-							<Table.Cell>Paid</Table.Cell>
-							<Table.Cell>Credit Card</Table.Cell>
-							<Table.Cell class="text-right">$250.00</Table.Cell>
-						</Table.Row> -->
+						{#each result.iterations as it}
+							<Table.Row class="py-8">
+								<Table.Cell>
+									<KaTeX data={it.iter.toString()} />
+								</Table.Cell>
+								<Table.Cell>
+									<KaTeX data={Number(it.lk_1).toFixed(6)} />
+								</Table.Cell>
+								<Table.Cell>
+									<KaTeX data={formatMatrix(it.dk_1)} />
+								</Table.Cell>
+								<Table.Cell>
+									<KaTeX data={formatMatrix(it.xk)} />
+								</Table.Cell>
+								<Table.Cell>
+									<KaTeX data={formatMatrix(it.rk)} />
+								</Table.Cell>
+								<Table.Cell>
+									<KaTeX data={it.ek.toFixed(6)} />
+								</Table.Cell>
+							</Table.Row>
+						{/each}
 					</Table.Body>
 				</Table.Root>
 			</Card.Content>
@@ -191,7 +224,6 @@
 		<Card.Root class="w-full">
 			<Card.Content>
 				<p class="mb-0">SOLUTIONS GOES HERE</p>
-				<KaTex />
 			</Card.Content>
 		</Card.Root>
 	</Tabs.Content>

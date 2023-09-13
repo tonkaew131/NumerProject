@@ -140,8 +140,8 @@ export function conjugateGradientMethods(
 			console.log('rk:', rk.toString());
 			console.log('ek:', ek.toString());
 		}
-		
-        result.iterations.push({
+
+		result.iterations.push({
 			iter: iter,
 			dk_1: dk_1.toArray(),
 			lk_1: lk_1,
