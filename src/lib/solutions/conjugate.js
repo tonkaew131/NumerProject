@@ -3,6 +3,14 @@ import { create, all } from 'mathjs'
 const config = {}
 const math = create(all, config);
 
+function copyArray(array) {
+    const out = [];
+    for (let i = 0; i < array.length; i++) {
+        out.push(array[i]);
+    }
+    return out;
+}
+
 function conjugateGradientMethods(matrixA, matrixB, initialX, errorPercentage) {
     const calculateResidual = (A, B, X) => {
         const matrixA = math.matrix(A);
@@ -16,13 +24,15 @@ function conjugateGradientMethods(matrixA, matrixB, initialX, errorPercentage) {
         return math.multiply(-1, residualMatrix);
     };
 
-    const calculateDistance = (residualMatrix, distanceMatrix, matrixAa) => {
+    const calculateAlpha = (residualMatrix, distanceMatrix, matrixA) => {
         const rT = math.transpose(residualMatrix);
         const dT = math.transpose(distanceMatrix);
         const alpha = math.divide(math.multiply(math.multiply(rT, matrixA), distanceMatrix), math.multiply(math.multiply(dT, matrixA), distanceMatrix));
 
-        console.log('alpha:', alpha.toString());
+        return alpha;
+    };
 
+    const calculateDistance = (residualMatrix, distanceMatrix, matrixAa, alpha) => {
         const out = math.add(math.multiply(-1, residualMatrix), math.multiply(alpha, distanceMatrix));
         return out
     };
@@ -42,45 +52,46 @@ function conjugateGradientMethods(matrixA, matrixB, initialX, errorPercentage) {
     };
 
     const r0 = calculateResidual(matrixA, matrixB, initialX);
-
     const d0 = calculateDistance0(r0);
-    const l0 = calculateLambda(r0, d0, matrixA);
-    console.log('l0', l0.toString());
-    const x1 = calculateMatrixXk1(initialX, l0, d0);
-    console.log('x1', x1.toString());
-    const r1 = calculateResidual(matrixA, matrixB, x1);
-    console.log('r1', r1.toString());
-    console.log('error', calculateError(r1).toString());
 
-    const d1 = calculateDistance(r1, d0, matrixA);
-    console.log('\nd1', d1.toString());
-    const l1 = calculateLambda(r1, d1, matrixA);
-    console.log('l1', l1.toString());
-    const x2 = calculateMatrixXk1(x1, l1, d1);
-    console.log('x2', x2.toString());
-    const r2 = calculateResidual(matrixA, matrixB, x2);
-    console.log('r2', r2.toString());
-    console.log('error', calculateError(r2).toString());
+    // this is the first iteration
+    // d0
+    let dk_1 = d0;
+    // r0
+    let rk_1 = r0;
+    // x0
+    let xk_1 = initialX;
 
-    const d2 = calculateDistance(r2, d1, matrixA);
-    console.log('\nd2', d2.toString());
-    const l2 = calculateLambda(r2, d2, matrixA);
-    console.log('l2', l2.toString());
-    const x3 = calculateMatrixXk1(x2, l2, d2);
-    console.log('x3', x3.toString());
-    const r3 = calculateResidual(matrixA, matrixB, x3);
-    console.log('r3', r3.toString());
-    console.log('error', calculateError(r3).toString());
+    let iter = 0;
 
-    const d3 = calculateDistance(r3, d2, matrixA);
-    console.log('\nd3', d3.toString());
-    const l3 = calculateLambda(r3, d3, matrixA);
-    console.log('l3', l3.toString());
-    const x4 = calculateMatrixXk1(x3, l3, d3);
-    console.log('x4', x4.toString());
-    const r4 = calculateResidual(matrixA, matrixB, x4);
-    console.log('r4', r4.toString());
-    console.log('error', calculateError(r4).toString());
+    let lk_1, xk, rk, ek, ak_1;
+    while (true) {
+        iter++;
+
+        if (iter >= 2) {
+            ak_1 = calculateAlpha(rk_1, dk_1, matrixA);
+            dk_1 = calculateDistance(rk_1, dk_1, matrixA, ak_1);
+        }
+        lk_1 = calculateLambda(rk_1, dk_1, matrixA);
+        xk = calculateMatrixXk1(xk_1, lk_1, dk_1);
+        rk = calculateResidual(matrixA, matrixB, xk);
+        ek = calculateError(rk);
+
+        console.log('\niter:', iter);
+        if (iter >= 2) console.log('alpha:', ak_1.toString());
+        console.log('dk_1:', dk_1.toString());
+        console.log('lk_1:', lk_1.toString());
+        console.log('xk:', xk.toString());
+        console.log('rk:', rk.toString());
+        console.log('ek:', ek.toString());
+
+        if (calculateError(rk) * 100 < errorPercentage || isNaN(ek)) {
+            break;
+        }
+
+        rk_1 = rk;
+        xk_1 = xk;
+    }
 }
 
 const matrixA = [
