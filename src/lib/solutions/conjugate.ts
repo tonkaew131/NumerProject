@@ -13,8 +13,8 @@ export interface ConjugateType {
 		rk: number[] | math.Matrix | math.MathArray;
 		ek: number;
 	}[];
-	answers?: number[] | math.Matrix;
-	error?: 'Not Symmetric Matrix';
+	answers?: number[] | math.Matrix | math.MathArray;
+	error?: 'Not Symmetric Matrix' | 'Max Iterations Reached';
 }
 
 export function conjugateGradientMethods(
@@ -112,7 +112,12 @@ export function conjugateGradientMethods(
 	let iter = 0;
 	const MAX_ITER = 1000;
 
-	let lk_1, xk: math.Matrix, rk, ek, ak_1;
+	let lk_1,
+		xk: math.Matrix = math.matrix([]),
+		rk,
+		ek,
+		ak_1;
+	let found = false;
 	while (iter < MAX_ITER) {
 		iter++;
 
@@ -142,11 +147,18 @@ export function conjugateGradientMethods(
 		});
 
 		if (calculateError(rk) * 100 < errorPercentage || isNaN(ek)) {
+			found = true;
 			break;
 		}
 
 		rk_1 = rk;
 		xk_1 = xk;
+	}
+
+	if (found) {
+		result.answers = xk.toArray();
+	} else {
+		result.error = 'Max Iterations Reached';
 	}
 
 	return result;
