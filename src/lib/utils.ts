@@ -60,3 +60,17 @@ export const flyAndScale = (
         easing: cubicOut
     };
 };
+
+// by @tonkaew131
+export const createMatrix = (matrixSize: number) => {
+    const matrix = new Array(Number(matrixSize));
+    for (let i = 0; i < matrixSize; i++) {
+        matrix[i] = new Array(Number(matrixSize));
+    }
+    return matrix;
+};
+
+export const createArray = (matrixSize: number) => {
+    const array = new Array(Number(matrixSize));
+    return array;
+};

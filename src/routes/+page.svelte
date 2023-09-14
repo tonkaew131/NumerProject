@@ -3,6 +3,7 @@
 
 	import * as Select from '$lib/components/ui/select';
 	import Conjugate from './linear/conjugate.svelte';
+	import Guass from './linear/guass.svelte';
 
 	let mode: string = '';
 	let solutionMode: string = '';
@@ -66,7 +67,7 @@
 						<Select.Item value="linear-jordan">Guass Jordan elimination</Select.Item>
 						<Select.Item value="linear-inversion">Matrix Inversion</Select.Item>
 						<Select.Item value="linear-jacobi">Jacobi Iteration Methods</Select.Item>
-						<Select.Item value="linear-conjugate">Conjudate Gradient Methods</Select.Item>
+						<Select.Item value="linear-conjugate">Conjugate Gradient Methods</Select.Item>
 					{:else if mode === 'inter_extra'}
 						<!-- <Select.Item value="root">Root of Equation</Select.Item> -->
 					{/if}
@@ -79,6 +80,8 @@
 		<p class="text-center py-16">Cool stats goes here</p>
 	{:else if solutionMode === 'linear-conjugate'}
 		<Conjugate />
+	{:else if solutionMode === 'linear-guass'}
+		<Guass />
 	{:else}
 		<p class="text-center py-16">Not implemented yet</p>
 	{/if}
