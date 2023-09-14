@@ -2,13 +2,13 @@
 	import * as Card from '$lib/components/ui/card';
 	import * as Tabs from '$lib/components/ui/tabs';
 
-	export const precision = 4;
+	export let precision: number = 4;
 
 	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
 
 	import { guassEliminationMethods } from '$lib/solutions/guass';
 	import KaTeX from '$lib/components/kaTeX.svelte';
-	import { formatMatrix, formatVector } from '$lib/components/kaTeX';
+	import { formatMatrix } from '$lib/components/kaTeX';
 
 	const createMatrix = (matrixSize: number) => {
 		const matrix = new Array(Number(matrixSize));

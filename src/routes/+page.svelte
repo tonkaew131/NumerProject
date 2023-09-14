@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
 
 	import * as Select from '$lib/components/ui/select';
@@ -7,6 +8,7 @@
 
 	let mode: string = '';
 	let solutionMode: string = '';
+	let precision: number = 6;
 
 	function onChangeProblemType(e) {
 		const value = e?.value;
@@ -46,7 +48,7 @@
 			</Select.Root>
 		</Label>
 
-		<Label class="flex items-center gap-2">
+		<Label class="flex flex-wrap items-center gap-2">
 			Solution:
 			<Select.Root
 				onSelectedChange={(e) => {
@@ -74,6 +76,11 @@
 				</Select.Content>
 			</Select.Root>
 		</Label>
+
+		<Label class="flex items-center gap-2">
+			Precision:
+			<Input type="number" class="w-20" placeholder="6" bind:value={precision} />
+		</Label>
 	</div>
 
 	{#if solutionMode === ''}
@@ -81,7 +88,7 @@
 	{:else if solutionMode === 'linear-conjugate'}
 		<Conjugate />
 	{:else if solutionMode === 'linear-guass'}
-		<Guass />
+		<Guass precision={Number(precision)} />
 	{:else}
 		<p class="text-center py-16">Not implemented yet</p>
 	{/if}
