@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Button from '$lib/components/ui/button/button.svelte';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
 	import { Skeleton } from '$lib/components/ui/skeleton';
@@ -10,10 +9,8 @@
 
 	import KaTeX from '$lib/components/kaTeX.svelte';
 
-	import Icon from '@iconify/svelte';
-
 	import { conjugateGradientMethods, type ConjugateType } from '$lib/solutions/conjugate';
-	import { formatMatrix } from '$lib/components/kaTeX';
+	import { formatVector } from '$lib/components/kaTeX';
 	import { createArray, createMatrix } from '$lib/utils';
 	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
 
@@ -167,13 +164,13 @@
 										<KaTeX data={Number(it.lk_1).toFixed(6)} />
 									</Table.Cell>
 									<Table.Cell>
-										<KaTeX data={formatMatrix(it.dk_1)} />
+										<KaTeX data={formatVector(it.dk_1)} />
 									</Table.Cell>
 									<Table.Cell>
-										<KaTeX data={formatMatrix(it.xk)} />
+										<KaTeX data={formatVector(it.xk)} />
 									</Table.Cell>
 									<Table.Cell>
-										<KaTeX data={formatMatrix(it.rk)} />
+										<KaTeX data={formatVector(it.rk)} />
 									</Table.Cell>
 									<Table.Cell>
 										<KaTeX data={it.ek.toFixed(6)} />
