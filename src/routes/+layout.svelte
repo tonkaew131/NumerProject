@@ -56,6 +56,7 @@
 						<DropdownMenu.Label>My Account</DropdownMenu.Label>
 						<DropdownMenu.Separator />
 						<DropdownMenu.Item>Profile</DropdownMenu.Item>
+						<DropdownMenu.Item>My Problem</DropdownMenu.Item>
 						<DropdownMenu.Separator />
 						<DropdownMenu.Item>
 							<form method="POST" action="?/logout" use:enhance class="w-full">

@@ -1,16 +1,19 @@
 import { copyMatrix } from '$lib/utils';
-import { re } from 'mathjs';
 
 export interface GuassType {
 	iterations: GuassIterationType[];
+	backIterations?: GuassIterationType[];
 	answers?: number[];
+	matrix?: number[][];
 }
 
 export interface GuassIterationType {
 	type: 'forward_elimination' | 'backward_substitution';
 	i: number;
 	j: number;
-	factor: number;
+	factor?: number;
+	value?: number;
+	sumIdx?: number[];
 	matrix?: number[][];
 	matrixk_1?: number[][];
 }
@@ -55,17 +58,38 @@ export function guassEliminationMethods(matrixA: number[][], matrixB: number[]) 
 
 	const answers = new Array(MATRIX_SIZE);
 
+	// Backward substitution
+	const backSubstitution: GuassIterationType[] = [];
 	for (let i = MATRIX_SIZE - 1; i >= 0; i--) {
 		let sum = matrix[i][MATRIX_SIZE];
 
+		const sumIdx = [];
 		for (let j = 0; j < MATRIX_SIZE - i - 1; j++) {
 			const k = MATRIX_SIZE - j - 1;
+			sumIdx.push(k);
 			sum -= matrix[i][k] * answers[k];
 		}
 
+		backSubstitution.push({
+			type: 'backward_substitution',
+			i: i,
+			j: i,
+			value: sum / matrix[i][i],
+			sumIdx: sumIdx
+		});
 		answers[i] = sum / matrix[i][i];
 	}
 
+	const matrixNoAns = new Array(MATRIX_SIZE);
+	for (let i = 0; i < MATRIX_SIZE; i++) {
+		matrixNoAns[i] = [];
+		for (let j = 0; j < MATRIX_SIZE; j++) {
+			matrixNoAns[i][j] = matrix[i][j];
+		}
+	}
+
+	result.backIterations = backSubstitution;
+	result.matrix = matrixNoAns;
 	result.answers = answers;
 	return result;
 }

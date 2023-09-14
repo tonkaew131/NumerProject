@@ -10,7 +10,7 @@
 	let solutionMode: string = '';
 	let precision: number = 6;
 
-	function onChangeProblemType(e) {
+	function onChangeProblemType(e: any) {
 		const value = e?.value;
 		if (value == undefined) mode = '';
 		else mode = String(value);
@@ -79,7 +79,7 @@
 
 		<Label class="flex items-center gap-2">
 			Precision:
-			<Input type="number" class="w-20" placeholder="6" bind:value={precision} />
+			<Input type="number" class="w-20 bg-white" placeholder="6" min="0" bind:value={precision} />
 		</Label>
 	</div>
 
