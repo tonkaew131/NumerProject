@@ -1,7 +1,9 @@
 <script lang="ts">
+	import type { PageData } from './$types';
 	import * as d3 from 'd3';
 
-	export let data;
+	export let data: PageData;
+
 	export let width = 640;
 	export let height = 400;
 	export let marginTop = 20;

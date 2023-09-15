@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Stats from '$lib/components/stats.svelte';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
 
@@ -85,7 +86,7 @@
 	</div>
 
 	{#if solutionMode === ''}
-		<p class="text-center py-16">Cool stats goes here</p>
+		<Stats data={{}} />
 	{:else if solutionMode === 'linear-conjugate'}
 		<Conjugate />
 	{:else if solutionMode === 'linear-guass'}
