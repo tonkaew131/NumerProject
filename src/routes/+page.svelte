@@ -43,7 +43,8 @@
 				<Select.Content>
 					<Select.Item value="root">Root of Equation</Select.Item>
 					<Select.Item value="linear">Linear algebra equation</Select.Item>
-					<Select.Item value="inter_extra">Interpolation and Extrapolation</Select.Item>
+					<Select.Item value="interpolation">Interpolation</Select.Item>
+					<Select.Item value="extrapolation">Extrapolation</Select.Item>
 				</Select.Content>
 			</Select.Root>
 		</Label>
@@ -70,8 +71,8 @@
 						<Select.Item value="linear-inversion">Matrix Inversion</Select.Item>
 						<Select.Item value="linear-jacobi">Jacobi Iteration Methods</Select.Item>
 						<Select.Item value="linear-conjugate">Conjugate Gradient Methods</Select.Item>
-					{:else if mode === 'inter_extra'}
-						<!-- <Select.Item value="root">Root of Equation</Select.Item> -->
+					{:else if mode === 'interpolation'}
+						<Select.Item value="root">Newton divided-differences</Select.Item>
 					{/if}
 				</Select.Content>
 			</Select.Root>

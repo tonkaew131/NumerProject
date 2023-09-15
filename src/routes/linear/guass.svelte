@@ -68,7 +68,7 @@
 				<p class="mb-0">
 					{#key result}
 						<KaTeX class="pl-6" data={`\\text{Forward Elimination}`} block />
-						{#if result?.iterations}
+						{#if result?.iterations && result?.iterations.length > 0}
 							{#each result.iterations as it}
 								{#if it.matrix && it.matrixk_1}
 									<KaTeX
