@@ -52,7 +52,9 @@
 				<DropdownMenu.Group class="w-40">
 					<DropdownMenu.Label>My Account</DropdownMenu.Label>
 					<DropdownMenu.Separator />
-					<DropdownMenu.Item>Profile</DropdownMenu.Item>
+					<DropdownMenu.Item>
+						<a href="/profile" class="w-full">Profile</a>
+					</DropdownMenu.Item>
 					<DropdownMenu.Item>My Problem</DropdownMenu.Item>
 					<DropdownMenu.Separator />
 					<DropdownMenu.Item>
