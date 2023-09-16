@@ -21,6 +21,8 @@ model User {
 
   auth_session Session[]
   key          Key[]
+
+  ProblemSolved ProblemSolved[]
 }
 
 model Session {
@@ -40,4 +42,91 @@ model Key {
   user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
   @@index([user_id])
+}
+
+model Matrix {
+  id String @id @unique
+
+  row_count Int
+  col_count Int
+
+  elements MatrixElement[]
+
+  initial_guess ProblemSolved[] @relation("initial_guess")
+  matrix_a      ProblemSolved[] @relation("matrix_a")
+}
+
+model MatrixElement {
+  row Int
+  col Int
+
+  value Float
+
+  Matrix    Matrix @relation(fields: [matrix_id], references: [id])
+  matrix_id String
+
+  @@id([matrix_id, row, col])
+  @@index([matrix_id])
+}
+
+model Equation {
+  id String @id @unique
+
+  equation_expression String
+
+  ProblemSolved ProblemSolved[]
+}
+
+model PointData {
+  id    String  @id @unique
+  Point Point[]
+}
+
+model Point {
+  id String @id @unique
+
+  point_data   PointData @relation(fields: [pointData_id], references: [id])
+  pointData_id String    @map("pointDataId")
+
+  index Int
+  x     Float
+  y     Float
+
+  @@index([pointData_id])
+}
+
+model ProblemSolved {
+  id           String      @id @unique
+  problem_type ProblemType
+
+  matrix    Matrix? @relation("matrix_a", fields: [matrix_id], references: [id])
+  matrix_id String?
+
+  equation    Equation? @relation(fields: [equation_id], references: [id])
+  equation_id String?
+
+  submitted_by User   @relation(fields: [user_id], references: [id])
+  user_id      String
+
+  start_value Float?
+  end_value   Float?
+
+  intial_guess           Matrix? @relation("initial_guess", fields: [intial_guess_matrix_id], references: [id])
+  intial_guess_matrix_id String?
+
+  executed_time Int @default(0) @db.UnsignedInt
+
+  solved_at DateTime @default(now())
+
+  @@index([user_id])
+  @@index([equation_id])
+  @@index([matrix_id])
+  @@index([intial_guess_matrix_id])
+}
+
+enum ProblemType {
+  ROOT_OF_EQUATION
+  LINEAR_ALGEBRA_EQUATION
+  INTERPOLATION
+  EXTRAPOLATION
 }

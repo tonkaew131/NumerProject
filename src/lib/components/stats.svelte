@@ -23,7 +23,7 @@
 	});
 </script>
 
-<div class="mt-12 pt-5 grid grid-cols-3 w-fit mx-auto gap-3 dark">
+<div class="mt-12 pt-5 grid grid-cols-4 w-fit mx-auto gap-3 dark">
 	<Card.Root>
 		<Card.Content class="pb-0 py-8">
 			<Skeleton class="w-14 h-10" />
@@ -44,6 +44,12 @@
 		<Card.Content class="pb-0 py-8">
 			<Skeleton class="w-14 h-10" />
 			<p class="font-black my-0 tracking-widest text-muted-foreground">VIEWS</p>
+		</Card.Content>
+	</Card.Root>
+	<Card.Root>
+		<Card.Content class="pb-0 py-8">
+			<Skeleton class="w-14 h-10" />
+			<p class="font-black my-0 tracking-widest text-muted-foreground">TOTAL EXECUTED TIME</p>
 		</Card.Content>
 	</Card.Root>
 </div>
