@@ -23,10 +23,10 @@
 	});
 </script>
 
-<div class="mt-12 pt-5 grid grid-cols-4 w-fit mx-auto gap-3 dark">
+<div class="mt-12 pt-5 grid grid-cols-2 lg:grid-cols-4 w-fit mx-auto gap-3 dark">
 	<Card.Root>
 		<Card.Content class="pb-0 py-8">
-			<Skeleton class="w-14 h-10" />
+			<Skeleton class="w-14 h-10 bg-violet-500" />
 			<p class="font-black my-0 tracking-widest text-muted-foreground">PROBLEMS SOLVED</p>
 		</Card.Content>
 	</Card.Root>
@@ -35,26 +35,33 @@
 			{#if stats?.data?.userCount}
 				<h1 class="p-0 m-0 text-primary">{stats.data.userCount}</h1>
 			{:else}
-				<Skeleton class="w-14 h-10" />
+				<Skeleton class="w-6 h-10 bg-primary" />
 			{/if}
 			<p class="font-black my-0 tracking-widest text-muted-foreground">USERS</p>
 		</Card.Content>
 	</Card.Root>
 	<Card.Root>
 		<Card.Content class="pb-0 py-8">
-			<Skeleton class="w-14 h-10" />
+			<Skeleton class="w-14 h-10 bg-orange-500" />
 			<p class="font-black my-0 tracking-widest text-muted-foreground">VIEWS</p>
 		</Card.Content>
 	</Card.Root>
 	<Card.Root>
 		<Card.Content class="pb-0 py-8">
-			<Skeleton class="w-14 h-10" />
+			<span class="flex items-end gap-2">
+				<Skeleton class="w-6 h-10 bg-green-500" />
+				<!-- <h1 class="p-0 m-0 text-green-500">4</h1> -->
+				<h2 class="p-0 m-0 text-green-500/50">m</h2>
+				<Skeleton class="w-6 h-10 bg-green-500" />
+				<!-- <h1 class="p-0 m-0 text-green-500">21</h1> -->
+				<h2 class="p-0 m-0 text-green-500/50">s</h2>
+			</span>
 			<p class="font-black my-0 tracking-widest text-muted-foreground">TOTAL EXECUTED TIME</p>
 		</Card.Content>
 	</Card.Root>
 </div>
 
-<Card.Root class="w-fit mx-auto mt-12">
+<Card.Root class="w-fit overflow-auto max-w-[100vw] mx-auto mt-12">
 	<Card.Content class="w-fit mx-auto pb-0">
 		<Table.Root class="w-fit mx-auto border ">
 			<Table.Caption>Most recent solved problems</Table.Caption>
