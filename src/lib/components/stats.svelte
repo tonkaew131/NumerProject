@@ -3,7 +3,6 @@
 	import Skeleton from './ui/skeleton/skeleton.svelte';
 
 	import * as Table from '$lib/components/ui/table';
-	import KaTeX from './kaTeX.svelte';
 	import { onMount } from 'svelte';
 
 	// import type { PageData } from './$types';
