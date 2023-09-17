@@ -43,7 +43,7 @@
 	{#if data.user}
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger>
-				<Avatar.Root class="mr-2">
+				<Avatar.Root class="mr-2 lg:mr-6">
 					<Avatar.Image src={data.user.googleProfile} alt={data.user.googleName} />
 					<Avatar.Fallback>CN</Avatar.Fallback>
 				</Avatar.Root>
