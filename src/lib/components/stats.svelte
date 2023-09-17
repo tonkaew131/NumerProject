@@ -26,7 +26,7 @@
 <div class="mt-12 pt-5 grid grid-cols-2 lg:grid-cols-4 w-fit mx-auto gap-3 dark">
 	<Card.Root>
 		<Card.Content class="pb-0 py-8">
-			{#if stats?.data?.totalProblemSolved}
+			{#if stats?.data?.totalProblemSolved != null || stats?.data?.totalProblemSolved != undefined}
 				<h1 class="p-0 m-0 text-violet-500">{stats.data.totalProblemSolved}</h1>
 			{:else}
 				<Skeleton class="w-14 h-10 bg-violet-500" />
@@ -79,22 +79,32 @@
 				</Table.Row>
 			</Table.Header>
 			<Table.Body>
-				{#each Array(5) as _, idx}
-					<Table.Row>
-						<Table.Cell class="border-x text-center">{5 - idx}</Table.Cell>
-						<Table.Cell class="border-x">
-							<div class="w-64 truncate">
-								<KaTeX data={`3x_1 + 4x_1 = 50`} />
-							</div>
-						</Table.Cell>
-						<Table.Cell class="w-36 truncate border-x">FROGKun</Table.Cell>
-						<!-- <Table.Cell class="border-x">{3 + idx * 2} minutes ago</Table.Cell> -->
-						<Table.Cell class="border-x"
-							><span class="text-green-700">15:24</span> 15/Sep/2023</Table.Cell
-						>
-						<Table.Cell class="text-center border-x">4</Table.Cell>
-					</Table.Row>
-				{/each}
+				{#if stats?.data?.mostRecentSolutions != null}
+					{#each stats.data.mostRecentSolutions as sl}
+						<Table.Row>
+							<Table.Cell class="border-x text-center">{sl.id}</Table.Cell>
+							<Table.Cell class="border-x">
+								<div class="w-64 truncate">
+									{JSON.stringify(sl.problem.input)}
+								</div>
+							</Table.Cell>
+							<Table.Cell class="w-36 truncate border-x">{sl.solved_by.google_name}</Table.Cell>
+							<!-- <Table.Cell class="border-x">{3 + idx * 2} minutes ago</Table.Cell> -->
+							<Table.Cell class="border-x font-noto">
+								{@const date = new Date(sl.solved_at)}
+								<span class="text-green-700">{date.toLocaleTimeString('th-th')}</span>
+								{date.toLocaleDateString('th-th', {
+									year: 'numeric',
+									month: 'long',
+									day: 'numeric'
+								})}
+							</Table.Cell>
+							<Table.Cell class="text-center border-x">
+								<Skeleton class="w-3 h-4 mx-auto" />
+							</Table.Cell>
+						</Table.Row>
+					{/each}
+				{/if}
 			</Table.Body>
 		</Table.Root>
 	</Card.Content>
