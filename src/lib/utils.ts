@@ -92,3 +92,13 @@ export const getMatrixSize = (
 
 	return [{ row: baseRow, col: baseCol }, null];
 };
+
+export const generateId = (length = 16): string => {
+	const allowedChar = 'abcdefghijklmnopqrstuvwxyz0123456789'.split('');
+
+	const output = [];
+	for (let i = 0; i < length; i++) {
+		output.push(allowedChar[Math.floor(Math.random() * allowedChar.length)]);
+	}
+	return output.join('');
+};

@@ -26,7 +26,11 @@
 <div class="mt-12 pt-5 grid grid-cols-2 lg:grid-cols-4 w-fit mx-auto gap-3 dark">
 	<Card.Root>
 		<Card.Content class="pb-0 py-8">
-			<Skeleton class="w-14 h-10 bg-violet-500" />
+			{#if stats?.data?.totalProblemSolved}
+				<h1 class="p-0 m-0 text-violet-500">{stats.data.totalProblemSolved}</h1>
+			{:else}
+				<Skeleton class="w-14 h-10 bg-violet-500" />
+			{/if}
 			<p class="font-black my-0 tracking-widest text-muted-foreground">PROBLEMS SOLVED</p>
 		</Card.Content>
 	</Card.Root>
