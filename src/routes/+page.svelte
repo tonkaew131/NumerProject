@@ -21,11 +21,25 @@
 </script>
 
 <svelte:head>
-	<title>Numerical methods calculator</title>
+	<title>Numerical methods calculator | TKW</title>
 	<meta
 		name="description"
 		content="Numerical methods calculator made with love (for score) by @tonkaew131"
 	/>
+	<meta name="keywords" content="numerical, methods, calculator, tonkaew131" />
+	<meta name="author" content="tonkaew131" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<meta name="theme-color" content="#ffffff" />
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+	<link rel="apple-touch-icon" href="/favicon.png" />
+
+	<meta property="og:title" content="Numerical methods calculator | TKW" />
+	<meta property="og:description" content="Numerical methods calculator made with love (for score) by @tonkaew131" />
+	<meta property="og:image" content="/webpanel.png" />
+	<meta property="og:url" content="https://numer.wilar.in.th/" />
+	<meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <div class="prose max-w-6xl mx-auto pt-16 pb-48 w-11/12">
