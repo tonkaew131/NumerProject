@@ -64,7 +64,7 @@
 	</Card.Root>
 </div>
 
-<Card.Root class="w-fit overflow-auto max-w-[100vw] mx-auto mt-12">
+<Card.Root class="w-fit overflow-auto max-w-full mx-auto mt-12">
 	<Card.Content class="w-fit mx-auto pb-0">
 		<Table.Root class="w-fit mx-auto border ">
 			<Table.Caption>Most recent solved problems</Table.Caption>
