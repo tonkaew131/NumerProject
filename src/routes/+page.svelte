@@ -86,9 +86,9 @@
 	</div>
 
 	{#if solutionMode === ''}
-		<Stats data={{}} />
+		<Stats />
 	{:else if solutionMode === 'linear-conjugate'}
-		<Conjugate />
+		<!-- <Conjugate /> -->
 	{:else if solutionMode === 'linear-guass'}
 		<Guass precision={Number(precision)} />
 	{:else}

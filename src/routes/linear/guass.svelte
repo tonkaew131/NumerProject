@@ -36,8 +36,10 @@
 	let matrixA = createMatrix(matrixSize);
 	let matrixB = createArray(matrixSize);
 
+	export let input = true;
+
 	let loading = false;
-	let result: GuassType = { iterations: [] };
+	export let result: GuassType = { iterations: [] };
 	async function computeResult() {
 		loading = true;
 
@@ -70,24 +72,28 @@
 
 <h3 class="text-center">🥹 Guass Elimination Methods</h3>
 
-<LinearAlgebraInput
-	bind:matrixA
-	bind:matrixB
-	bind:matrixSize
-	onClickCalculate={(e) => computeResult()}
-/>
+{#if input}
+	<LinearAlgebraInput
+		bind:matrixA
+		bind:matrixB
+		bind:matrixSize
+		onClickCalculate={(e) => computeResult()}
+	/>
+{/if}
 
-<Dialog.Root>
-	<Dialog.Trigger id="trigger-modal" />
-	<Dialog.Content>
-		<Dialog.Header>
-			<Dialog.Title>{modalMessage.title}</Dialog.Title>
-			<Dialog.Description>
-				{modalMessage.description}
-			</Dialog.Description>
-		</Dialog.Header>
-	</Dialog.Content>
-</Dialog.Root>
+{#if input}
+	<Dialog.Root>
+		<Dialog.Trigger id="trigger-modal" />
+		<Dialog.Content>
+			<Dialog.Header>
+				<Dialog.Title>{modalMessage.title}</Dialog.Title>
+				<Dialog.Description>
+					{modalMessage.description}
+				</Dialog.Description>
+			</Dialog.Header>
+		</Dialog.Content>
+	</Dialog.Root>
+{/if}
 
 <Tabs.Root value="solution" class="w-full mt-12 overflow-auto">
 	<Tabs.List>
