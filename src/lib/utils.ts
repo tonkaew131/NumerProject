@@ -79,3 +79,16 @@ export const copyMatrix = (matrix: number[][]) => {
 	}
 	return newMatrix;
 };
+
+export const getMatrixSize = (
+	matrix: number[][]
+): [{ row: number; col: number } | null, Error | null] => {
+	const baseRow = matrix.length;
+	const baseCol = matrix[0].length;
+
+	matrix.forEach((m: number[]) => {
+		if (m.length != baseCol) return [null, new Error('Not a matrix')];
+	});
+
+	return [{ row: baseRow, col: baseCol }, null];
+};

@@ -23,6 +23,7 @@ model User {
   key          Key[]
 
   ProblemSolved ProblemSolved[]
+  Problem       Problem[]
 }
 
 model Session {
@@ -44,84 +45,40 @@ model Key {
   @@index([user_id])
 }
 
-model Matrix {
-  id String @id @unique
+model Problem {
+  id         String   @id @unique
+  created_at DateTime @default(now())
+  input      Json
 
-  row_count Int
-  col_count Int
+  problem_type ProblemType
 
-  elements MatrixElement[]
-
-  initial_guess ProblemSolved[] @relation("initial_guess")
-  matrix_a      ProblemSolved[] @relation("matrix_a")
-}
-
-model MatrixElement {
-  row Int
-  col Int
-
-  value Float
-
-  Matrix    Matrix @relation(fields: [matrix_id], references: [id])
-  matrix_id String
-
-  @@id([matrix_id, row, col])
-  @@index([matrix_id])
-}
-
-model Equation {
-  id String @id @unique
-
-  equation_expression String
+  asked_by User?   @relation(fields: [user_id], references: [id])
+  user_id  String? @map("user_id")
 
   ProblemSolved ProblemSolved[]
-}
 
-model PointData {
-  id    String  @id @unique
-  Point Point[]
-}
-
-model Point {
-  id String @id @unique
-
-  point_data   PointData @relation(fields: [pointData_id], references: [id])
-  pointData_id String    @map("pointDataId")
-
-  index Int
-  x     Float
-  y     Float
-
-  @@index([pointData_id])
+  @@index([user_id])
 }
 
 model ProblemSolved {
-  id           String      @id @unique
-  problem_type ProblemType
+  id            String       @id @unique
+  solution_type SolutionType
+  executed_time Int          @default(0) @db.UnsignedInt
+  solved_at     DateTime     @default(now())
 
-  matrix    Matrix? @relation("matrix_a", fields: [matrix_id], references: [id])
-  matrix_id String?
+  view_count   Int @default(0) @db.UnsignedInt
+  solved_count Int @default(0) @db.UnsignedInt
 
-  equation    Equation? @relation(fields: [equation_id], references: [id])
-  equation_id String?
+  solved_by User?   @relation(fields: [user_id], references: [id])
+  user_id   String? @map("userId")
 
-  submitted_by User   @relation(fields: [user_id], references: [id])
-  user_id      String
+  output Json
 
-  start_value Float?
-  end_value   Float?
-
-  intial_guess           Matrix? @relation("initial_guess", fields: [intial_guess_matrix_id], references: [id])
-  intial_guess_matrix_id String?
-
-  executed_time Int @default(0) @db.UnsignedInt
-
-  solved_at DateTime @default(now())
+  problem    Problem @relation(fields: [problem_id], references: [id])
+  problem_id String  @map("problemId")
 
   @@index([user_id])
-  @@index([equation_id])
-  @@index([matrix_id])
-  @@index([intial_guess_matrix_id])
+  @@index([problem_id])
 }
 
 enum ProblemType {
@@ -129,4 +86,8 @@ enum ProblemType {
   LINEAR_ALGEBRA_EQUATION
   INTERPOLATION
   EXTRAPOLATION
+}
+
+enum SolutionType {
+  GUASS
 }

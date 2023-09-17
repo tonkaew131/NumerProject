@@ -1,12 +1,16 @@
 <script lang="ts">
+	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
+
+	import { formatMatrix } from '$lib/components/kaTeX';
+	import KaTeX from '$lib/components/kaTeX.svelte';
+
+	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Card from '$lib/components/ui/card';
 	import * as Tabs from '$lib/components/ui/tabs';
 
-	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
+	import type { GuassType } from '$lib/solutions/guass';
 
-	import { guassEliminationMethods, type GuassType } from '$lib/solutions/guass';
-	import { formatMatrix } from '$lib/components/kaTeX';
-	import KaTeX from '$lib/components/kaTeX.svelte';
+	import Icon from '@iconify/svelte';
 
 	export let precision: number = 4;
 
@@ -23,14 +27,37 @@
 		return array;
 	};
 
+	let modalMessage = {
+		title: '',
+		description: ''
+	};
+
 	let matrixSize: number = 3;
 	let matrixA = createMatrix(matrixSize);
 	let matrixB = createArray(matrixSize);
 
+	let loading = false;
 	let result: GuassType = { iterations: [] };
-	function computeResult() {
-		console.log(matrixA, matrixB);
-		result = guassEliminationMethods(matrixA, matrixB);
+	async function computeResult() {
+		loading = true;
+
+		// result = guassEliminationMethods(matrixA, matrixB);
+		const res = await fetch('/api/solution/linear/guass', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ matrix_a: matrixA, array_b: matrixB })
+		});
+		const jsonData = await res.json();
+
+		if (jsonData.error) {
+			console.log(jsonData.error);
+			return;
+		}
+
+		result = jsonData.data;
+		loading = false;
 
 		result = result;
 	}
@@ -49,6 +76,18 @@
 	bind:matrixSize
 	onClickCalculate={(e) => computeResult()}
 />
+
+<Dialog.Root>
+	<Dialog.Trigger id="trigger-modal" />
+	<Dialog.Content>
+		<Dialog.Header>
+			<Dialog.Title>{modalMessage.title}</Dialog.Title>
+			<Dialog.Description>
+				{modalMessage.description}
+			</Dialog.Description>
+		</Dialog.Header>
+	</Dialog.Content>
+</Dialog.Root>
 
 <Tabs.Root value="solution" class="w-full mt-12 overflow-auto">
 	<Tabs.List>
@@ -94,6 +133,10 @@
 									/>
 								{/if}
 							{/each}
+						{:else if loading}
+							<div class="w-full flex justify-center py-16">
+								<Icon icon="eos-icons:loading" class="text-center text-6xl text-primary" />
+							</div>
 						{:else}
 							<p class="text-center text-sm text-muted-foreground">Please enter the matrix</p>
 						{/if}
@@ -110,6 +153,10 @@
 									block
 								/>
 							{/each}
+						{:else if loading}
+							<div class="w-full flex justify-center py-16">
+								<Icon icon="eos-icons:loading" class="text-center text-6xl text-primary" />
+							</div>
 						{:else}
 							<p class="text-center text-sm text-muted-foreground">Please enter the matrix</p>
 						{/if}
