@@ -2,7 +2,7 @@
 	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
 
 	import { formatMatrix } from '$lib/components/kaTeX';
-	import KaTeX from '$lib/components/kaTeX.svelte';
+	import KaTeX from '$lib/components/KaTex.svelte';
 
 	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Card from '$lib/components/ui/card';

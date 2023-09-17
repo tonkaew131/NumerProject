@@ -7,7 +7,7 @@
 	import * as Card from '$lib/components/ui/card';
 	import * as Tabs from '$lib/components/ui/tabs';
 
-	import KaTeX from '$lib/components/kaTeX.svelte';
+	import KaTeX from '$lib/components/KaTex.svelte';
 
 	import { conjugateGradientMethods, type ConjugateType } from '$lib/solutions/conjugate';
 	import { formatVector } from '$lib/components/kaTeX';
