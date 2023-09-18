@@ -27,7 +27,7 @@ export const GET: RequestHandler = async () => {
 		}
 	});
 
-	console.log(mostRecentSolutions)
+	// console.log(mostRecentSolutions)
 
 	return json({
 		status: 'success',

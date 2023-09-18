@@ -87,7 +87,7 @@
 									{JSON.stringify(sl.problem.input)}
 								</div>
 							</Table.Cell>
-							<Table.Cell class="w-36 truncate border-x">{sl.solved_by.google_name}</Table.Cell>
+							<Table.Cell class="w-36 truncate border-x">{sl?.solved_by?.google_name || '-'}</Table.Cell>
 							<!-- <Table.Cell class="border-x">{3 + idx * 2} minutes ago</Table.Cell> -->
 							<Table.Cell class="border-x font-noto">
 								{@const date = new Date(sl.solved_at)}
