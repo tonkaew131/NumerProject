@@ -69,6 +69,8 @@ model ProblemSolved {
   view_count   Int @default(1) @db.UnsignedInt
   solved_count Int @default(1) @db.UnsignedInt
 
+  iteration_count Int? @default(0) @db.UnsignedInt
+
   solved_by User?   @relation(fields: [user_id], references: [id])
   user_id   String? @map("userId")
 

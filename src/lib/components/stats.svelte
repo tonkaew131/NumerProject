@@ -81,13 +81,17 @@
 				{#if stats?.data?.mostRecentSolutions != null}
 					{#each stats.data.mostRecentSolutions as sl}
 						<Table.Row>
-							<Table.Cell class="border-x text-center">{sl.id}</Table.Cell>
+							<Table.Cell class="border-x text-center">
+								<a href={`/s/${sl.id}`}>{sl.id}</a>
+							</Table.Cell>
 							<Table.Cell class="border-x">
 								<div class="w-64 truncate">
 									{JSON.stringify(sl.problem.input)}
 								</div>
 							</Table.Cell>
-							<Table.Cell class="w-36 truncate border-x">{sl?.solved_by?.google_name || '-'}</Table.Cell>
+							<Table.Cell class="w-36 truncate border-x"
+								>{sl?.solved_by?.google_name || '-'}</Table.Cell
+							>
 							<!-- <Table.Cell class="border-x">{3 + idx * 2} minutes ago</Table.Cell> -->
 							<Table.Cell class="border-x font-noto">
 								{@const date = new Date(sl.solved_at)}
@@ -99,7 +103,7 @@
 								})}
 							</Table.Cell>
 							<Table.Cell class="text-center border-x">
-								<Skeleton class="w-3 h-4 mx-auto" />
+								{sl.iteration_count}
 							</Table.Cell>
 						</Table.Row>
 					{/each}

@@ -143,7 +143,8 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			solution_type: 'GUASS',
 			executed_time: endTime - startTime,
 			user_id: userId,
-			problem_id: problemId
+			problem_id: problemId,
+			iteration_count: 0
 		}
 	});
 
