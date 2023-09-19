@@ -3,7 +3,27 @@
 	"singleQuote": true,
 	"trailingComma": "none",
 	"printWidth": 100,
-	"plugins": ["prettier-plugin-svelte"],
-	"pluginSearchDirs": ["."],
-	"overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
+	"plugins": [
+		"prettier-plugin-svelte",
+		"simple-import-sort",
+		"import"
+	],
+	"pluginSearchDirs": [
+		"."
+	],
+	"overrides": [
+		{
+			"files": "*.svelte",
+			"options": {
+				"parser": "svelte"
+			}
+		}
+	],
+	"rules": {
+		"simple-import-sort/imports": "error",
+		"simple-import-sort/exports": "error",
+		"import/first": "error",
+		"import/newline-after-import": "error",
+		"import/no-duplicates": "error"
+	}
 }

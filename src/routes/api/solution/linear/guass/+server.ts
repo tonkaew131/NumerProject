@@ -1,10 +1,11 @@
-import { generateId, getMatrixSize } from '$lib/utils';
-
+import { Prisma } from '@prisma/client';
 import { json } from '@sveltejs/kit';
 
-import type { RequestHandler } from './$types';
-import { guassEliminationMethods, type GuassType } from '$lib/solutions/guass';
 import { prisma } from '$lib/server/prisma';
+import { guassEliminationMethods,type GuassType } from '$lib/solutions/guass';
+import { generateId, getMatrixSize } from '$lib/utils';
+
+import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, locals }) => {
 	const dataJson = await request.json();
@@ -70,7 +71,6 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	}
 
 	const input = { matrix_a: matrixA, array_b: arrayB };
-	console.log(JSON.stringify(input));
 
 	const problem = await prisma.problem.findFirst({
 		where: {
@@ -97,16 +97,30 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	const session = await locals.auth.validate();
 	const userId = session?.user?.userId;
 
-	const problemId = problem ? problem.id : generateId();
+	let problemId = problem ? problem.id : generateId();
 	if (problem == null) {
-		await prisma.problem.create({
-			data: {
-				id: problemId,
-				problem_type: 'LINEAR_ALGEBRA_EQUATION',
-				input: input,
-				user_id: userId
+		let isDup = false;
+		while (!isDup) {
+			try {
+				if (isDup) problemId = generateId();
+
+				await prisma.problem.create({
+					data: {
+						id: problemId,
+						problem_type: 'LINEAR_ALGEBRA_EQUATION',
+						input: input,
+						user_id: userId
+					}
+				});
+				break;
+			} catch (e) {
+				if (e instanceof Prisma.PrismaClientKnownRequestError) {
+					if (e.code === 'P2002') {
+						isDup = true;
+					}
+				}
 			}
-		});
+		}
 	}
 
 	const problemSolution = await prisma.problemSolved.findFirst({
@@ -136,17 +150,32 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	const data: GuassType = guassEliminationMethods(matrixA, arrayB);
 	const endTime = Date.now(); // ms
 
-	await prisma.problemSolved.create({
-		data: {
-			id: generateId(),
-			output: JSON.stringify(data),
-			solution_type: 'GUASS',
-			executed_time: endTime - startTime,
-			user_id: userId,
-			problem_id: problemId,
-			iteration_count: 0
+	let isDup = false;
+	let problemSolvedId = generateId();
+	while (!isDup) {
+		try {
+			if (isDup) problemSolvedId = generateId();
+
+			await prisma.problemSolved.create({
+				data: {
+					id: problemSolvedId,
+					output: JSON.stringify(data),
+					solution_type: 'GUASS',
+					executed_time: endTime - startTime,
+					user_id: userId,
+					problem_id: problemId,
+					iteration_count: 0
+				}
+			});
+			break;
+		} catch (e) {
+			if (e instanceof Prisma.PrismaClientKnownRequestError) {
+				if (e.code === 'P2002') {
+					isDup = true;
+				}
+			}
 		}
-	});
+	}
 
 	return json({
 		status: 'success',

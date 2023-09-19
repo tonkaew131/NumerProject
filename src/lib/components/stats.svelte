@@ -68,7 +68,7 @@
 <Card.Root class="w-fit overflow-auto max-w-full mx-auto mt-12">
 	<Card.Content class="w-fit mx-auto pb-0">
 		<Table.Root class="w-fit mx-auto border ">
-			<Table.Caption>Most recent solved problems</Table.Caption>
+			<Table.Caption>5 Most recent solved problems</Table.Caption>
 			<Table.Header>
 				<Table.Row>
 					<Table.Head class="w-12 border-x text-center">ID</Table.Head>
