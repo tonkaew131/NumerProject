@@ -70,7 +70,9 @@
 </svelte:head>
 
 {#if browser && !localStorage.getItem('consent')}
-	<Card.Root class="fixed left-1/2 -translate-x-1/2 bottom-2 z-50 w-11/12 max-w-[min(36rem,_95%)] p-2 px-8 text-sm">
+	<Card.Root
+		class="fixed left-1/2 -translate-x-1/2 bottom-2 z-50 w-11/12 max-w-[min(36rem,_95%)] p-2 px-8 text-sm"
+	>
 		<Card.Header class="p-0 py-2 m-0">
 			<Card.Title>This website uses non-necessary cookies</Card.Title>
 			<!-- <Card.Description>Card Description</Card.Description> -->

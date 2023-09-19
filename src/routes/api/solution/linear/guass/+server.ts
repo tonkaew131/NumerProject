@@ -2,7 +2,7 @@ import { Prisma } from '@prisma/client';
 import { json } from '@sveltejs/kit';
 
 import { prisma } from '$lib/server/prisma';
-import { guassEliminationMethods,type GuassType } from '$lib/solutions/guass';
+import { guassEliminationMethods, type GuassType } from '$lib/solutions/guass';
 import { generateId, getMatrixSize } from '$lib/utils';
 
 import type { RequestHandler } from './$types';
