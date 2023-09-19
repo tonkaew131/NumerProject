@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+
 import { env } from '$env/dynamic/private';
 
 const prisma: PrismaClient = global.__prisma || new PrismaClient();
