@@ -89,13 +89,13 @@
 		});
 		const jsonData = await res.json();
 
+		loading = false;
 		if (jsonData.error) {
 			modalMessage = {
 				title: 'Calculation Error!',
 				description: jsonData.error.message
 			};
 
-			loading = false;
 			document?.getElementById('trigger-modal')!.click();
 			return;
 		}
@@ -103,7 +103,6 @@
 		result = jsonData.data;
 		result.xValue = xValue;
 		result.pointsArray = pointsArray;
-		loading = false;
 
 		result = result;
 	}

@@ -100,8 +100,10 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	let problemId = problem ? problem.id : generateId();
 	if (problem == null) {
 		let isDup = false;
-		while (!isDup) {
+		let tries = 0;
+		while (!isDup && tries < 3) {
 			try {
+				tries++;
 				if (isDup) problemId = generateId();
 
 				await prisma.problem.create({
@@ -114,10 +116,21 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 				});
 				break;
 			} catch (e) {
-				if (e instanceof Prisma.PrismaClientKnownRequestError) {
-					if (e.code === 'P2002') {
-						isDup = true;
-					}
+				if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
+					isDup = true;
+				} else {
+					console.error(e);
+					return json(
+						{
+							status: 'error',
+							error: {
+								message: 'Something went wrong!'
+							}
+						},
+						{
+							status: 500
+						}
+					);
 				}
 			}
 		}
@@ -152,8 +165,10 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
 	let isDup = false;
 	let problemSolvedId = generateId();
-	while (!isDup) {
+	let tries = 0;
+	while (!isDup && tries < 3) {
 		try {
+			tries++;
 			if (isDup) problemSolvedId = generateId();
 
 			await prisma.problemSolved.create({
@@ -169,10 +184,21 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			});
 			break;
 		} catch (e) {
-			if (e instanceof Prisma.PrismaClientKnownRequestError) {
-				if (e.code === 'P2002') {
-					isDup = true;
-				}
+			if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
+				isDup = true;
+			} else {
+				console.error(e);
+				return json(
+					{
+						status: 'error',
+						error: {
+							message: 'Something went wrong!'
+						}
+					},
+					{
+						status: 500
+					}
+				);
 			}
 		}
 	}
