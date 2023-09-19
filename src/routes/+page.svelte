@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import Stats from '$lib/components/stats.svelte';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
@@ -36,7 +37,10 @@
 	<link rel="apple-touch-icon" href="/favicon.png" />
 
 	<meta property="og:title" content="Numerical methods calculator | TKW" />
-	<meta property="og:description" content="Numerical methods calculator made with love (for score) by @tonkaew131" />
+	<meta
+		property="og:description"
+		content="Numerical methods calculator made with love (for score) by @tonkaew131"
+	/>
 	<meta property="og:image" content="/webpanel.png" />
 	<meta property="og:url" content="https://numer.wilar.in.th/" />
 	<meta name="twitter:card" content="summary_large_image" />
@@ -69,8 +73,12 @@
 			<Select.Root
 				onSelectedChange={(e) => {
 					const value = e?.value;
-					if (value == undefined) solutionMode = '';
-					else solutionMode = String(value);
+					if (typeof value !== 'string') return;
+
+					goto(`/${value.replaceAll('-', '/')}`);
+					return;
+					// if (value == undefined) solutionMode = '';
+					// else solutionMode = String(value);
 				}}
 			>
 				<Select.Trigger class="w-64 bg-white">
@@ -87,7 +95,7 @@
 						<Select.Item value="linear-jacobi">Jacobi Iteration Methods</Select.Item>
 						<Select.Item value="linear-conjugate">Conjugate Gradient Methods</Select.Item>
 					{:else if mode === 'interpolation'}
-						<Select.Item value="root">Newton divided-differences</Select.Item>
+						<Select.Item value="inter-newton">Newton divided-differences</Select.Item>
 					{/if}
 				</Select.Content>
 			</Select.Root>
@@ -105,6 +113,8 @@
 		<!-- <Conjugate /> -->
 	{:else if solutionMode === 'linear-guass'}
 		<Guass precision={Number(precision)} />
+		<!-- {:else if solutionMode === 'inter-newton'}
+		<Newton /> -->
 	{:else}
 		<p class="text-center py-16">Not implemented yet</p>
 	{/if}
