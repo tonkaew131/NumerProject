@@ -1,5 +1,5 @@
 <script>
-	import Guass from '../guass.svelte';
+	import Guass from './guass.svelte';
 </script>
 
 <Guass />

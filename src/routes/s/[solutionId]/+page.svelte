@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte';
 
-	import Guass from '../../linear/guass.svelte';
+	import Guass from '../../linear/guass/guass.svelte';
 
 	import type { PageData } from './$types';
 	export let data: PageData;

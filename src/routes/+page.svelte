@@ -6,7 +6,7 @@
 
 	import * as Select from '$lib/components/ui/select';
 	import Conjugate from './linear/conjugate.svelte';
-	import Guass from './linear/guass.svelte';
+	import Guass from './linear/guass/guass.svelte';
 
 	let mode: string = '';
 	let solutionMode: string = '';

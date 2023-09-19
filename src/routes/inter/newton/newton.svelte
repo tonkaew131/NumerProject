@@ -10,8 +10,6 @@
 
 	import Icon from '@iconify/svelte';
 
-	import { newtonDividedDifference } from '$lib/solutions/newtonDividedDifference';
-
 	let pointSize = 3;
 
 	let points: {
@@ -50,6 +48,10 @@
 		}
 
 		selectedPoint = [...selectedPoint];
+	}
+
+	async function computeResult() {
+		return;
 	}
 </script>
 
