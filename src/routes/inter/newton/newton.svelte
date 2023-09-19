@@ -9,9 +9,11 @@
 	import KaTex from '$lib/components/KaTex.svelte';
 
 	import Icon from '@iconify/svelte';
-
+	import type { NewtonDividedDifferenceResult } from '$lib/solutions/newtonDivided';
+	import * as Dialog from '$lib/components/ui/dialog';
 	let pointSize = 3;
 
+	let xValue: number;
 	let points: {
 		[key: number]: {
 			x: number;
@@ -50,8 +52,104 @@
 		selectedPoint = [...selectedPoint];
 	}
 
+	let modalMessage = {
+		title: '',
+		description: ''
+	};
+
+	let loading = false;
+	let result: {
+		xValue: number;
+		pointsArray: {
+			x: number;
+			y: number;
+		}[];
+	} & NewtonDividedDifferenceResult;
 	async function computeResult() {
-		return;
+		const pointsArray = [];
+		for (const idx of selectedPoint) {
+			pointsArray.push(points[idx]);
+		}
+
+		const selectedPointX = [];
+		for (const idx of selectedPoint) {
+			selectedPointX.push(points[idx].x);
+		}
+
+		loading = true;
+
+		console.log(pointsArray, selectedPointX, xValue);
+
+		const res = await fetch('/api/solution/inter/newton', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ points: pointsArray, selected_point: selectedPointX, x: xValue })
+		});
+		const jsonData = await res.json();
+
+		if (jsonData.error) {
+			modalMessage = {
+				title: 'Calculation Error!',
+				description: jsonData.error.message
+			};
+
+			loading = false;
+			document?.getElementById('trigger-modal')!.click();
+			return;
+		}
+
+		result = jsonData.data;
+		result.xValue = xValue;
+		result.pointsArray = pointsArray;
+		loading = false;
+
+		result = result;
+	}
+
+	function formatResult(
+		result: {
+			xValue: number;
+			pointsArray: {
+				x: number;
+				y: number;
+			}[];
+		} & NewtonDividedDifferenceResult,
+		precision: number
+	) {
+		result.xValue = Number(result.xValue);
+
+		console.log(result);
+
+		const formatNumber = (num: number) => {
+			let number = num.toString();
+			if (number.indexOf('e') != -1) {
+				const [mantissa, exponent] = number.split('e');
+				number = `${Number(mantissa) < 0 ? '(' : ''} ${Number(mantissa).toFixed(
+					precision
+				)} * 10^{${exponent}} ${Number(mantissa) < 0 ? ')' : ''}`;
+			} else {
+				number = `${Number(num) < 0 ? '(' : ''} ${num.toFixed(precision)} ${
+					Number(num) < 0 ? ')' : ''
+				}`;
+			}
+
+			return number;
+		};
+
+		let formula = [];
+		for (let i = 1; i < result.pointsArray.length; i++) {
+			let temp = [];
+			for (let j = 0; j < i; j++) {
+				temp.push(`( ${result.xValue} - ${result.pointsArray[j].x} )`);
+			}
+			formula.push(`(${formatNumber(result.c[i])} * ${temp.join(' * ')})`);
+		}
+
+		return `f(${formatNumber(result.xValue)}) = ${result.c[0].toFixed(
+			precision
+		)} \\\\ + ${formula.join('\\\\ + ')}`;
 	}
 </script>
 
@@ -61,6 +159,18 @@
 </svelte:head>
 
 <h3 class="text-center">🥹 Newton's Divided Difference</h3>
+
+<Dialog.Root>
+	<Dialog.Trigger id="trigger-modal" />
+	<Dialog.Content>
+		<Dialog.Header>
+			<Dialog.Title>{modalMessage.title}</Dialog.Title>
+			<Dialog.Description>
+				{modalMessage.description}
+			</Dialog.Description>
+		</Dialog.Header>
+	</Dialog.Content>
+</Dialog.Root>
 
 <Label>
 	Number of points 🫵
@@ -87,9 +197,9 @@
 <Label class="flex items-end gap-2 mt-2">
 	<div>
 		X value
-		<Input placeholder="0.00" class="bg-white mt-2" />
+		<Input placeholder="0.00" type="number" class="bg-white mt-2" bind:value={xValue} />
 	</div>
-	<Button class="">Calculate!</Button>
+	<Button class="" on:click={() => computeResult()}>Calculate!</Button>
 </Label>
 
 <Card.Root class="w-fit mt-2">
@@ -97,7 +207,11 @@
 		<div class="flex">
 			<div class="flex flex-col gap-1 justify-around">
 				{#each Array(pointSize) as _, idx}
-					<Checkbox onCheckedChange={(val) => onSelectPoint(idx, val)} />
+					<Checkbox
+						onCheckedChange={(val) => {
+							if (typeof val === 'boolean') onSelectPoint(idx, val);
+						}}
+					/>
 				{/each}
 			</div>
 			<div class="flex flex-col gap-1 w-fit">
@@ -129,5 +243,17 @@
 <Card.Root class="mt-12">
 	<Card.Content class="py-5">
 		<KaTex data={'\\text{Solution}'} class="pl-6" block />
+		{#if loading}
+			<div class="w-full flex justify-center py-16">
+				<Icon icon="eos-icons:loading" class="text-center text-6xl text-primary" />
+			</div>
+		{/if}
+		{#key result}
+			{#if result}
+				{@const precision = 6}
+				<KaTex class="w-fit mx-auto" data={formatResult(result, precision)} block />
+				<KaTex class="w-fit mx-auto" data={`f(${result.xValue}) = ${result.result}`} block />
+			{/if}
+		{/key}
 	</Card.Content>
 </Card.Root>
