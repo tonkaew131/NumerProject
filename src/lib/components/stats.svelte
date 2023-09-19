@@ -52,12 +52,13 @@
 	<Card.Root>
 		<Card.Content class="pb-0 py-8">
 			<span class="flex items-end gap-2">
-				<Skeleton class="w-6 h-10 bg-green-500" />
-				<!-- <h1 class="p-0 m-0 text-green-500">4</h1> -->
-				<h2 class="p-0 m-0 text-green-500/50">m</h2>
-				<Skeleton class="w-6 h-10 bg-green-500" />
-				<!-- <h1 class="p-0 m-0 text-green-500">21</h1> -->
-				<h2 class="p-0 m-0 text-green-500/50">s</h2>
+				{#if stats?.data?.totalExecutedTime !== undefined && stats?.data?.totalExecutedTime !== null}
+					<h1 class="p-0 m-0 text-green-500">{stats.data.totalExecutedTime}</h1>
+					<h2 class="p-0 m-0 text-green-500/50">ms</h2>
+				{:else}
+					<Skeleton class="w-6 h-10 bg-green-500" />
+					<h2 class="p-0 m-0 text-green-500/50">ms</h2>
+				{/if}
 			</span>
 			<p class="font-black my-0 tracking-widest text-muted-foreground">TOTAL EXECUTED TIME</p>
 		</Card.Content>
