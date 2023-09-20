@@ -68,4 +68,4 @@ export function newtonDividedDifference(
 // 	{ x: 80000, y: 9.5682 }
 // ];
 
-// console.log(newtonDividedDifference(points, [0, 40000, 80000], 42235));
+// console.log(newtonDividedDifference(points, [0, 80000], 42235));

@@ -2,7 +2,10 @@ import { Prisma } from '@prisma/client';
 import { json } from '@sveltejs/kit';
 
 import { prisma } from '$lib/server/prisma';
-import { newtonDividedDifference } from '$lib/solutions/newtonDivided';
+import {
+	newtonDividedDifference,
+	type NewtonDividedDifferenceResult
+} from '$lib/solutions/newtonDivided';
 import { generateId } from '$lib/utils';
 
 import type { RequestHandler } from './$types';
@@ -23,22 +26,41 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		);
 	}
 
+	// const problem: Problem = new Problem(JSON.stringify(input));
+
+	// const [result, error]: [
+	// 	null | NewtonDividedDifferenceResult,
+	// 	null | { message: string; status: number }
+	// ] = await new Promise((resolve) => {
+	// 	prisma
+	// 		.$transaction(async (tx) => {
+	// 			return;
+	// 		})
+	// 		.catch((e) => {
+	// 			console.error(e);
+	// 			resolve([null, { message: 'Something went wrong!', status: 500 }]);
+	// 		});
+	// });
+
+	// if (error) {
+	// 	return json(
+	// 		{
+	// 			status: 'error',
+	// 			error: {
+	// 				message: error.message
+	// 			}
+	// 		},
+	// 		{
+	// 			status: error.status
+	// 		}
+	// 	);
+	// }
+
 	// console.log(input);
 	return json({
 		status: 'success',
 		data: newtonDividedDifference(input.points, input.selected_point, input.x)
 	});
-
-	// const [result, error] = await new Promise((resolve) => {
-	// 	try {
-	// 		await prisma.$transaction(async (tx) => {
-	// 			return;
-	// 		});
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 		resolve([null, { message: 'Something went wrong!', status: 500 }]);
-	// 	}
-	// });
 
 	// const problem = await prisma.problem.findFirst({
 	// 	where: {
