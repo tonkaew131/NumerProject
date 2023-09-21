@@ -1,5 +1,5 @@
-import { prisma } from './server/prisma';
-import { generateId } from './utils';
+import { generateId } from '../utils';
+import { prisma } from './prisma';
 
 abstract class Problem {
 	protected problemId?: string;

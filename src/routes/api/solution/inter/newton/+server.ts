@@ -1,13 +1,7 @@
-import { Prisma } from '@prisma/client';
 import { json } from '@sveltejs/kit';
 
-import { InterpolationProblem } from '$lib/problem';
-import { prisma } from '$lib/server/prisma';
-import {
-	newtonDividedDifference,
-	type NewtonDividedDifferenceResult
-} from '$lib/solutions/newtonDivided';
-import { generateId } from '$lib/utils';
+import { InterpolationProblem } from '$lib/server/problem';
+import { newtonDividedDifference } from '$lib/solutions/newtonDivided';
 
 import type { RequestHandler } from './$types';
 
