@@ -1,17 +1,25 @@
 import { prisma } from './server/prisma';
+import { generateId } from './utils';
 
 abstract class Problem {
-	problemId?: string;
-	problemType: ProblemType;
-	input: string;
+	protected problemId?: string;
+	protected userId?: string;
+	protected problemType: ProblemType;
+	protected input: string;
 
 	constructor(input: string, problemType: ProblemType) {
 		this.input = input;
 		this.problemType = problemType;
 	}
 
-	abstract isExists(): Promise<boolean>;
+	abstract getProblemId(
+		mode: 'select' | 'create'
+	): Promise<[null | string | undefined, null | { message: string; status: number }]>;
 	abstract formatInput(): [null | object, null | { message: string; status: number }];
+
+	setUserId(userId: string) {
+		this.userId = userId;
+	}
 }
 
 export class InterpolationProblem extends Problem {
@@ -19,7 +27,10 @@ export class InterpolationProblem extends Problem {
 		super(input, 'INTERPOLATION');
 	}
 
-	formatInput(): [null | object, null | { message: string; status: number }] {
+	formatInput(): [
+		null | { points: { x: number; y: number }[]; selected_point: number[]; x: number },
+		null | { message: string; status: number }
+	] {
 		let dataJson;
 		try {
 			dataJson = JSON.parse(this.input);
@@ -56,7 +67,7 @@ export class InterpolationProblem extends Problem {
 			];
 		}
 
-		if (typeof x != 'number' || x == null) {
+		if (x == null || isNaN(x)) {
 			return [
 				null,
 				{
@@ -66,6 +77,7 @@ export class InterpolationProblem extends Problem {
 			];
 		}
 
+		const newX = Number(x);
 		// if points is not array
 		if (typeof points[Symbol.iterator] !== 'function') {
 			return [
@@ -142,48 +154,74 @@ export class InterpolationProblem extends Problem {
 		const newData = {
 			points: newPoints,
 			selected_point: selectedPoint,
-			x: x
+			x: newX
 		};
 
 		this.input = JSON.stringify(newData);
 		return [newData, null];
 	}
 
-	async isExists(): Promise<boolean> {
-		const problem = await prisma.problem.findFirst({
-			where: {
-				AND: [
-					{
-						input: {
-							path: '$.points',
-							equals: newPoints
-						}
-					},
-					{
-						input: {
-							path: '$.selected_point',
-							equals: selectedPoint
-						}
-					},
-					{
-						input: {
-							path: '$.x',
-							equals: x
-						}
-					},
-					{
-						problem_type: 'INTERPOLATION'
-					}
-				]
-			}
-		});
+	async getProblemId(
+		mode: 'select' | 'create' = 'select'
+	): Promise<[null | string | undefined, null | { message: string; status: number }]> {
+		const { points, selected_point, x } = JSON.parse(this.input);
 
-		return true;
+		let problem;
+		try {
+			problem = await prisma.problem.findFirst({
+				where: {
+					AND: [
+						{
+							input: {
+								path: '$.points',
+								equals: points
+							}
+						},
+						{
+							input: {
+								path: '$.selected_point',
+								equals: selected_point
+							}
+						},
+						{
+							input: {
+								path: '$.x',
+								equals: x
+							}
+						},
+						{
+							problem_type: 'INTERPOLATION'
+						}
+					]
+				}
+			});
+		} catch (err) {
+			return [null, { message: 'Something went wrong!', status: 500 }];
+		}
+
+		let problemId = problem?.id;
+		if (mode == 'create' && !problem) {
+			problemId = generateId();
+			try {
+				await prisma.problem.create({
+					data: {
+						id: problemId,
+						problem_type: 'INTERPOLATION',
+						input: JSON.parse(this.input),
+						user_id: this.userId
+					}
+				});
+			} catch (err) {
+				return [null, { message: 'Something went wrong!', status: 500 }];
+			}
+		}
+
+		return [problemId, null];
 	}
 }
 
-// class ProblemSolved extends Problem {
-// 	// ..
-// }
+class ProblemSolved {
+	protected problemSolvedId?: string;
+}
 
 type ProblemType = 'INTERPOLATION' | 'DIFFERENTIATION' | 'INTEGRATION';

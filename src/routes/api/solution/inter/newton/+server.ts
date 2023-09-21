@@ -29,7 +29,11 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		);
 	}
 
+	const session = await locals.auth.validate();
+	const userId = session?.user?.userId;
+
 	const problem = new InterpolationProblem(JSON.stringify(dataJson));
+	problem.setUserId(userId);
 
 	const [input, inputError] = problem.formatInput();
 	if (inputError) {
@@ -43,6 +47,38 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			}
 		);
 	}
+
+	if (input == null) {
+		return json(
+			{
+				status: 'error',
+				error: 'Something went wrong!'
+			},
+			{
+				status: 500
+			}
+		);
+	}
+
+	const [problemId, problemIdError] = await problem.getProblemId('create');
+	if (problemIdError) {
+		return json(
+			{
+				status: 'error',
+				error: problemIdError.message
+			},
+			{
+				status: problemIdError.status
+			}
+		);
+	}
+
+	console.log(problemId);
+
+	return json({
+		status: 'success',
+		data: newtonDividedDifference(input.points, input.selected_point, input.x)
+	});
 
 	// const problem: Problem = new Problem(JSON.stringify(input));
 
@@ -75,10 +111,6 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	// }
 
 	// console.log(input);
-	return json({
-		status: 'success',
-		data: newtonDividedDifference(input.points, input.selected_point, input.x)
-	});
 
 	// const problem = await prisma.problem.findFirst({
 	// 	where: {
