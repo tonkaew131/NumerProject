@@ -1,6 +1,7 @@
 import { Prisma } from '@prisma/client';
 import { json } from '@sveltejs/kit';
 
+import { InterpolationProblem } from '$lib/problem';
 import { prisma } from '$lib/server/prisma';
 import {
 	newtonDividedDifference,
@@ -11,17 +12,34 @@ import { generateId } from '$lib/utils';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, locals }) => {
-	const [input, errorValidate] = await validateInput(request);
-	if (errorValidate) {
+	let dataJson;
+	try {
+		dataJson = await request.json();
+	} catch (err) {
 		return json(
 			{
 				status: 'error',
 				error: {
-					message: errorValidate.message
+					message: 'Invalid JSON!'
 				}
 			},
 			{
-				status: errorValidate.status
+				status: 400
+			}
+		);
+	}
+
+	const problem = new InterpolationProblem(JSON.stringify(dataJson));
+
+	const [input, inputError] = problem.formatInput();
+	if (inputError) {
+		return json(
+			{
+				status: 'error',
+				error: inputError
+			},
+			{
+				status: inputError.status
 			}
 		);
 	}
