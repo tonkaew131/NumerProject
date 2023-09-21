@@ -35,7 +35,7 @@
 	</Card.Root>
 	<Card.Root>
 		<Card.Content class="pb-0 py-8">
-			{#if stats?.data?.userCount}
+			{#if stats?.data?.userCount != null || stats?.data?.userCount != undefined}
 				<h1 class="p-0 m-0 text-primary">{stats.data.userCount}</h1>
 			{:else}
 				<Skeleton class="w-6 h-10 bg-primary" />
@@ -45,7 +45,11 @@
 	</Card.Root>
 	<Card.Root>
 		<Card.Content class="pb-0 py-8">
-			<Skeleton class="w-14 h-10 bg-orange-500" />
+			{#if stats?.data?.totalView != null || stats?.data?.totalView != undefined}
+				<h1 class="p-0 m-0 text-orange-500">{stats.data.totalView}</h1>
+			{:else}
+				<Skeleton class="w-14 h-10 bg-orange-500" />
+			{/if}
 			<p class="font-black my-0 tracking-widest text-muted-foreground">VIEWS</p>
 		</Card.Content>
 	</Card.Root>
