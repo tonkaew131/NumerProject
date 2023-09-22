@@ -32,51 +32,29 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	problem.setUserId(userId);
 
 	const [input, inputError] = problem.formatInput();
-	if (inputError) {
+	// IMPORTANT
+	if (inputError || input == null) {
 		return json(
 			{
 				status: 'error',
-				error: inputError
+				error: inputError || 'Something went wrong!'
 			},
 			{
-				status: inputError.status
-			}
-		);
-	}
-
-	if (input == null) {
-		return json(
-			{
-				status: 'error',
-				error: 'Something went wrong!'
-			},
-			{
-				status: 500
+				status: inputError?.status || 500
 			}
 		);
 	}
 
 	const [problemId, problemIdError] = await problem.getProblemId('create');
-	if (problemIdError) {
+	// WARNING
+	if (problemIdError || problemId == undefined) {
 		return json(
 			{
 				status: 'error',
-				error: problemIdError.message
+				error: problemIdError || 'Something went wrong!'
 			},
 			{
-				status: problemIdError.status
-			}
-		);
-	}
-
-	if (problemId == undefined) {
-		return json(
-			{
-				status: 'error',
-				error: 'Something went wrong!'
-			},
-			{
-				status: 500
+				status: problemIdError?.status || 500
 			}
 		);
 	}
@@ -85,26 +63,15 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	problemSolved.setUserId(userId);
 
 	const [output, outputError] = await problemSolved.getOutput();
-	if (outputError) {
+	// WARNING
+	if (outputError || output == null) {
 		return json(
 			{
 				status: 'error',
-				error: outputError.message
+				error: outputError?.message || 'Something went wrong!'
 			},
 			{
-				status: outputError.status
-			}
-		);
-	}
-
-	if (output == null) {
-		return json(
-			{
-				status: 'error',
-				error: 'Something went wrong!'
-			},
-			{
-				status: 500
+				status: outputError?.status || 500
 			}
 		);
 	}
