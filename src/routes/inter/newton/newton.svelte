@@ -171,37 +171,36 @@
 	</Dialog.Content>
 </Dialog.Root>
 
-<Label>
-	Number of points 🫵
-	<div class="flex gap-1 mt-2">
-		<Button
-			class="bg-red-500 hover:bg-red-500/90 h-11 w-11"
-			on:click={() => (pointSize <= 1 ? null : pointSize--)}
-		>
-			<Icon icon="ic:baseline-minus" />
-		</Button>
-		<Input
-			type="number"
-			class="h-11 w-20 bg-white"
-			placeholder="3"
-			min="1"
-			bind:value={pointSize}
-		/>
-		<Button class="bg-green-500 hover:bg-green-500/90 h-11 w-11" on:click={() => pointSize++}>
-			<Icon icon="ic:baseline-plus" />
-		</Button>
-	</div>
-</Label>
-
-<Label class="flex items-end gap-2 mt-2">
+<div class="flex items-end gap-2 mt-2 justify-center">
 	<div>
-		X value
-		<Input placeholder="0.00" type="number" class="bg-white mt-2" bind:value={xValue} />
+		Number of points 🫵
+		<div class="flex gap-1 mt-2">
+			<Button
+				class="bg-red-500 hover:bg-red-500/90 h-11 w-11"
+				on:click={() => (pointSize <= 1 ? null : pointSize--)}
+			>
+				<Icon icon="ic:baseline-minus" />
+			</Button>
+			<Input
+				type="number"
+				class="h-11 w-20 bg-white"
+				placeholder="3"
+				min="1"
+				bind:value={pointSize}
+			/>
+			<Button class="bg-green-500 hover:bg-green-500/90 h-11 w-11" on:click={() => pointSize++}>
+				<Icon icon="ic:baseline-plus" />
+			</Button>
+		</div>
 	</div>
-	<Button class="" on:click={() => computeResult()}>Calculate!</Button>
-</Label>
+	<Label>
+		X value
+		<Input placeholder="0.00" type="number" class="bg-white mt-2 h-11" bind:value={xValue} />
+	</Label>
+	<Button class="h-11" on:click={() => computeResult()}>Calculate!</Button>
+</div>
 
-<Card.Root class="w-fit mt-2">
+<Card.Root class="w-fit mt-2 mx-auto overflow-x-auto max-w-full">
 	<Card.Content class="w-fit py-5">
 		<div class="flex">
 			<div class="flex flex-col gap-1 justify-around">
