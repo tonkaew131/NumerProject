@@ -112,6 +112,26 @@
 							</Table.Cell>
 						</Table.Row>
 					{/each}
+				{:else}
+					{#each [1, 2, 3, 4, 5] as _}
+						<Table.Row>
+							<Table.Cell class="border-x text-center">
+								<Skeleton class="h-5 w-14" />
+							</Table.Cell>
+							<Table.Cell class="border-x">
+								<Skeleton class="h-5 w-64" />
+							</Table.Cell>
+							<Table.Cell class="border-x">
+								<Skeleton class="h-5 w-20" />
+							</Table.Cell>
+							<Table.Cell class="border-x">
+								<Skeleton class="h-5 w-40" />
+							</Table.Cell>
+							<Table.Cell class="border-x text-center">
+								<Skeleton class="h-5 w-4 mx-auto" />
+							</Table.Cell>
+						</Table.Row>
+					{/each}
 				{/if}
 			</Table.Body>
 		</Table.Root>
