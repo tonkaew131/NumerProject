@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit';
 
-import { InterpolationProblem } from '$lib/server/problem';
+import { InterpolationProblem } from '$lib/server/interpolationProblem';
+import { ProblemSolved } from '$lib/server/problem';
 import { newtonDividedDifference } from '$lib/solutions/newtonDivided';
 
 import type { RequestHandler } from './$types';
@@ -67,115 +68,24 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		);
 	}
 
-	console.log(problemId);
+	if (!problemId) {
+		return json(
+			{
+				status: 'error',
+				error: 'Something went wrong!'
+			},
+			{
+				status: 500
+			}
+		);
+	}
 
 	return json({
 		status: 'success',
 		data: newtonDividedDifference(input.points, input.selected_point, input.x)
 	});
 
-	// const problem: Problem = new Problem(JSON.stringify(input));
-
-	// const [result, error]: [
-	// 	null | NewtonDividedDifferenceResult,
-	// 	null | { message: string; status: number }
-	// ] = await new Promise((resolve) => {
-	// 	prisma
-	// 		.$transaction(async (tx) => {
-	// 			return;
-	// 		})
-	// 		.catch((e) => {
-	// 			console.error(e);
-	// 			resolve([null, { message: 'Something went wrong!', status: 500 }]);
-	// 		});
-	// });
-
-	// if (error) {
-	// 	return json(
-	// 		{
-	// 			status: 'error',
-	// 			error: {
-	// 				message: error.message
-	// 			}
-	// 		},
-	// 		{
-	// 			status: error.status
-	// 		}
-	// 	);
-	// }
-
-	// console.log(input);
-
-	// const problem = await prisma.problem.findFirst({
-	// 	where: {
-	// 		AND: [
-	// 			{
-	// 				input: {
-	// 					path: '$.points',
-	// 					equals: newPoints
-	// 				}
-	// 			},
-	// 			{
-	// 				input: {
-	// 					path: '$.selected_point',
-	// 					equals: selectedPoint
-	// 				}
-	// 			},
-	// 			{
-	// 				input: {
-	// 					path: '$.x',
-	// 					equals: x
-	// 				}
-	// 			},
-	// 			{
-	// 				problem_type: 'INTERPOLATION'
-	// 			}
-	// 		]
-	// 	}
-	// });
-
-	// const session = await locals.auth.validate();
-	// const userId = session?.user?.userId;
-
-	// let problemId = problem ? problem.id : generateId();
-	// if (problem == null) {
-	// 	let isDup = true;
-	// 	let tries = 0;
-	// 	while (isDup && tries < 3) {
-	// 		try {
-	// 			tries++;
-	// 			if (isDup) problemId = generateId();
-
-	// 			await prisma.problem.create({
-	// 				data: {
-	// 					id: problemId,
-	// 					problem_type: 'INTERPOLATION',
-	// 					input: input,
-	// 					user_id: userId
-	// 				}
-	// 			});
-	// 			isDup = false;
-	// 			break;
-	// 		} catch (e) {
-	// 			if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
-	// 				isDup = true;
-	// 			} else {
-	// 				console.error(e);
-	// 				return json(
-	// 					{
-	// 						status: 'error',
-	// 						error: {
-	// 							message: 'Something went wrong!'
-	// 						}
-	// 					},
-	// 					{
-	// 						status: 500
-	// 					}
-	// 				);
-	// 			}
-	// 		}
-	// 	}
-	// }
+	const problemSolved = new ProblemSolved(problemId);
 
 	// const problemSolution = await prisma.problemSolved.findFirst({
 	// 	where: {
