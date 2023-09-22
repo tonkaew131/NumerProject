@@ -60,10 +60,13 @@
 					<Select.Value placeholder="-" />
 				</Select.Trigger>
 				<Select.Content>
-					<Select.Item value="root">Root of Equation</Select.Item>
-					<Select.Item value="linear">Linear algebra equation</Select.Item>
-					<Select.Item value="interpolation">Interpolation</Select.Item>
-					<Select.Item value="extrapolation">Extrapolation</Select.Item>
+					<Select.Item class="hover:cursor-pointer" value="root">Root of Equation</Select.Item>
+					<Select.Item class="hover:cursor-pointer" value="linear">
+						Linear algebra equation
+					</Select.Item>
+					<Select.Item class="hover:cursor-pointer" value="interpolation">
+						Interpolation / Extrapolation
+					</Select.Item>
 				</Select.Content>
 			</Select.Root>
 		</Label>
@@ -76,9 +79,6 @@
 					if (typeof value !== 'string') return;
 
 					goto(`/${value.replaceAll('-', '/')}`);
-					return;
-					// if (value == undefined) solutionMode = '';
-					// else solutionMode = String(value);
 				}}
 			>
 				<Select.Trigger class="w-64 bg-white">
@@ -86,16 +86,50 @@
 				</Select.Trigger>
 				<Select.Content>
 					{#if mode === 'root'}
-						<!-- <Select.Item value="root">Root of Equation</Select.Item> -->
+						<Select.Item class="hover:cursor-pointer" value="root-graphical" disabled>
+							Graphical methods
+						</Select.Item>
+						<Select.Item class="hover:cursor-pointer" value="root-bisection" disabled>
+							Bisection search
+						</Select.Item>
+						<Select.Item class="hover:cursor-pointer" value="root-false" disabled>
+							False-position methods
+						</Select.Item>
+						<Select.Item class="hover:cursor-pointer" value="root-one" disabled>
+							One-point Iteration methods
+						</Select.Item>
+						<Select.Item class="hover:cursor-pointer" value="root-newton" disabled>
+							Newton-Raphson methods
+						</Select.Item>
+						<Select.Item class="hover:cursor-pointer" value="root-secant" disabled>
+							Secant methods
+						</Select.Item>
 					{:else if mode === 'linear'}
-						<Select.Item value="linear-cramer">Cramer's rule</Select.Item>
-						<Select.Item value="linear-guass">Guass elimination</Select.Item>
-						<Select.Item value="linear-jordan">Guass Jordan elimination</Select.Item>
-						<Select.Item value="linear-inversion">Matrix Inversion</Select.Item>
-						<Select.Item value="linear-jacobi">Jacobi Iteration Methods</Select.Item>
-						<Select.Item value="linear-conjugate">Conjugate Gradient Methods</Select.Item>
+						<Select.Item class="hover:cursor-pointer" value="linear-cramer" disabled>
+							Cramer's rule
+						</Select.Item>
+						<Select.Item class="hover:cursor-pointer" value="linear-guass">
+							Guass elimination
+						</Select.Item>
+						<Select.Item class="hover:cursor-pointer" value="linear-jordan" disabled>
+							Guass Jordan elimination
+						</Select.Item>
+						<Select.Item class="hover:cursor-pointer" value="linear-inversion" disabled>
+							Matrix Inversion
+						</Select.Item>
+						<Select.Item class="hover:cursor-pointer" value="linear-jacobi" disabled>
+							Jacobi Iteration Methods
+						</Select.Item>
+						<Select.Item class="hover:cursor-pointer" value="linear-conjugate" disabled>
+							Conjugate Gradient Methods
+						</Select.Item>
 					{:else if mode === 'interpolation'}
 						<Select.Item value="inter-newton">Newton divided-differences</Select.Item>
+						<!-- <Select.Item value="inter-newton">Newton divided-differences</Select.Item> -->
+					{:else}
+						<Select.Item class="hover:cursor-pointer" value="none" disabled>
+							Please select type of problem
+						</Select.Item>
 					{/if}
 				</Select.Content>
 			</Select.Root>
