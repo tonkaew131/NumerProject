@@ -4,13 +4,15 @@
 	import Toggle from '$lib/components/ui/toggle/toggle.svelte';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
+	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Card from '$lib/components/ui/card';
+
+	import type { NewtonDividedDifferenceResult } from '$lib/solutions/newtonDivided';
 
 	import KaTex from '$lib/components/KaTex.svelte';
 
 	import Icon from '@iconify/svelte';
-	import type { NewtonDividedDifferenceResult } from '$lib/solutions/newtonDivided';
-	import * as Dialog from '$lib/components/ui/dialog';
+
 	let pointSize = 3;
 
 	let xValue: number;

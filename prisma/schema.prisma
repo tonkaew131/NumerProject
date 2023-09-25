@@ -93,4 +93,5 @@ enum ProblemType {
 enum SolutionType {
   GUASS
   NEWTON_DIVIDED_DIFFERENCE
+  LANGRAGE_INTERPOLATION
 }

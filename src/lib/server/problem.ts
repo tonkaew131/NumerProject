@@ -68,4 +68,4 @@ export abstract class ProblemSolver {
 }
 
 type ProblemType = 'INTERPOLATION' | 'DIFFERENTIATION' | 'INTEGRATION';
-type SolutionType = 'GUASS' | 'NEWTON_DIVIDED_DIFFERENCE';
+type SolutionType = 'GUASS' | 'NEWTON_DIVIDED_DIFFERENCE' | 'LANGRAGE_INTERPOLATION';
