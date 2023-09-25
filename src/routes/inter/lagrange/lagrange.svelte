@@ -2,7 +2,7 @@
 	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Card from '$lib/components/ui/card';
 
-	import type { LangrangeInterpolationResult } from '$lib/solutions/langrangeInterpolation';
+	import type { LangrangeInterpolationResult } from '$lib/solutions/lagrangeInterpolation';
 	import InterpolationInput from '$lib/components/interpolationInput.svelte';
 
 	import KaTex from '$lib/components/KaTex.svelte';

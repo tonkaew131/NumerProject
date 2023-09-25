@@ -1,17 +1,17 @@
-export interface LangrangeInterpolationResult {
+export interface LagrangeInterpolationResult {
 	result: number;
 	l: { [key: number]: number };
 	error?: string;
 }
 
-export function langrangeInterpolation(
+export function lagrangeInterpolation(
 	allPoints: {
 		x: number;
 		y: number;
 	}[],
 	selectedPoints: number[],
 	xValue: number
-): LangrangeInterpolationResult {
+): LagrangeInterpolationResult {
 	const points = allPoints.filter((pt, idx) => selectedPoints.includes(pt.x));
 
 	const l: { [key: number]: number } = {};

@@ -1,4 +1,4 @@
-import { langrangeInterpolation } from '$lib/solutions/langrangeInterpolation';
+import { lagrangeInterpolation } from '$lib/solutions/lagrangeInterpolation';
 import { newtonDividedDifference } from '$lib/solutions/newtonDivided';
 
 import { generateId } from '../utils';
@@ -272,7 +272,7 @@ export class LangrangeInterpolationSolver extends ProblemSolver {
 		if (solverId == undefined) {
 			const input = JSON.parse(this.problem.getInput());
 			const startTime = Date.now(); // ms
-			const output = langrangeInterpolation(input.points, input.selected_point, input.x);
+			const output = lagrangeInterpolation(input.points, input.selected_point, input.x);
 			const endTime = Date.now(); // ms
 
 			this.problemSolverId = generateId();
