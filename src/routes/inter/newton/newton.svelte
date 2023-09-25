@@ -154,7 +154,6 @@
 
 <svelte:head>
 	<title>Newton's Divided Difference</title>
-	<meta name="description" content="Newton's Divided Difference" />
 </svelte:head>
 
 <h3 class="text-center">🥹 Newton's Divided Difference</h3>

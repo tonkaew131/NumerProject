@@ -125,7 +125,7 @@
 						</Select.Item>
 					{:else if mode === 'interpolation'}
 						<Select.Item value="inter-newton">Newton divided-differences</Select.Item>
-						<!-- <Select.Item value="inter-newton">Newton divided-differences</Select.Item> -->
+						<Select.Item value="inter-lagrange">Lagrange interpolation</Select.Item>
 					{:else}
 						<Select.Item class="hover:cursor-pointer" value="none" disabled>
 							Please select type of problem
@@ -141,15 +141,5 @@
 		</Label>
 	</div>
 
-	{#if solutionMode === ''}
-		<Stats />
-	{:else if solutionMode === 'linear-conjugate'}
-		<!-- <Conjugate /> -->
-	{:else if solutionMode === 'linear-guass'}
-		<Guass precision={Number(precision)} />
-		<!-- {:else if solutionMode === 'inter-newton'}
-		<Newton /> -->
-	{:else}
-		<p class="text-center py-16">Not implemented yet</p>
-	{/if}
+	<Stats />
 </div>
