@@ -130,7 +130,7 @@
 						<Select.Item value="inter-lagrange">Lagrange interpolation</Select.Item>
 						<Select.Item value="inter-spline">Spline interpolation</Select.Item>
 					{:else if mode === 'extrapolation'}
-						<Select.Item value="extra-regression">Regression</Select.Item>
+						<Select.Item value="extra-regression">Simple Regression</Select.Item>
 					{:else}
 						<Select.Item class="hover:cursor-pointer" value="none" disabled>
 							Please select type of problem

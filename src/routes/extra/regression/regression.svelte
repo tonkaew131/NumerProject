@@ -20,10 +20,10 @@
 </script>
 
 <svelte:head>
-	<title>Regression extrapolation</title>
+	<title>Simple Regression extrapolation</title>
 </svelte:head>
 
-<h3 class="text-center">🥹 Regression extrapolation</h3>
+<h3 class="text-center">🥹 Simple Regression extrapolation</h3>
 
 <Input bind:xValue onClickCalculate={(e) => console.log('clicked!')} />
 
