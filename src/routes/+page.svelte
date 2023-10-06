@@ -63,7 +63,11 @@
 						Linear algebra equation
 					</Select.Item>
 					<Select.Item class="hover:cursor-pointer" value="interpolation">
-						Interpolation / Extrapolation
+						Interpolation
+					</Select.Item>
+
+					<Select.Item class="hover:cursor-pointer" value="extrapolation">
+						Extrapolation
 					</Select.Item>
 				</Select.Content>
 			</Select.Root>
@@ -124,6 +128,9 @@
 					{:else if mode === 'interpolation'}
 						<Select.Item value="inter-newton">Newton divided-differences</Select.Item>
 						<Select.Item value="inter-lagrange">Lagrange interpolation</Select.Item>
+						<Select.Item value="inter-spline">Spline interpolation</Select.Item>
+					{:else if mode === 'extrapolation'}
+						<Select.Item value="extra-regression">Regression</Select.Item>
 					{:else}
 						<Select.Item class="hover:cursor-pointer" value="none" disabled>
 							Please select type of problem

@@ -21,6 +21,8 @@
 		"@sveltejs/kit": "^1.20.4",
 		"@tailwindcss/typography": "^0.5.10",
 		"@types/gtag.js": "^0.0.13",
+		"@types/plotly.js": "^2.12.27",
+		"@types/plotly.js-dist-min": "^2.3.2",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
 		"autoprefixer": "^10.4.14",
@@ -48,11 +50,11 @@
 		"@types/d3": "^7.4.0",
 		"bits-ui": "^0.5.7",
 		"clsx": "^2.0.0",
-		"d3": "^7.8.5",
 		"katex": "^0.16.8",
 		"lucia": "^2.5.0",
 		"lucide-svelte": "^0.276.0",
 		"mathjs": "^11.11.0",
+		"plotly.js-dist-min": "^2.26.2",
 		"tailwind-merge": "^1.14.0",
 		"tailwind-variants": "^0.1.14"
 	}
