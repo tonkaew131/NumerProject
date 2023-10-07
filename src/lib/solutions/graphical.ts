@@ -30,7 +30,13 @@ export function graphicalMethod(
 	const MAX_ITER = 1000;
 	let iter = 0;
 	let x = xStart;
-	let temp = evaluate(func, { x: xStart });
+	let temp = 0;
+	try {
+		temp = evaluate(func, { x: xStart });
+	} catch (error) {
+		result.error = 'Invalid function';
+		return result;
+	}
 	let newTemp;
 	while (iter < MAX_ITER) {
 		iter += 1;
