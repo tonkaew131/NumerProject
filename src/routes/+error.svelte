@@ -2,6 +2,10 @@
 	import { page } from '$app/stores';
 </script>
 
+<svelte:head>
+	<title>{$page.status} - {$page.error?.message}</title>
+</svelte:head>
+
 <div class="prose text-center mx-auto h-[80vh] flex flex-col justify-center items-center">
 	<h1 class="my-0 py-0 w-fit text-6xl">
 		{$page.status}

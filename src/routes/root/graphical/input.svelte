@@ -9,6 +9,7 @@
 	export let xStart: number;
 	export let xEnd: number;
 	export let formula: string = '';
+	export let errorFactor: number = 0.000001;
 </script>
 
 <Card.Root class="">
@@ -34,7 +35,12 @@
 	</Label>
 	<Label class="">
 		Error threshold <KaTex data={'\\epsilon'} />
-		<Input class="bg-white h-11 w-32 mt-2" type="number" bind:value={xEnd} placeholder="0.00001" />
+		<Input
+			class="bg-white h-11 w-32 mt-2"
+			type="number"
+			bind:value={errorFactor}
+			placeholder="0.00001"
+		/>
 	</Label>
 </div>
 

@@ -38,7 +38,7 @@
 
 <div class="bg-white w-full border border-border py-2 flex items-center">
 	<a href="/" class="mx-auto ml-0">
-		<p class="px-8 font-black text-red-500">TKW</p>
+		<p class="px-8 font-black text-red-500 hover:cursor-pointer">TKW</p>
 	</a>
 	{#if data.user}
 		<DropdownMenu.Root>
