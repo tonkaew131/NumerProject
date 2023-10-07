@@ -91,7 +91,7 @@
 						<Select.Item class="hover:cursor-pointer" value="root-graphical">
 							Graphical methods
 						</Select.Item>
-						<Select.Item class="hover:cursor-pointer" value="root-bisection" disabled>
+						<Select.Item class="hover:cursor-pointer" value="root-bisection">
 							Bisection search
 						</Select.Item>
 						<Select.Item class="hover:cursor-pointer" value="root-false" disabled>

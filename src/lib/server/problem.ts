@@ -74,6 +74,7 @@ type ProblemType =
 	| 'ROOT_OF_EQUATION';
 type SolutionType =
 	| 'GRAPHICAL'
+	| 'BISECTION'
 	| 'GUASS'
 	| 'NEWTON_DIVIDED_DIFFERENCE'
 	| 'LANGRAGE_INTERPOLATION'
