@@ -1,3 +1,5 @@
+import { evaluate } from 'mathjs';
+
 import { graphicalMethod } from '$lib/solutions/graphical';
 
 import { generateId } from '../utils';
@@ -63,6 +65,18 @@ export class RootOfEquationProblem extends Problem {
 				null,
 				{
 					message: 'func is required!',
+					status: 400
+				}
+			];
+		}
+
+		try {
+			evaluate(func, { x: newXStart });
+		} catch (err) {
+			return [
+				null,
+				{
+					message: 'Invalid function!',
 					status: 400
 				}
 			];
