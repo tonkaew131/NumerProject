@@ -42,7 +42,16 @@
 <Card.Root class="">
 	<Card.Content class="py-5">
 		<KaTex data={'\\text{Graph}'} class="pl-6" block />
-		<Graph />
+		<Graph
+			graphData={[
+				{
+					x: [1, 2, 3, 4, 5],
+					y: [1, 2, 4, 8, 16],
+                    type: 'scatter',
+                    mode: 'markers'
+				}
+			]}
+		/>
 	</Card.Content>
 </Card.Root>
 
