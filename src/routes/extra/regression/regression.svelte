@@ -1,4 +1,5 @@
 <script lang="ts">
+	// shadcn components
 	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Card from '$lib/components/ui/card';
 
@@ -6,17 +7,145 @@
 
 	import Icon from '@iconify/svelte';
 
+	// Local components
 	import Graph from './graph.svelte';
 	import Input from './input.svelte';
+	import type { SimpleRegressionResult } from '$lib/solutions/simpleRegression';
+	import { formatMatrix, formatVector } from '$lib/components/kaTeX';
+	import { matrix } from 'mathjs';
 
 	let modalMessage = {
 		title: '',
 		description: ''
 	};
 
-	let loading = true;
+	let loading = false;
 
 	let xValue = 0;
+	let mOrder = 1;
+	let points: {
+		[key: number]: {
+			x: number;
+			y: number;
+		};
+	} = {};
+	interface resultType {
+		xArray: number[];
+		yArray: number[];
+		xValue: number;
+		xLineArray: number[];
+		yLineArray: number[];
+	}
+	let result: resultType & SimpleRegressionResult;
+	// let result: resultType & SimpleRegressionResult = {
+	// 	a: {
+	// 		'0': -0.7009803921567896,
+	// 		'1': 0.6915294117647015,
+	// 		'2': -0.001843137254901912
+	// 	},
+	// 	result: 36.46117647058824,
+	// 	matrixA: [
+	// 		[9, 375, 20625],
+	// 		[375, 20625, 1299375],
+	// 		[20625, 1299375, 87770625]
+	// 	],
+	// 	matrixB: [215, 11605, 722325],
+	// 	xArray: [10, 15, 20, 30, 40, 50, 60, 70, 80],
+	// 	yArray: [5, 9, 15, 18, 22, 30, 35, 38, 43],
+	// 	xValue: 65
+	// };
+
+	async function computeResult() {
+		const pointsArray = [];
+		for (const pt of Object.values(points)) {
+			pointsArray.push(pt);
+		}
+
+		loading = true;
+
+		const res = await fetch('/api/solution/extra/simple_regression', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ points: pointsArray, m: Number(mOrder), x: Number(xValue) })
+		});
+		const jsonData = await res.json();
+
+		loading = false;
+		if (jsonData.error) {
+			modalMessage = {
+				title: 'Calculation Error!',
+				description: jsonData.error.message
+			};
+
+			document?.getElementById('trigger-modal')!.click();
+
+			console.log(jsonData);
+
+			return;
+		}
+
+		if (jsonData.warning) {
+			modalMessage = {
+				title: 'Calculation Warning!',
+				description: jsonData.warning.message
+			};
+
+			document?.getElementById('trigger-modal')!.click();
+		}
+
+		result = jsonData.data;
+
+		const xArray = [];
+		const yArray = [];
+		let minX = Infinity;
+		let maxX = -Infinity;
+
+		for (const pt of pointsArray) {
+			minX = Math.min(minX, pt.x);
+			maxX = Math.max(maxX, pt.x);
+
+			xArray.push(pt.x);
+			yArray.push(pt.y);
+		}
+
+		const xLineArray = [];
+		const yLineArray = [];
+		for (let i = 0; i < 1000; i++) {
+			const x = minX + (maxX - minX) * (i / 1000);
+			xLineArray.push(x);
+			let sumY = 0;
+			for (let j = 0; j < Object.keys(result.a).length; j++) {
+				sumY += result.a[j] * Math.pow(x, j);
+			}
+			yLineArray.push(sumY);
+		}
+
+		result.xArray = xArray;
+		result.yArray = yArray;
+		result.xLineArray = xLineArray;
+		result.yLineArray = yLineArray;
+		result.xValue = xValue;
+		result = result;
+
+		console.log(result);
+	}
+
+	function formatResult() {
+		let str = 'f(x) = ';
+		for (let i = 0; i < Object.keys(result.a).length; i++) {
+			const isLast = Object.keys(result.a).length - 1 == i;
+			str += `${i != 0 ? '{\\color{white}f(x) = }' : ''} 
+			${i != 0 && result.a[i] >= 0 ? '+' : ''}
+			${result.a[i]} 
+			* ${i != 0 ? 'x' : ''} 
+			${i > 1 ? `^${i}` : ''} 
+			${isLast ? '' : `\\\\`}`;
+		}
+
+		return str;
+	}
 </script>
 
 <svelte:head>
@@ -25,7 +154,7 @@
 
 <h3 class="text-center">🥹 Simple Regression extrapolation</h3>
 
-<Input bind:xValue onClickCalculate={(e) => console.log('clicked!')} />
+<Input bind:xValue bind:mOrder bind:points onClickCalculate={() => computeResult()} />
 
 <Dialog.Root>
 	<Dialog.Trigger id="trigger-modal" />
@@ -42,16 +171,30 @@
 <Card.Root class="">
 	<Card.Content class="py-5">
 		<KaTex data={'\\text{Graph}'} class="pl-6" block />
-		<Graph
-			graphData={[
-				{
-					x: [1, 2, 3, 4, 5],
-					y: [1, 2, 4, 8, 16],
-                    type: 'scatter',
-                    mode: 'markers'
-				}
-			]}
-		/>
+		{#key result}
+			<Graph
+				graphData={[
+					{
+						x: result?.xArray || [],
+						y: result?.yArray || [],
+						type: 'scatter',
+						mode: 'markers',
+						marker: {
+							color: 'red',
+							size: 10
+						},
+						name: 'Points'
+					},
+					{
+						x: result?.xLineArray || [],
+						y: result?.yLineArray || [],
+						mode: 'lines',
+						line: { color: 'orange' },
+						name: 'Regression Line'
+					}
+				]}
+			/>
+		{/key}
 	</Card.Content>
 </Card.Root>
 
@@ -63,12 +206,36 @@
 				<Icon icon="eos-icons:loading" class="text-center text-6xl text-primary" />
 			</div>
 		{/if}
-		<!-- {#key result}
+		{#key result}
 			{#if result}
 				{@const precision = 6}
-				<KaTex class="w-fit mx-auto" data={formatResult(result, precision)} block />
-				<KaTex class="w-fit mx-auto" data={`f(${result.xValue}) = ${result.result}`} block />
+				<KaTex
+					class="w-fit mx-auto"
+					block
+					data={`f(x) = ${result.matrixB
+						.map((_, idx) => `a_{${idx}} ${idx != 0 ? 'x' : ''} ${idx > 1 ? `^{${idx}}` : ''}`)
+						.join('+')}
+						`}
+				/>
+				<KaTex
+					class="w-fit mx-auto"
+					data={`${formatMatrix(result.matrixA, precision)}
+					\\begin{Bmatrix}
+        			${result.matrixB.map((_, idx) => `a_{${idx}}`).join('\\\\')}
+    				\\end{Bmatrix}
+					= 
+					${formatVector(result.matrixB, precision)}`}
+					block
+				/>
+				<KaTex class="w-fit mx-auto" data={formatResult()} block />
+				<KaTex
+					class="w-fit mx-auto"
+					data={`\\therefore f(${result.xValue}) = ${result.result} \\space {\\color{red}\\#}`}
+					block
+				/>
+			{:else}
+				<p class="text-center text-sm text-muted-foreground py-8">Please enter the points</p>
 			{/if}
-		{/key} -->
+		{/key}
 	</Card.Content>
 </Card.Root>

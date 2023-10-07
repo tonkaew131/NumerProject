@@ -3,7 +3,7 @@ import type { MathArray, Matrix } from 'mathjs';
 export function formatVector(matrix: MathArray | Matrix | number[], precision = 6) {
 	let out = '';
 	matrix.forEach((m) => {
-		out += `${Number(m).toFixed(precision)} \\\\`;
+		out += `${parseFloat(Number(m).toFixed(precision))} \\\\`;
 	});
 
 	return `\\begin{Bmatrix}
@@ -28,9 +28,9 @@ export function formatMatrix(
 			});
 
 			if (isHighlighted) {
-				out += `\\color{red}{${Number(n).toFixed(precision)}}`;
+				out += `\\color{red}{${parseFloat(Number(n).toFixed(precision))}}`;
 			} else {
-				out += `${Number(n).toFixed(precision)}`;
+				out += `${parseFloat(Number(n).toFixed(precision))}`;
 			}
 			out += ` ${idx == m.length - 1 ? '' : '&'} `;
 		});
