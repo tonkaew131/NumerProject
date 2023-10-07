@@ -182,7 +182,7 @@
 							<KaTex data="y_k" />
 						</Table.Head>
 						<Table.Head>
-							<KaTex data="error%" />
+							<KaTex data="error\%" />
 						</Table.Head>
 					</Table.Header>
 					<Table.Body>
