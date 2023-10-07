@@ -37,23 +37,6 @@
 		yLineArray: number[];
 	}
 	let result: resultType & SimpleRegressionResult;
-	// let result: resultType & SimpleRegressionResult = {
-	// 	a: {
-	// 		'0': -0.7009803921567896,
-	// 		'1': 0.6915294117647015,
-	// 		'2': -0.001843137254901912
-	// 	},
-	// 	result: 36.46117647058824,
-	// 	matrixA: [
-	// 		[9, 375, 20625],
-	// 		[375, 20625, 1299375],
-	// 		[20625, 1299375, 87770625]
-	// 	],
-	// 	matrixB: [215, 11605, 722325],
-	// 	xArray: [10, 15, 20, 30, 40, 50, 60, 70, 80],
-	// 	yArray: [5, 9, 15, 18, 22, 30, 35, 38, 43],
-	// 	xValue: 65
-	// };
 
 	async function computeResult() {
 		const pointsArray = [];
@@ -140,7 +123,7 @@
 			${i != 0 && result.a[i] >= 0 ? '+' : ''}
 			${result.a[i]} 
 			* ${i != 0 ? 'x' : ''} 
-			${i > 1 ? `^${i}` : ''} 
+			${i > 1 ? `^{${i}}` : ''} 
 			${isLast ? '' : `\\\\`}`;
 		}
 
