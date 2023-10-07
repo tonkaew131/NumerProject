@@ -12,7 +12,6 @@
 	import Input from './input.svelte';
 	import type { SimpleRegressionResult } from '$lib/solutions/simpleRegression';
 	import { formatMatrix, formatVector } from '$lib/components/kaTeX';
-	import { matrix } from 'mathjs';
 
 	let modalMessage = {
 		title: '',

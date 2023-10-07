@@ -88,7 +88,7 @@
 				</Select.Trigger>
 				<Select.Content>
 					{#if mode === 'root'}
-						<Select.Item class="hover:cursor-pointer" value="root-graphical" disabled>
+						<Select.Item class="hover:cursor-pointer" value="root-graphical">
 							Graphical methods
 						</Select.Item>
 						<Select.Item class="hover:cursor-pointer" value="root-bisection" disabled>
@@ -131,6 +131,7 @@
 						<Select.Item value="inter-spline">Spline interpolation</Select.Item>
 					{:else if mode === 'extrapolation'}
 						<Select.Item value="extra-regression">Simple Regression</Select.Item>
+						<Select.Item value="extra-multiple_regression">Multiple Regression</Select.Item>
 					{:else}
 						<Select.Item class="hover:cursor-pointer" value="none" disabled>
 							Please select type of problem
