@@ -19,7 +19,7 @@
 </svelte:head>
 
 <Analytics />
-<main class="bg-primary-foreground min-h-screen max-h-full">
+<main class="bg-primary-foreground min-h-screen max-h-full h-full">
 	<Navbar {data} />
 	<slot />
 </main>
