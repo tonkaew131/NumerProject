@@ -73,6 +73,7 @@ type ProblemType =
 	| 'EXTRAPOLATION'
 	| 'ROOT_OF_EQUATION';
 type SolutionType =
+	| 'GRAPHICAL'
 	| 'GUASS'
 	| 'NEWTON_DIVIDED_DIFFERENCE'
 	| 'LANGRAGE_INTERPOLATION'

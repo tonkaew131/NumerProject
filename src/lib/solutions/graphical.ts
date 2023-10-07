@@ -3,7 +3,7 @@ import { abs, evaluate, floor, log, pow } from 'mathjs';
 export interface GraphicalResult {
 	result: number;
 	iter: number;
-	iterations: { x: number; y: number }[];
+	iterations?: { x: number; y: number }[];
 	error?: string;
 }
 
@@ -41,7 +41,8 @@ export function graphicalMethod(
 
 		// x here
 		newTemp = evaluate(func, { x });
-		result.iterations.push({ x, y: newTemp });
+
+		if (result.iterations) result.iterations.push({ x: Number(x), y: newTemp });
 
 		if (abs(newTemp) < errorFactor) {
 			break;
@@ -70,4 +71,4 @@ export function graphicalMethod(
 	return result;
 }
 
-console.log(graphicalMethod(0.02, 0.03, 0.000001, '43x - 1'));
+// console.log(graphicalMethod(0, 10, 0.000001, 'x^2 - 7'));

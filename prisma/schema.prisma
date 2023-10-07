@@ -91,6 +91,7 @@ enum ProblemType {
 }
 
 enum SolutionType {
+  GRAPHICAL
   GUASS
   NEWTON_DIVIDED_DIFFERENCE
   LANGRAGE_INTERPOLATION

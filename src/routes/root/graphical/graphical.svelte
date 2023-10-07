@@ -1,6 +1,7 @@
 <script lang="ts">
 	// shadcn components
 	import * as Dialog from '$lib/components/ui/dialog';
+	import * as Table from '$lib/components/ui/table';
 	import * as Card from '$lib/components/ui/card';
 	import * as Tabs from '$lib/components/ui/tabs';
 
@@ -11,6 +12,8 @@
 	// local components
 	import Graph from './graph.svelte';
 	import Input from './input.svelte';
+
+	import type { GraphicalResult } from '$lib/solutions/graphical';
 	import { graphicalMethod } from '$lib/solutions/graphical';
 
 	let modalMessage = {
@@ -18,11 +21,79 @@
 		description: ''
 	};
 
-	let loading = true;
+	let loading = false;
 
 	let xStart: number;
 	let xEnd: number;
+	let errorFactor: number;
 	let formula: string = '';
+	interface resultType {
+		xArray: number[];
+		yArray: number[];
+	}
+	let result: resultType & GraphicalResult;
+
+	async function computeResult() {
+		loading = true;
+
+		const res = await fetch('/api/solution/root/graphical', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ xStart, xEnd, errorFactor, func: formula })
+		});
+		const jsonData = await res.json();
+
+		loading = false;
+		if (jsonData.error) {
+			modalMessage = {
+				title: 'Calculation Error!',
+				description: jsonData.error.message
+			};
+
+			document?.getElementById('trigger-modal')!.click();
+
+			console.log(jsonData);
+
+			return;
+		}
+
+		if (jsonData.warning) {
+			modalMessage = {
+				title: 'Calculation Warning!',
+				description: jsonData.warning.message
+			};
+
+			document?.getElementById('trigger-modal')!.click();
+		}
+
+		result = jsonData.data;
+
+		const resultIterations = graphicalMethod(
+			Number(xStart),
+			Number(xEnd),
+			Number(errorFactor),
+			formula
+		);
+		result.iterations = resultIterations.iterations;
+
+		const xArray = [];
+		const yArray = [];
+		if (result.iterations) {
+			const newIterations = JSON.parse(JSON.stringify(result.iterations));
+			newIterations.sort((a: { x: number; y: number }, b: { x: number; y: number }) => a.x - b.x);
+			for (let i = 0; i < newIterations.length; i++) {
+				xArray.push(newIterations[i].x);
+				yArray.push(newIterations[i].y);
+			}
+		}
+
+		result.xArray = xArray;
+		result.yArray = yArray;
+		result = result;
+		console.log(result);
+	}
 </script>
 
 <svelte:head>
@@ -31,7 +102,13 @@
 
 <h3 class="text-center">🥹 Graphical methods</h3>
 
-<Input onClickCalculate={(e) => console.log(e)} bind:xStart bind:xEnd bind:formula />
+<Input
+	onClickCalculate={() => computeResult()}
+	bind:xStart
+	bind:xEnd
+	bind:formula
+	bind:errorFactor
+/>
 
 <Dialog.Root>
 	<Dialog.Trigger id="trigger-modal" />
@@ -48,27 +125,31 @@
 <Card.Root class="">
 	<Card.Content class="py-5">
 		<KaTex data={'\\text{Graph}'} class="pl-6" block />
-		<Graph
-			graphData={[
-				// {
-				// 	x: [1, 2, 3, 4],
-				// 	y: [1, 2, 3, 4],
-				// 	type: 'scatter',
-				// 	mode: 'markers',
-				// 	marker: {
-				// 		color: 'red',
-				// 		size: 10
-				// 	},
-				// 	name: 'Points'
-				// }
-			]}
-		/>
-		<!-- {#key result}
-		{/key} -->
+		{#key result}
+			<Graph
+				graphData={[
+					{
+						x: result?.xArray || [],
+						y: result?.yArray || [],
+						type: 'scatter',
+						mode: 'lines+markers',
+						marker: {
+							color: 'red',
+							size: 5
+						},
+						line: {
+							color: 'green',
+							width: 1
+						},
+						name: 'Points'
+					}
+				]}
+			/>
+		{/key}
 	</Card.Content>
 </Card.Root>
 
-<Tabs.Root value="solution" class="w-full mt-12">
+<Tabs.Root value="table" class="w-full mt-12">
 	<Tabs.List>
 		<Tabs.Trigger value="table">Table</Tabs.Trigger>
 		<Tabs.Trigger value="solution">Solution</Tabs.Trigger>
@@ -82,6 +163,42 @@
 						<Icon icon="eos-icons:loading" class="text-center text-6xl text-primary" />
 					</div>
 				{/if}
+				<Table.Root>
+					<Table.Caption>
+						{#if result?.iterations != undefined}
+							Total number of iterations: {result.iterations.length}
+						{:else}
+							Please enter the formula
+						{/if}
+					</Table.Caption>
+					<Table.Header>
+						<Table.Head class="w-12">
+							<KaTex data="\text&lcub;iter&rcub;" />
+						</Table.Head>
+						<Table.Head>
+							<KaTex data="x_k" />
+						</Table.Head>
+						<Table.Head>
+							<KaTex data="y_k" />
+						</Table.Head>
+						<Table.Head>
+							<KaTex data="error%" />
+						</Table.Head>
+					</Table.Header>
+					<Table.Body>
+						{#if result?.iterations}
+							{@const precision = 6}
+							{#each result.iterations as it, idx}
+								<Table.Row>
+									<Table.Cell>{idx}</Table.Cell>
+									<Table.Cell>{parseFloat(it.x.toFixed(precision))}</Table.Cell>
+									<Table.Cell>{parseFloat(it.y.toFixed(precision))}</Table.Cell>
+									<Table.Cell>{parseFloat((Math.abs(it.y) * 100).toFixed(6))}%</Table.Cell>
+								</Table.Row>
+							{/each}
+						{/if}
+					</Table.Body>
+				</Table.Root>
 			</Card.Content>
 		</Card.Root>
 	</Tabs.Content>
