@@ -20,6 +20,11 @@ export function multipleRegression(
 		return result;
 	}
 
+	if (k >= 20) {
+		result.error = 'k limit is 20';
+		return result;
+	}
+
 	// Number of points in each data
 	const nSize = yPoints.length;
 	for (let i = 0; i < k; i++) {
