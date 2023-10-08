@@ -75,6 +75,7 @@ type ProblemType =
 type SolutionType =
 	| 'GRAPHICAL'
 	| 'BISECTION'
+	| 'FALSE_POSITION'
 	| 'GUASS'
 	| 'NEWTON_DIVIDED_DIFFERENCE'
 	| 'LANGRAGE_INTERPOLATION'

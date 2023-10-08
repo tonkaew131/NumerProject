@@ -94,7 +94,7 @@
 						<Select.Item class="hover:cursor-pointer" value="root-bisection">
 							Bisection search
 						</Select.Item>
-						<Select.Item class="hover:cursor-pointer" value="root-false" disabled>
+						<Select.Item class="hover:cursor-pointer" value="root-false">
 							False-position methods
 						</Select.Item>
 						<Select.Item class="hover:cursor-pointer" value="root-one" disabled>

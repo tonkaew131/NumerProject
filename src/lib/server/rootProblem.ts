@@ -1,6 +1,7 @@
 import { evaluate } from 'mathjs';
 
 import { bisectionSearch } from '$lib/solutions/bisection';
+import { falsePositionMethod } from '$lib/solutions/falsePosition';
 import { graphicalMethod } from '$lib/solutions/graphical';
 
 import { generateId } from '../utils';
@@ -255,7 +256,66 @@ export class BisectionSearchSolver extends ProblemSolver {
 				}
 			});
 
-			const outputIterations = graphicalMethod(
+			const outputIterations = bisectionSearch(
+				input.xStart,
+				input.xEnd,
+				input.errorFactor,
+				input.func
+			);
+			return [outputIterations, null];
+		}
+
+		await prisma.problemSolved.update({
+			where: {
+				id: this.problemSolverId
+			},
+			data: {
+				solved_count: {
+					increment: 1
+				}
+			}
+		});
+
+		if (this.output != undefined) return [JSON.parse(this.output), null];
+		return [null, { message: 'Something went wrong!', status: 500 }];
+	}
+}
+
+export class FalsePositionSolver extends ProblemSolver {
+	constructor(problem: Problem) {
+		super(problem, 'FALSE_POSITION');
+	}
+
+	async getOutput(): Promise<[object | null, { message: string; status: number } | null]> {
+		const [solverId, solverIdError] = await this.getProblemSolverId();
+		if (solverIdError) return [null, solverIdError];
+
+		const [problemId, problemIdError] = await this.problem.getProblemId('select');
+		if (problemIdError) return [null, problemIdError];
+		if (!problemId) return [null, { message: 'Something went wrong!', status: 500 }];
+
+		if (solverId == undefined) {
+			const input = JSON.parse(this.problem.getInput());
+			const startTime = Date.now(); // ms
+			const output = falsePositionMethod(input.xStart, input.xEnd, input.errorFactor, input.func);
+			const endTime = Date.now(); // ms
+
+			delete output.iterations;
+
+			this.problemSolverId = generateId();
+			await prisma.problemSolved.create({
+				data: {
+					id: this.problemSolverId,
+					output: JSON.parse(JSON.stringify(output)),
+					solution_type: 'FALSE_POSITION',
+					executed_time: endTime - startTime,
+					user_id: this.userId,
+					problem_id: problemId,
+					iteration_count: output.iter
+				}
+			});
+
+			const outputIterations = falsePositionMethod(
 				input.xStart,
 				input.xEnd,
 				input.errorFactor,
