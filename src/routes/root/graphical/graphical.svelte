@@ -31,7 +31,8 @@
 		xArray: number[];
 		yArray: number[];
 	}
-	let result: resultType & GraphicalResult;
+	export let result: resultType & GraphicalResult;
+	export let input = true;
 
 	let timeSinceLastCalculate = 0;
 	let COOLDOWN_TIME = 5;
@@ -119,13 +120,15 @@
 
 <h3 class="text-center">🥹 Graphical methods</h3>
 
-<Input
-	onClickCalculate={() => computeResult()}
-	bind:xStart
-	bind:xEnd
-	bind:formula
-	bind:errorFactor
-/>
+{#if input}
+	<Input
+		onClickCalculate={() => computeResult()}
+		bind:xStart
+		bind:xEnd
+		bind:formula
+		bind:errorFactor
+	/>
+{/if}
 
 <Dialog.Root>
 	<Dialog.Trigger id="trigger-modal" />

@@ -24,6 +24,9 @@ export const GET: RequestHandler = async ({ url }) => {
 	const solution = await prisma.problemSolved.findFirst({
 		where: {
 			id: solutionId
+		},
+		include: {
+			problem: true
 		}
 	});
 

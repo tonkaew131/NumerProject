@@ -5,6 +5,8 @@
 	import Guass from '../../linear/guass/guass.svelte';
 
 	import type { PageData } from './$types';
+	import Regression from '../../extra/regression/regression.svelte';
+	import Graphical from '../../root/graphical/graphical.svelte';
 	export let data: PageData;
 	let result: { status: string; data: any };
 
@@ -16,6 +18,7 @@
 			const jsonData = await res.json();
 			result = jsonData;
 			loading = false;
+			console.log(result);
 		};
 
 		fetchSolution();
@@ -33,7 +36,11 @@
 		</div>
 	{:else if result?.data != undefined}
 		{#if result.data.solution_type === 'GUASS'}
-			<Guass result={JSON.parse(result.data.output)} input={false} />
+			<Guass result={result.data.output} input={false} />
+		{:else if result.data.solution_type === 'SIMPLE_REGRESSION'}
+			<Regression result={result.data.output} input={false} />
+		{:else if result.data.solution_type === 'GRAPHICAL'}
+			<Graphical result={result.data.output} input={false}/>
 		{/if}
 	{/if}
 </div>
