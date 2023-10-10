@@ -31,7 +31,9 @@
 		<div class="w-full flex justify-center py-16">
 			<Icon icon="eos-icons:loading" class="text-center text-6xl text-primary" />
 		</div>
-	{:else if result?.data != undefined && result?.data?.solution_type === 'GUASS'}
-		<Guass result={JSON.parse(result.data.output)} input={false} />
+	{:else if result?.data != undefined}
+		{#if result.data.solution_type === 'GUASS'}
+			<Guass result={JSON.parse(result.data.output)} input={false} />
+		{/if}
 	{/if}
 </div>

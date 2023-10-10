@@ -37,13 +37,16 @@
 	let result: resultType & MultipleRegressionResult;
 
 	let timeSinceLastCalculate = 0;
+	let COOLDOWN_TIME = 5;
 	async function computeResult() {
 		if (timeSinceLastCalculate == 0) timeSinceLastCalculate = Date.now();
-		else if (Date.now() - timeSinceLastCalculate < 3000) {
-			const timeLeft = 3 - (Date.now() - timeSinceLastCalculate) / 1000;
+		else if (Date.now() - timeSinceLastCalculate < COOLDOWN_TIME * 1000) {
+			const timeLeft = COOLDOWN_TIME - (Date.now() - timeSinceLastCalculate) / 1000;
 			modalMessage = {
 				title: 'Calculation Error!',
-				description: `Please wait for 3 seconds before calculating again (${timeLeft.toFixed(1)}s)`
+				description: `Please wait for ${COOLDOWN_TIME} seconds before calculating again (${timeLeft.toFixed(
+					1
+				)}s)`
 			};
 
 			document?.getElementById('trigger-modal')!.click();
