@@ -147,7 +147,7 @@
 		</Label>
 	</div>
 
-	<p class="text-center font-noto font-bold text-red-500">==== นนท์ห้ามเข้า!! โดยเด็ดขาด ====</p>
+	<p class="text-center font-noto font-bold text-red-500">==== อย่ากดเลขแปลก / อย่ากดสแปม ====</p>
 
 	<Stats />
 </div>
