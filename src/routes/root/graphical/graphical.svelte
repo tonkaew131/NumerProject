@@ -10,7 +10,7 @@
 	import Icon from '@iconify/svelte';
 
 	// local components
-	import Graph from './graph.svelte';
+	import Graph from '$lib/components/graph.svelte';
 	import Input from './input.svelte';
 
 	import type { GraphicalResult } from '$lib/solutions/graphical';

@@ -97,7 +97,7 @@
 						<Select.Item class="hover:cursor-pointer" value="root-false">
 							False-position methods
 						</Select.Item>
-						<Select.Item class="hover:cursor-pointer" value="root-one" disabled>
+						<Select.Item class="hover:cursor-pointer" value="root-one">
 							One-point Iteration methods
 						</Select.Item>
 						<Select.Item class="hover:cursor-pointer" value="root-newton" disabled>

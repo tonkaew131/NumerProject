@@ -11,7 +11,7 @@
 
 	// local components
 	import Input from './input.svelte';
-	import Graph from './graph.svelte';
+	import Graph from '$lib/components/graph.svelte';
 
 	import { falsePositionMethod, type FalsePositionResult } from '$lib/solutions/falsePosition';
 

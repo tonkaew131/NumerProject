@@ -10,8 +10,8 @@
 	import Icon from '@iconify/svelte';
 
 	// local components
+	import Graph from '$lib/components/graph.svelte';
 	import Input from './input.svelte';
-	import Graph from './graph.svelte';
 
 	import type { BisectionResult } from '$lib/solutions/bisection';
 	import { bisectionSearch } from '$lib/solutions/bisection';

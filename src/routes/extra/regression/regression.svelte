@@ -36,7 +36,8 @@
 		xLineArray: number[];
 		yLineArray: number[];
 	}
-	let result: resultType & SimpleRegressionResult;
+	export let result: resultType & SimpleRegressionResult;
+	export let input = true;
 
 	let timeSinceLastCalculate = 0;
 	let COOLDOWN_TIME = 5;
@@ -154,7 +155,9 @@
 
 <h3 class="text-center">🥹 Simple Regression extrapolation</h3>
 
-<Input bind:xValue bind:mOrder bind:points onClickCalculate={() => computeResult()} />
+{#if input}
+	<Input bind:xValue bind:mOrder bind:points onClickCalculate={() => computeResult()} />
+{/if}
 
 <Dialog.Root>
 	<Dialog.Trigger id="trigger-modal" />
