@@ -16,6 +16,60 @@ export const GET: RequestHandler = async ({ request }) => {
 		return json({ status: 'error', message: 'Invalid API Key' }, { status: 403 });
 	}
 
+	// cleanDuplicationSolution();
+	// cleanInvalidOutput();
+	cleanInvalidJson();
+
+	return json({ status: 'ok' });
+};
+
+async function cleanInvalidJson() {
+	const solutions = await prisma.problemSolved.findMany({
+		where: {
+			OR: [
+				{
+					output: {
+						string_contains: '\\"'
+					}
+				}
+			]
+		}
+	});
+
+	for (const sl of solutions) {
+		const { id, output } = sl;
+		console.log('updating', id, '...');
+		await prisma.problemSolved.update({
+			where: { id: id },
+			data: {
+				output: JSON.parse(output)
+			}
+		});
+	}
+}
+
+async function cleanInvalidOutput() {
+	const solutions = await prisma.problemSolved.findMany({
+		where: {
+			OR: [
+				{
+					output: {
+						string_contains: 'null'
+					}
+				}
+			]
+		}
+	});
+	// console.log(JSON.stringify(solutions));
+
+	for (const sl of solutions) {
+		const { id } = sl;
+		console.log('deleting', id, '...');
+		await prisma.problemSolved.delete({ where: { id: id } });
+	}
+}
+
+async function cleanDuplicationSolution() {
 	const solutions: { output: any }[] = await prisma.$queryRaw`
         SELECT COUNT(id), output
         FROM ProblemSolved 
@@ -72,6 +126,4 @@ export const GET: RequestHandler = async ({ request }) => {
 			}
 		});
 	}
-
-	return json({ status: 'ok' });
-};
+}
