@@ -3,7 +3,7 @@ import { abs, evaluate } from 'mathjs';
 export interface OnePointIterationResult {
 	result: number;
 	iter: number;
-	iterations?: { x: number; y: number }[];
+	iterations?: { x: number; y: number; err: number }[];
 	error?: string;
 }
 
@@ -25,6 +25,7 @@ export function onePointIteration(
 	const MAX_ITER = 100;
 	let x = xStart;
 	let xold = x * 100;
+	let error = 0;
 	while (iter < MAX_ITER) {
 		iter += 1;
 		if (iter == MAX_ITER) {
@@ -32,10 +33,13 @@ export function onePointIteration(
 			break;
 		}
 
-		if (result.iterations) result.iterations.push({ x: x, y: evaluate(func, { x: x }) });
+		if (result.iterations) {
+			result.iterations.push({ x: x, y: evaluate(func, { x: x }), err: error });
+		}
 		x = evaluate(func, { x: x });
 
-		if (abs((x - xold) / xold) < errorFactor) {
+		error = abs((x - xold) / xold);
+		if (error < errorFactor) {
 			result.result = x;
 			result.iter = iter;
 			break;

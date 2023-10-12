@@ -1,5 +1,4 @@
 <script lang="ts">
-	// shadcn components
 	import Icon from '@iconify/svelte';
 	import { evaluate } from 'mathjs';
 
@@ -226,11 +225,11 @@
 				{/if}
 				<Table.Root>
 					<Table.Caption>
-						<!-- {#if result?.iterations != undefined}
+						{#if result?.iterations != undefined}
 							Total number of iterations: {result.iterations.length}
 						{:else}
 							Please enter the formula
-						{/if} -->
+						{/if}
 					</Table.Caption>
 					<Table.Header>
 						<Table.Head class="w-12">
@@ -240,24 +239,20 @@
 							<KaTex data="x_k" />
 						</Table.Head>
 						<Table.Head>
-							<KaTex data="y_k" />
-						</Table.Head>
-						<Table.Head>
 							<KaTex data="error\%" />
 						</Table.Head>
 					</Table.Header>
 					<Table.Body>
-						<!-- {#if result?.iterations}
+						{#if result?.iterations}
 							{@const precision = 6}
 							{#each result.iterations as it, idx}
 								<Table.Row>
 									<Table.Cell>{idx}</Table.Cell>
-									<Table.Cell>{parseFloat(it.x.toFixed(precision))}</Table.Cell>
-									<Table.Cell>{parseFloat(it.y.toFixed(precision))}</Table.Cell>
-									<Table.Cell>{parseFloat((Math.abs(it.y) * 100).toFixed(6))}%</Table.Cell>
+									<Table.Cell>{parseFloat(it.x.toFixed(precision * 2))}</Table.Cell>
+									<Table.Cell>{parseFloat(it.err.toFixed(precision))}%</Table.Cell>
 								</Table.Row>
 							{/each}
-						{/if} -->
+						{/if}
 					</Table.Body>
 				</Table.Root>
 			</Card.Content>
