@@ -1,7 +1,8 @@
 // routes/login/+page.server.ts
 
-import { auth } from '$lib/server/lucia';
 import { redirect } from '@sveltejs/kit';
+
+import { auth } from '$lib/server/lucia';
 
 import type { PageServerLoad } from './$types';
 

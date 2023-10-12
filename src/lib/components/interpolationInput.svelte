@@ -1,14 +1,16 @@
 <script lang="ts">
-	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
-	import Button from '$lib/components/ui/button/button.svelte';
-	import Toggle from '$lib/components/ui/toggle/toggle.svelte';
-	import Input from '$lib/components/ui/input/input.svelte';
-	import Label from '$lib/components/ui/label/label.svelte';
-	import * as Card from '$lib/components/ui/card';
-
 	import Icon from '@iconify/svelte';
 
+	import Button from '$lib/components/ui/button/button.svelte';
+	import * as Card from '$lib/components/ui/card';
+	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
+	import Input from '$lib/components/ui/input/input.svelte';
+	import Label from '$lib/components/ui/label/label.svelte';
+	import Toggle from '$lib/components/ui/toggle/toggle.svelte';
+
 	export let onClickCalculate: (e: MouseEvent) => void;
+
+	export let selectedButton = true;
 
 	export let pointSize = 3;
 
@@ -50,6 +52,25 @@
 
 		selectedPoint = [...selectedPoint];
 	}
+
+	let toggleState = false;
+	function onToggleAll(e: CustomEvent) {
+		toggleState = e.detail.currentTarget.getAttribute('data-state') == 'off';
+
+		// if (toggleState) {
+		// 	selectedPoint = Array.from(Array(pointSize).keys());
+		// } else {
+		// 	selectedPoint = [];
+		// }
+
+		// selectedPoint = [...selectedPoint];
+
+		// const inputPoints = document.getElementsByClassName('selected-points');
+		// for (let i = 0; i < inputPoints.length; i++) {
+		// 	inputPoints[i].setAttribute('data-state', toggleState ? 'checked' : 'unchecked');
+		// 	inputPoints[i].setAttribute('aria-checked', toggleState ? 'true' : 'false');
+		// }
+	}
 </script>
 
 <div class="flex items-end gap-2 mt-2 justify-center">
@@ -84,15 +105,18 @@
 <Card.Root class="w-fit mt-2 mx-auto overflow-x-auto max-w-full">
 	<Card.Content class="w-fit py-5">
 		<div class="flex">
-			<div class="flex flex-col gap-1 justify-around">
-				{#each Array(pointSize) as _, idx}
-					<Checkbox
-						onCheckedChange={(val) => {
-							if (typeof val === 'boolean') onSelectPoint(idx, val);
-						}}
-					/>
-				{/each}
-			</div>
+			{#if selectedButton}
+				<div class="flex flex-col gap-1 justify-around">
+					{#each Array(pointSize) as _, idx}
+						<Checkbox
+							onCheckedChange={(val) => {
+								if (typeof val === 'boolean') onSelectPoint(idx, val);
+							}}
+							class="selected-points"
+						/>
+					{/each}
+				</div>
+			{/if}
 			<div class="flex flex-col gap-1 w-fit">
 				{#each Array(pointSize) as _, idx}
 					<div class="flex items-center gap-1 w-fit">
@@ -115,6 +139,10 @@
 				{/each}
 			</div>
 		</div>
-		<Toggle variant="outline" class="mt-2">Toggle all</Toggle>
+		{#if selectedButton}
+			<Toggle variant="outline" class="mt-2" on:click={onToggleAll}
+				>{!toggleState ? 'Tick all' : 'Untick all'}</Toggle
+			>
+		{/if}
 	</Card.Content>
 </Card.Root>

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
-
+	import { page } from '$app/stores';
 	import * as Card from '$lib/components/ui/card';
+
 	import Button from './ui/button/button.svelte';
 
 	const MEASUREMENT_ID = 'G-1F8VCX7W86';

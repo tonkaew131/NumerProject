@@ -1,13 +1,12 @@
 <script lang="ts">
+	import Icon from '@iconify/svelte';
+
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
-
-	import Icon from '@iconify/svelte';
-
 	import { createArray, createMatrix } from '$lib/utils';
 
-	export let matrixSize: number = 3;
+	export let matrixSize = 3;
 	export let matrixA = createMatrix(matrixSize);
 	$: matrixA = createMatrix(matrixSize);
 	export let matrixB = createArray(matrixSize);

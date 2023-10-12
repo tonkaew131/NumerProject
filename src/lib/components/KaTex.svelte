@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { cn } from '$lib/utils';
 	import katex from 'katex';
+
+	import { cn } from '$lib/utils';
 
 	export let data = '';
 	export let block = false;

@@ -1,14 +1,14 @@
 <script lang="ts">
+	import Icon from '@iconify/svelte';
+
 	import Button from '$lib/components/ui/button/button.svelte';
+	import * as Card from '$lib/components/ui/card';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
-	import * as Card from '$lib/components/ui/card';
-
-	import Icon from '@iconify/svelte';
 
 	export let onClickCalculate: (e: MouseEvent) => void;
 	export let xValue: { [key: number]: number } = {};
-	export let kValue: number = 1;
+	export let kValue = 1;
 	export let pointSize = 3;
 
 	const K_MAX = 8;

@@ -37,6 +37,8 @@ export function guassEliminationMethods(matrixA: number[][], matrixB: number[]) 
 	// Forward elimination
 	for (let i = 1; i < MATRIX_SIZE; i++) {
 		for (let j = 0; j < i; j++) {
+			if (matrix[i][j] == 0) continue;
+
 			const factor = matrix[j][j] / matrix[i][j];
 
 			const data: GuassIterationType = {

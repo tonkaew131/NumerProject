@@ -1,18 +1,16 @@
 <script lang="ts">
 	// shadcn components
-	import * as Dialog from '$lib/components/ui/dialog';
-	import * as Card from '$lib/components/ui/card';
+	import Icon from '@iconify/svelte';
 
+	import Graph from '$lib/components/graph.svelte';
 	import { formatMatrix, formatVector } from '$lib/components/kaTeX';
 	import KaTex from '$lib/components/KaTex.svelte';
-	import Graph from '$lib/components/graph.svelte';
-
-	import Icon from '@iconify/svelte';
+	import * as Card from '$lib/components/ui/card';
+	import * as Dialog from '$lib/components/ui/dialog';
+	import type { SimpleRegressionResult } from '$lib/solutions/simpleRegression';
 
 	// Local components
 	import Input from './input.svelte';
-
-	import type { SimpleRegressionResult } from '$lib/solutions/simpleRegression';
 
 	let modalMessage = {
 		title: '',

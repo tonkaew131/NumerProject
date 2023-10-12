@@ -1,6 +1,7 @@
 // routes/+page.server.ts
-import { auth } from '$lib/server/lucia';
 import { fail, redirect } from '@sveltejs/kit';
+
+import { auth } from '$lib/server/lucia';
 
 import type { Actions, PageServerLoad } from './$types';
 

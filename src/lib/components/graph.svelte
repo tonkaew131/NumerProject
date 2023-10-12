@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
+	import type { Data } from 'plotly.js';
 	import { onMount } from 'svelte';
 
+	import { browser } from '$app/environment';
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
-	import type { Data } from 'plotly.js';
 
 	export let graphData: Data[] = [];
 

@@ -1,18 +1,15 @@
 <script lang="ts">
-	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
+	import Icon from '@iconify/svelte';
 
 	import { formatMatrix } from '$lib/components/kaTeX';
 	import KaTeX from '$lib/components/KaTex.svelte';
-
-	import * as Dialog from '$lib/components/ui/dialog';
+	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
 	import * as Card from '$lib/components/ui/card';
+	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Tabs from '$lib/components/ui/tabs';
-
 	import type { GuassType } from '$lib/solutions/guass';
 
-	import Icon from '@iconify/svelte';
-
-	export let precision: number = 4;
+	export let precision = 4;
 
 	const createMatrix = (matrixSize: number) => {
 		const matrix = new Array(Number(matrixSize));
@@ -32,7 +29,7 @@
 		description: ''
 	};
 
-	let matrixSize: number = 3;
+	let matrixSize = 3;
 	let matrixA = createMatrix(matrixSize);
 	let matrixB = createArray(matrixSize);
 

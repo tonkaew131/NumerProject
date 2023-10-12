@@ -1,22 +1,20 @@
 <script lang="ts">
+	import { formatVector } from '$lib/components/kaTeX';
+	import KaTeX from '$lib/components/KaTex.svelte';
+	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
+	import * as Card from '$lib/components/ui/card';
+	import * as Dialog from '$lib/components/ui/dialog';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
 	import { Skeleton } from '$lib/components/ui/skeleton';
-	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Table from '$lib/components/ui/table';
-	import * as Card from '$lib/components/ui/card';
 	import * as Tabs from '$lib/components/ui/tabs';
-
-	import KaTeX from '$lib/components/KaTex.svelte';
-
 	import { conjugateGradientMethods, type ConjugateType } from '$lib/solutions/conjugate';
-	import { formatVector } from '$lib/components/kaTeX';
 	import { createArray, createMatrix } from '$lib/utils';
-	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
 
 	let result: ConjugateType;
 
-	let matrixSize: number = 3;
+	let matrixSize = 3;
 	let matrixA = createMatrix(matrixSize);
 	$: matrixA = createMatrix(matrixSize);
 	let matrixB = createArray(matrixSize);

@@ -1,13 +1,12 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte';
+	import { onMount } from 'svelte';
 
-	import Guass from '../../linear/guass/guass.svelte';
-
-	import type { PageData } from './$types';
-	import Regression from '../../extra/regression/regression.svelte';
-	import Graphical from '../../root/graphical/graphical.svelte';
 	import MultipleRegression from '../../extra/multiple_regression/multipleRegression.svelte';
+	import Regression from '../../extra/regression/regression.svelte';
+	import Guass from '../../linear/guass/guass.svelte';
+	import Graphical from '../../root/graphical/graphical.svelte';
+	import type { PageData } from './$types';
 	export let data: PageData;
 	let result: { status: string; data: any };
 

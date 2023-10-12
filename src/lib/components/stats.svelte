@@ -1,9 +1,10 @@
 <script lang="ts">
-	import * as Card from '$lib/components/ui/card';
-	import Skeleton from './ui/skeleton/skeleton.svelte';
-
-	import * as Table from '$lib/components/ui/table';
 	import { onMount } from 'svelte';
+
+	import * as Card from '$lib/components/ui/card';
+	import * as Table from '$lib/components/ui/table';
+
+	import Skeleton from './ui/skeleton/skeleton.svelte';
 
 	let stats: any = null;
 	let totalTime: { [unit: string]: number } = {

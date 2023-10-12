@@ -3,12 +3,11 @@
 	import Stats from '$lib/components/stats.svelte';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
-
 	import * as Select from '$lib/components/ui/select';
 
-	let mode: string = '';
-	let solutionMode: string = '';
-	let precision: number = 6;
+	let mode = '';
+	let solutionMode = '';
+	let precision = 6;
 
 	function onChangeProblemType(e: any) {
 		const value = e?.value;

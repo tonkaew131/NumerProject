@@ -1,19 +1,18 @@
 <script lang="ts">
 	// shadcn components
-	import * as Dialog from '$lib/components/ui/dialog';
-	import * as Table from '$lib/components/ui/table';
-	import * as Card from '$lib/components/ui/card';
-	import * as Tabs from '$lib/components/ui/tabs';
+	import Icon from '@iconify/svelte';
+	import { evaluate } from 'mathjs';
 
 	import Graph from '$lib/components/graph.svelte';
 	import KaTex from '$lib/components/KaTex.svelte';
-
-	import Icon from '@iconify/svelte';
+	import * as Card from '$lib/components/ui/card';
+	import * as Dialog from '$lib/components/ui/dialog';
+	import * as Table from '$lib/components/ui/table';
+	import * as Tabs from '$lib/components/ui/tabs';
+	import { onePointIteration, type OnePointIterationResult } from '$lib/solutions/onePoint';
 
 	// local components
 	import Input from './input.svelte';
-	import { onePointIteration, type OnePointIterationResult } from '$lib/solutions/onePoint';
-	import { evaluate } from 'mathjs';
 
 	let modalMessage = {
 		title: '',
@@ -24,7 +23,7 @@
 
 	let xStart: number;
 	let errorFactor: number;
-	let formula: string = '';
+	let formula = '';
 
 	interface resultType {
 		resultLine: {

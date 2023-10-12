@@ -1,13 +1,11 @@
 <script lang="ts">
-	import * as Dialog from '$lib/components/ui/dialog';
-	import * as Card from '$lib/components/ui/card';
-
-	import type { LangrangeInterpolationResult } from '$lib/solutions/lagrangeInterpolation';
-	import InterpolationInput from '$lib/components/interpolationInput.svelte';
-
-	import KaTex from '$lib/components/KaTex.svelte';
-
 	import Icon from '@iconify/svelte';
+
+	import InterpolationInput from '$lib/components/interpolationInput.svelte';
+	import KaTex from '$lib/components/KaTex.svelte';
+	import * as Card from '$lib/components/ui/card';
+	import * as Dialog from '$lib/components/ui/dialog';
+	import type { LagrangeInterpolationResult } from '$lib/solutions/lagrangeInterpolation';
 
 	let pointSize = 3;
 
@@ -35,7 +33,24 @@
 	};
 	let loading = false;
 
+	let timeSinceLastCalculate = 0;
+	let COOLDOWN_TIME = 5;
 	async function computeResult() {
+		if (timeSinceLastCalculate == 0) timeSinceLastCalculate = Date.now();
+		else if (Date.now() - timeSinceLastCalculate < COOLDOWN_TIME * 1000) {
+			const timeLeft = COOLDOWN_TIME - (Date.now() - timeSinceLastCalculate) / 1000;
+			modalMessage = {
+				title: 'Calculation Error!',
+				description: `Please wait for ${COOLDOWN_TIME} seconds before calculating again (${timeLeft.toFixed(
+					1
+				)}s)`
+			};
+
+			document?.getElementById('trigger-modal')!.click();
+			return;
+		}
+
+		timeSinceLastCalculate = Date.now();
 		const pointsArray = [];
 		for (const idx of selectedPoint) {
 			pointsArray.push(points[idx]);

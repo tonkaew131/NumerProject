@@ -1,14 +1,14 @@
 <script lang="ts">
 	import KaTex from '$lib/components/KaTex.svelte';
+	import { Button } from '$lib/components/ui/button';
+	import * as Card from '$lib/components/ui/card';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
-	import * as Card from '$lib/components/ui/card';
-	import { Button } from '$lib/components/ui/button';
 
 	export let onClickCalculate: (e: MouseEvent) => void;
 	export let xStart: number;
-	export let formula: string = '';
-	export let errorFactor: number = 0.000001;
+	export let formula = '';
+	export let errorFactor = 0.000001;
 </script>
 
 <Card.Root class="">

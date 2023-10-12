@@ -1,6 +1,7 @@
 <script lang="ts">
-	import type { PageData } from './$types';
 	import * as d3 from 'd3';
+
+	import type { PageData } from './$types';
 
 	export let data: PageData;
 

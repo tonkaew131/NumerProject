@@ -1,17 +1,15 @@
 <script lang="ts">
-	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
-	import Button from '$lib/components/ui/button/button.svelte';
-	import Toggle from '$lib/components/ui/toggle/toggle.svelte';
-	import Input from '$lib/components/ui/input/input.svelte';
-	import Label from '$lib/components/ui/label/label.svelte';
-	import * as Dialog from '$lib/components/ui/dialog';
-	import * as Card from '$lib/components/ui/card';
-
-	import type { NewtonDividedDifferenceResult } from '$lib/solutions/newtonDivided';
+	import Icon from '@iconify/svelte';
 
 	import KaTex from '$lib/components/KaTex.svelte';
-
-	import Icon from '@iconify/svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
+	import * as Card from '$lib/components/ui/card';
+	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
+	import * as Dialog from '$lib/components/ui/dialog';
+	import Input from '$lib/components/ui/input/input.svelte';
+	import Label from '$lib/components/ui/label/label.svelte';
+	import Toggle from '$lib/components/ui/toggle/toggle.svelte';
+	import type { NewtonDividedDifferenceResult } from '$lib/solutions/newtonDivided';
 
 	let pointSize = 3;
 
