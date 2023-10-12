@@ -99,7 +99,7 @@
 						<Select.Item class="hover:cursor-pointer" value="root-one">
 							One-point Iteration methods
 						</Select.Item>
-						<Select.Item class="hover:cursor-pointer" value="root-newton" disabled>
+						<Select.Item class="hover:cursor-pointer" value="root-newton">
 							Newton-Raphson methods
 						</Select.Item>
 						<Select.Item class="hover:cursor-pointer" value="root-secant" disabled>
