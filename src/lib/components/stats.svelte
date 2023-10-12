@@ -5,10 +5,11 @@
 	import * as Table from '$lib/components/ui/table';
 	import { onMount } from 'svelte';
 
-	// import type { PageData } from './$types';
-	// export let data: PageData;
-
 	let stats: any = null;
+	let totalTime: { [unit: string]: number } = {
+		s: 0,
+		ms: 0
+	};
 
 	onMount(() => {
 		const fetchStats = async () => {
@@ -16,6 +17,10 @@
 			const data = await res.json();
 
 			stats = data;
+
+			let timeMillis = stats.data.totalExecutedTime;
+			totalTime.s = Math.floor(timeMillis / 1000);
+			totalTime.ms = timeMillis % 1000;
 		};
 
 		fetchStats();
@@ -57,10 +62,14 @@
 		<Card.Content class="pb-0 py-8">
 			<span class="flex items-end gap-2">
 				{#if stats?.data?.totalExecutedTime !== undefined && stats?.data?.totalExecutedTime !== null}
-					<h1 class="p-0 m-0 text-green-500">{stats.data.totalExecutedTime}</h1>
-					<h2 class="p-0 m-0 text-green-500/50">ms</h2>
+					{#each Object.keys(totalTime) as unit}
+						<div class="flex items-end gap-[0.1rem]">
+							<h1 class="p-0 m-0 text-green-500">{totalTime[unit]}</h1>
+							<h2 class="p-0 m-0 text-green-500/50">{unit}</h2>
+						</div>
+					{/each}
 				{:else}
-					<Skeleton class="w-6 h-10 bg-green-500" />
+					<Skeleton class="w-16 h-10 bg-green-500" />
 					<h2 class="p-0 m-0 text-green-500/50">ms</h2>
 				{/if}
 			</span>
