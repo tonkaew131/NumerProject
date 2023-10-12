@@ -3,7 +3,7 @@
 
 	import { cn } from '$lib/utils';
 
-	import { buttonVariants, type Events,type Props } from '.';
+	import { buttonVariants, type Events, type Props } from '.';
 
 	type $$Props = Props;
 	type $$Events = Events;

@@ -49,4 +49,5 @@ export {
 	buttonVariants,
 	type Events,
 	type Props,
-	Root};
+	Root
+};

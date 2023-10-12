@@ -3,7 +3,7 @@
 
 	import { cn } from '$lib/utils';
 
-	import { type Size,toggleVariants, type Variant } from '.';
+	import { type Size, toggleVariants, type Variant } from '.';
 
 	type $$Props = TogglePrimitive.Props & {
 		variant?: Variant;
