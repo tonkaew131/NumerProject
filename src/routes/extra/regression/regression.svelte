@@ -35,6 +35,10 @@
 		xValue: number;
 		xLineArray: number[];
 		yLineArray: number[];
+		resultPoint: {
+			x: number;
+			y: number;
+		};
 	}
 	export let result: resultType & SimpleRegressionResult;
 	export let input = true;
@@ -64,12 +68,14 @@
 
 		loading = true;
 
+		xValue = Number(xValue);
+		mOrder = Number(mOrder);
 		const res = await fetch('/api/solution/extra/simple_regression', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ points: pointsArray, m: Number(mOrder), x: Number(xValue) })
+			body: JSON.stringify({ points: pointsArray, m: mOrder, x: xValue })
 		});
 		const jsonData = await res.json();
 
@@ -122,6 +128,13 @@
 			}
 			yLineArray.push(sumY);
 		}
+
+		result.resultPoint = { x: xValue, y: 0 };
+		let sumY = 0;
+		for (let j = 0; j < Object.keys(result.a).length; j++) {
+			sumY += result.a[j] * Math.pow(xValue, j);
+		}
+		result.resultPoint.y = sumY;
 
 		result.xArray = xArray;
 		result.yArray = yArray;
@@ -194,6 +207,21 @@
 						mode: 'lines',
 						line: { color: 'orange' },
 						name: 'Regression Line'
+					},
+					{
+						x: result?.resultPoint?.x ? [result?.resultPoint?.x] : [],
+						y: result?.resultPoint?.y ? [result?.resultPoint?.y] : [],
+						type: 'scatter',
+						mode: 'markers',
+						marker: {
+							color: 'lime',
+							size: 10,
+							line: {
+								color: 'blue',
+								width: 3
+							}
+						},
+						name: 'Result'
 					}
 				]}
 			/>
