@@ -3,13 +3,13 @@
 	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Card from '$lib/components/ui/card';
 
-	import KaTex from '$lib/components/KaTex.svelte';
 	import { formatMatrix, formatVector } from '$lib/components/kaTeX';
+	import KaTex from '$lib/components/KaTex.svelte';
+	import Graph from '$lib/components/graph.svelte';
 
 	import Icon from '@iconify/svelte';
 
 	// Local components
-	import Graph from './graph.svelte';
 	import Input from './input.svelte';
 
 	import type { SimpleRegressionResult } from '$lib/solutions/simpleRegression';

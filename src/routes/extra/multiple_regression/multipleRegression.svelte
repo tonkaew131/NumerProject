@@ -4,11 +4,11 @@
 	import * as Card from '$lib/components/ui/card';
 
 	// Local components
-	import Graph from './graph.svelte';
 	import Input from './input.svelte';
 
-	import KaTex from '$lib/components/KaTex.svelte';
 	import { formatMatrix, formatVector } from '$lib/components/kaTeX';
+	import KaTex from '$lib/components/KaTex.svelte';
+	import Graph from '$lib/components/graph.svelte';
 
 	import Icon from '@iconify/svelte';
 
@@ -40,41 +40,8 @@
 			yArray: number[];
 		};
 	}
-	let result: resultType & MultipleRegressionResult;
-	// let result: resultType & MultipleRegressionResult = {
-	// 	a: {
-	// 		'0': 3.999999999999999,
-	// 		'1': 2.000000000000001,
-	// 		'2': -3,
-	// 		'3': -2
-	// 	},
-	// 	result: 3.999999999999999,
-	// 	matrixA: [
-	// 		[7, 13, 17, 19],
-	// 		[13, 35, 30, 39],
-	// 		[17, 30, 67, 49],
-	// 		[19, 39, 49, 65]
-	// 	],
-	// 	matrixB: [-35, -46, -171, -123],
-	// 	points: [
-	// 		{
-	// 			xArray: [1, 0, 2, 3, 4, 2, 1],
-	// 			yArray: [4, -5, -6, 0, -1, -7, -20]
-	// 		},
-	// 		{
-	// 			xArray: [0, 1, 4, 2, 1, 3, 6],
-	// 			yArray: [4, -5, -6, 0, -1, -7, -20]
-	// 		},
-	// 		{
-	// 			xArray: [1, 3, 1, 2, 5, 3, 4],
-	// 			yArray: [4, -5, -6, 0, -1, -7, -20]
-	// 		}
-	// 	],
-	// 	line: {
-	// 		xArray: [-0.6000000000000001, 6.6],
-	// 		yArray: [5.799999999999999, -15.799999999999994]
-	// 	}
-	// };
+	export let result: resultType & MultipleRegressionResult;
+	export let input = true;
 
 	let timeSinceLastCalculate = 0;
 	let COOLDOWN_TIME = 5;
@@ -200,7 +167,9 @@
 
 <h3 class="text-center">🥹 Multiple Regression extrapolation</h3>
 
-<Input bind:xValue bind:pointsArray bind:yArray onClickCalculate={() => computeResult()} />
+{#if input}
+	<Input bind:xValue bind:pointsArray bind:yArray onClickCalculate={() => computeResult()} />
+{/if}
 
 <Dialog.Root>
 	<Dialog.Trigger id="trigger-modal" />

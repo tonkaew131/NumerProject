@@ -7,6 +7,7 @@
 	import type { PageData } from './$types';
 	import Regression from '../../extra/regression/regression.svelte';
 	import Graphical from '../../root/graphical/graphical.svelte';
+	import MultipleRegression from '../../extra/multiple_regression/multipleRegression.svelte';
 	export let data: PageData;
 	let result: { status: string; data: any };
 
@@ -41,6 +42,8 @@
 			<Regression result={result.data.output} input={false} />
 		{:else if result.data.solution_type === 'GRAPHICAL'}
 			<Graphical result={result.data.output} input={false} />
+		{:else if result.data.solution_type === 'MULTIPLE_REGRESSION'}
+			<MultipleRegression result={result.data.output} input={false} />
 		{/if}
 	{/if}
 </div>

@@ -26,7 +26,7 @@
 <div class="flex items-end justify-center gap-2 mt-6">
 	<Label class="">
 		X Initial
-		<Input class="bg-white h-11 w-36 mt-2" type="number" bind:value={xStart} placeholder="0.00" />
+		<Input class="bg-white h-11 w-36 mt-2" type="number" bind:value={xStart} placeholder="0.01" />
 	</Label>
 	<Label class="">
 		Error threshold <KaTex data={'\\epsilon'} />
@@ -42,7 +42,12 @@
 <div class="flex items-end justify-center gap-2 mt-1">
 	<Label class="mt-1">
 		<KaTex data={`x_{n+1}=`} />
-		<Input class="bg-white h-11 w-48 mt-1" type="text" bind:value={formula} placeholder="43x-1" />
+		<Input
+			class="bg-white h-11 w-48 mt-1"
+			type="text"
+			bind:value={formula}
+			placeholder="(1+43x)/86"
+		/>
 	</Label>
 	<Button class="h-11" on:click={onClickCalculate}>Calculate!</Button>
 </div>
