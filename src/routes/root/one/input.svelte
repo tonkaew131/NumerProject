@@ -16,7 +16,7 @@
 		{#key formula}
 			<KaTex
 				block
-				data={`x_{n+1} = ${formula || '...'}`}
+				data={`x_{n+1} = ${formula.replaceAll('x', 'x_{n}') || '...'}`}
 				class="mx-auto w-fit text-3xl max-w-full overflow-x-auto"
 			/>
 		{/key}

@@ -31,10 +31,50 @@
 		[key: number]: number;
 	} = {};
 	interface resultType {
-		xArray: number[];
-		yArray: number[];
+		points: {
+			xArray: number[];
+			yArray: number[];
+		}[];
+		line: {
+			xArray: number[];
+			yArray: number[];
+		};
 	}
 	let result: resultType & MultipleRegressionResult;
+	// let result: resultType & MultipleRegressionResult = {
+	// 	a: {
+	// 		'0': 3.999999999999999,
+	// 		'1': 2.000000000000001,
+	// 		'2': -3,
+	// 		'3': -2
+	// 	},
+	// 	result: 3.999999999999999,
+	// 	matrixA: [
+	// 		[7, 13, 17, 19],
+	// 		[13, 35, 30, 39],
+	// 		[17, 30, 67, 49],
+	// 		[19, 39, 49, 65]
+	// 	],
+	// 	matrixB: [-35, -46, -171, -123],
+	// 	points: [
+	// 		{
+	// 			xArray: [1, 0, 2, 3, 4, 2, 1],
+	// 			yArray: [4, -5, -6, 0, -1, -7, -20]
+	// 		},
+	// 		{
+	// 			xArray: [0, 1, 4, 2, 1, 3, 6],
+	// 			yArray: [4, -5, -6, 0, -1, -7, -20]
+	// 		},
+	// 		{
+	// 			xArray: [1, 3, 1, 2, 5, 3, 4],
+	// 			yArray: [4, -5, -6, 0, -1, -7, -20]
+	// 		}
+	// 	],
+	// 	line: {
+	// 		xArray: [-0.6000000000000001, 6.6],
+	// 		yArray: [5.799999999999999, -15.799999999999994]
+	// 	}
+	// };
 
 	let timeSinceLastCalculate = 0;
 	let COOLDOWN_TIME = 5;
@@ -69,6 +109,11 @@
 			yPoints.push(yVal);
 		}
 
+		const xArray: number[] = [];
+		for (const x of Object.values(xValue)) {
+			xArray.push(x);
+		}
+
 		loading = true;
 
 		const res = await fetch('/api/solution/extra/multiple_regression', {
@@ -76,7 +121,7 @@
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ xPointsArray: points, yPoints: yPoints, xValue: xValue })
+			body: JSON.stringify({ xPoints: points, yPoints: yPoints, xArray: xArray })
 		});
 		const jsonData = await res.json();
 
@@ -105,39 +150,47 @@
 
 		result = jsonData.data;
 
-		/* const xArray = [];
-		const yArray = [];
 		let minX = Infinity;
 		let maxX = -Infinity;
+		result.points = [];
+		for (let i = 0; i < points.length; i++) {
+			const pointsArray: { xArray: number[]; yArray: number[] } = { xArray: [], yArray: [] };
+			for (let j = 0; j < points[i].length; j++) {
+				minX = Math.min(minX, points[i][j]);
+				maxX = Math.max(maxX, points[i][j]);
 
-		for (const pt of pointsArray) {
-			minX = Math.min(minX, pt.x);
-			maxX = Math.max(maxX, pt.x);
-
-			xArray.push(pt.x);
-			yArray.push(pt.y);
-		}
-
-		const xLineArray = [];
-		const yLineArray = [];
-		for (let i = 0; i < 1000; i++) {
-			const x = minX + (maxX - minX) * (i / 1000);
-			xLineArray.push(x);
-			let sumY = 0;
-			for (let j = 0; j < Object.keys(result.a).length; j++) {
-				sumY += result.a[j] * Math.pow(x, j);
+				pointsArray.xArray.push(points[i][j]);
+				pointsArray.yArray.push(yPoints[j]);
 			}
-			yLineArray.push(sumY);
+			result.points.push(pointsArray);
 		}
 
-		result.xArray = xArray;
-		result.yArray = yArray;
-		result.xLineArray = xLineArray;
-		result.yLineArray = yLineArray;
-		result.xValue = xValue;
-		result = result;
+		result.line = {
+			xArray: [],
+			yArray: []
+		};
+		let xRange = maxX - minX;
+		minX -= xRange * 0.1;
+		maxX += xRange * 0.1;
+		xRange = maxX - minX;
 
-		console.log(result); */
+		// Line min
+		let sumY = result.a[0];
+		for (let j = 1; j < Object.keys(result.a).length; j++) {
+			sumY += result.a[j] * minX;
+		}
+		result.line.xArray.push(minX);
+		result.line.yArray.push(sumY);
+
+		// Line max
+		sumY = result.a[0];
+		for (let j = 1; j < Object.keys(result.a).length; j++) {
+			sumY += result.a[j] * maxX;
+		}
+		result.line.xArray.push(maxX);
+		result.line.yArray.push(sumY);
+
+		console.log(result);
 	}
 </script>
 
@@ -168,16 +221,23 @@
 			<Graph
 				graphData={[
 					{
-						x: result?.xArray || [],
-						y: result?.yArray || [],
-						type: 'scatter',
-						mode: 'markers',
-						marker: {
-							color: 'red',
-							size: 10
-						},
-						name: 'Points'
-					}
+						x: result?.line?.xArray || [],
+						y: result?.line?.yArray || [],
+						mode: 'lines',
+						line: { color: 'blue', width: 1 },
+						name: 'Regression Line'
+					},
+					...(result?.points || []).map((pt, idx) => {
+						return {
+							x: pt.xArray,
+							y: pt.yArray,
+							mode: 'markers',
+							marker: {
+								size: 6
+							},
+							name: `x${idx + 1}`
+						};
+					})
 				]}
 			/>
 		{/key}
@@ -199,7 +259,7 @@
 					class="w-fit mx-auto"
 					block
 					data={`f(x) = ${result.matrixB
-						.map((_, idx) => `a_{${idx}} ${idx != 0 ? 'x' : ''} ${idx > 1 ? `^{${idx}}` : ''}`)
+						.map((_, idx) => `a_{${idx}} ${idx != 0 ? `x_{${idx}}` : ''}`)
 						.join('+')}
 						`}
 				/>
@@ -213,12 +273,12 @@
 					${formatVector(result.matrixB, precision)}`}
 					block
 				/>
-				<!-- <KaTex class="w-fit mx-auto" data={formatResult()} block />
+				<!-- <KaTex class="w-fit mx-auto" data={formatResult()} block /> -->
 				<KaTex
 					class="w-fit mx-auto"
 					data={`\\therefore f(${result.xValue}) = ${result.result} \\space {\\color{red}\\#}`}
 					block
-				/> -->
+				/>
 			{:else}
 				<p class="text-center text-sm text-muted-foreground py-8">Please enter the points</p>
 			{/if}

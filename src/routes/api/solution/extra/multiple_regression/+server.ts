@@ -1,7 +1,10 @@
 import { json } from '@sveltejs/kit';
 
-import { ExtrapolationProblem, SimpleRegressionSolver } from '$lib/server/extrapolationProblem';
-import { simpleRegression } from '$lib/solutions/simpleRegression';
+import {
+	ExtrapolationMultipleProblem,
+	MultipleRegressionSolver
+} from '$lib/server/extrapolationProblem';
+import { multipleRegression } from '$lib/solutions/multipleRegression';
 
 import type { RequestHandler } from './$types';
 
@@ -26,7 +29,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	const session = await locals.auth.validate();
 	const userId = session?.user?.userId;
 
-	const problem = new ExtrapolationProblem(JSON.stringify(dataJson));
+	const problem = new ExtrapolationMultipleProblem(JSON.stringify(dataJson));
 	problem.setUserId(userId);
 
 	const [input, inputError] = problem.formatInput();
@@ -46,7 +49,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	const [problemId, problemIdError] = await problem.getProblemId('create');
 	// WARNING
 	if (problemIdError || problemId == undefined) {
-		const result = simpleRegression(input.points, input.x, input.m);
+		const result = multipleRegression(input.xPoints, input.yPoints, input.xArray);
 
 		return json(
 			{
@@ -62,13 +65,13 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		);
 	}
 
-	const problemSolved = new SimpleRegressionSolver(problem);
+	const problemSolved = new MultipleRegressionSolver(problem);
 	problemSolved.setUserId(userId);
 
 	const [output, outputError] = await problemSolved.getOutput();
 	// WARNING
 	if (outputError || output == null) {
-		const result = simpleRegression(input.points, input.x, input.m);
+		const result = multipleRegression(input.xPoints, input.yPoints, input.xArray);
 
 		return json(
 			{

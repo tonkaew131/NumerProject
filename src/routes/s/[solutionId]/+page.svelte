@@ -40,7 +40,7 @@
 		{:else if result.data.solution_type === 'SIMPLE_REGRESSION'}
 			<Regression result={result.data.output} input={false} />
 		{:else if result.data.solution_type === 'GRAPHICAL'}
-			<Graphical result={result.data.output} input={false}/>
+			<Graphical result={result.data.output} input={false} />
 		{/if}
 	{/if}
 </div>
