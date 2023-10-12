@@ -64,10 +64,10 @@
 					<Select.Item class="hover:cursor-pointer" value="interpolation">
 						Interpolation
 					</Select.Item>
-
 					<Select.Item class="hover:cursor-pointer" value="extrapolation">
 						Extrapolation
 					</Select.Item>
+					<Select.Item class="hover:cursor-pointer" value="integrate">Integration</Select.Item>
 				</Select.Content>
 			</Select.Root>
 		</Label>
@@ -131,6 +131,15 @@
 					{:else if mode === 'extrapolation'}
 						<Select.Item value="extra-regression">Simple Regression</Select.Item>
 						<Select.Item value="extra-multiple_regression">Multiple Regression</Select.Item>
+					{:else if mode === 'integrate'}
+						<Select.Item value="integrate-trapezoidal" disabled>Trapezoidal Rule</Select.Item>
+						<Select.Item value="integrate-composite_trapezoidal" disabled>
+							Composite Trapezoidal Rule
+						</Select.Item>
+						<Select.Item value="integrate-simpson" disabled>Simpson Rule</Select.Item>
+						<Select.Item value="integrate-composite_simpson" disabled>
+							Composite Simpson Rule
+						</Select.Item>
 					{:else}
 						<Select.Item class="hover:cursor-pointer" value="none" disabled>
 							Please select type of problem
