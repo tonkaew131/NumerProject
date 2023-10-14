@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 
-import { OnePointIterationSolver, OpenRootOfEquationProblem } from '$lib/server/rootProblem';
-import { onePointIteration } from '$lib/solutions/onePoint';
+import { OpenRootOfEquationTwoPointsProblem, SecantMethodSolver } from '$lib/server/rootProblem';
+import { secantMethod } from '$lib/solutions/secant';
 
 import type { RequestHandler } from './$types';
 
@@ -26,7 +26,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	const session = await locals.auth.validate();
 	const userId = session?.user?.userId;
 
-	const problem = new OpenRootOfEquationProblem(JSON.stringify(dataJson));
+	const problem = new OpenRootOfEquationTwoPointsProblem(JSON.stringify(dataJson));
 	problem.setUserId(userId);
 
 	const [input, inputError] = problem.formatInput();
@@ -46,7 +46,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	const [problemId, problemIdError] = await problem.getProblemId('create');
 	// WARNING
 	if (problemIdError || problemId == undefined) {
-		const result = onePointIteration(input.xStart, input.errorFactor, input.func);
+		const result = secantMethod(input.x0, input.x1, input.errorFactor, input.func);
 
 		return json(
 			{
@@ -62,13 +62,13 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		);
 	}
 
-	const problemSolved = new OnePointIterationSolver(problem);
+	const problemSolved = new SecantMethodSolver(problem);
 	problemSolved.setUserId(userId);
 
 	const [output, outputError] = await problemSolved.getOutput();
 	// WARNING
 	if (outputError || output == null) {
-		const result = onePointIteration(input.xStart, input.errorFactor, input.func);
+		const result = secantMethod(input.x0, input.x1, input.errorFactor, input.func);
 
 		return json(
 			{
