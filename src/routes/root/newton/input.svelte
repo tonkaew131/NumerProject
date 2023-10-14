@@ -6,7 +6,7 @@
 	import Label from '$lib/components/ui/label/label.svelte';
 
 	export let onClickCalculate: (e: MouseEvent) => void;
-	export let xStart: number;
+	export let xStart: number | string;
 	export let formula = '';
 	export let errorFactor = 0.000001;
 </script>

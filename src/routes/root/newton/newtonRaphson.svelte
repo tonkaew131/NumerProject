@@ -9,9 +9,11 @@
 	import * as Tabs from '$lib/components/ui/tabs';
 
 	import Input from './input.svelte';
+	import { newtonRaphson, type NewtonRaphsonResult } from '$lib/solutions/newtonRaphson';
+	import { evaluate } from 'mathjs';
 
 	let inputData = {
-		xStart: 0,
+		xStart: '',
 		formula: '',
 		errorFactor: 0.000001
 	};
@@ -21,7 +23,133 @@
 		description: ''
 	};
 
+	let result: NewtonRaphsonResult & {
+		graphLine: {
+			x: number[];
+			y: number[];
+		};
+		slopeLine: {
+			x: number[];
+			y: number[];
+		}[];
+		minX: number;
+		maxX: number;
+	};
+
 	let loading = false;
+
+	let timeSinceLastCalculate = 0;
+	let COOLDOWN_TIME = 5;
+	async function computeResult() {
+		if (timeSinceLastCalculate == 0) timeSinceLastCalculate = Date.now();
+		else if (Date.now() - timeSinceLastCalculate < COOLDOWN_TIME * 1000) {
+			const timeLeft = COOLDOWN_TIME - (Date.now() - timeSinceLastCalculate) / 1000;
+			modalMessage = {
+				title: 'Calculation Error!',
+				description: `Please wait for ${COOLDOWN_TIME} seconds before calculating again (${timeLeft.toFixed(
+					1
+				)}s)`
+			};
+
+			document?.getElementById('trigger-modal')!.click();
+			return;
+		}
+
+		timeSinceLastCalculate = Date.now();
+		loading = true;
+
+		const res = await fetch('/api/solution/root/newton', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				xStart: inputData.xStart,
+				errorFactor: inputData.errorFactor,
+				func: inputData.formula
+			})
+		});
+		const jsonData = await res.json();
+
+		loading = false;
+		if (jsonData.error) {
+			modalMessage = {
+				title: 'Calculation Error!',
+				description: jsonData.error.message
+			};
+
+			document?.getElementById('trigger-modal')!.click();
+
+			console.log(jsonData);
+
+			return;
+		}
+
+		if (jsonData.warning) {
+			modalMessage = {
+				title: 'Calculation Warning!',
+				description: jsonData.warning.message
+			};
+
+			document?.getElementById('trigger-modal')!.click();
+		}
+
+		result = jsonData.data;
+
+		const resultIterations = newtonRaphson(
+			Number(inputData.xStart),
+			Number(inputData.errorFactor),
+			inputData.formula
+		);
+		result.iterations = resultIterations.iterations;
+
+		if (result.iterations == undefined) {
+			modalMessage = {
+				title: 'Calculation Warning!',
+				description: 'The function is not convergent'
+			};
+
+			document?.getElementById('trigger-modal')!.click();
+			return;
+		}
+
+		formatResultData();
+	}
+
+	function formatResultData() {
+		if (result.iterations == undefined) return;
+
+		result.slopeLine = [];
+		result.minX = Infinity;
+		result.maxX = -Infinity;
+		for (let i = 0; i < result.iterations.length; i++) {
+			const currIter = result.iterations[i];
+
+			if (currIter.x < result.minX) result.minX = currIter.x;
+			if (currIter.x > result.maxX) result.maxX = currIter.x;
+
+			result.slopeLine.push({
+				x: [currIter.x, result.iterations[i != result.iterations.length - 1 ? i + 1 : i].x],
+				y: [currIter.y, 0]
+			});
+		}
+
+		let range = result.maxX - result.minX;
+		result.minX = result.minX - range * 0.1;
+		result.maxX = result.maxX + range * 0.1;
+		result.graphLine = {
+			x: [],
+			y: []
+		};
+		for (let i = 0; i < 100; i++) {
+			const x = result.minX + (i / 100) * (result.maxX - result.minX);
+			result.graphLine.x.push(x);
+			result.graphLine.y.push(evaluate(inputData.formula, { x }));
+		}
+
+		// result = result;
+		console.log(result);
+	}
 </script>
 
 <svelte:head>
@@ -32,7 +160,7 @@
 <h3 class="text-center">🥹 Newton-Raphson methods</h3>
 
 <Input
-	onClickCalculate={() => console.log()}
+	onClickCalculate={() => computeResult()}
 	bind:xStart={inputData.xStart}
 	bind:formula={inputData.formula}
 	bind:errorFactor={inputData.errorFactor}
@@ -53,9 +181,36 @@
 <Card.Root class="">
 	<Card.Content class="py-5">
 		<KaTex data={'\\text{Graph}'} class="pl-6" block />
-		<!-- {#key result} -->
-		<Graph graphData={[]} />
-		<!-- {/key} -->
+		{#key result}
+			<Graph
+				graphData={[
+					{
+						x: result?.graphLine?.x || [],
+						y: result?.graphLine?.y || [],
+						mode: 'lines',
+						line: {
+							width: 2
+						},
+						name: 'f(x)'
+					},
+					...(result?.slopeLine || []).map((ln, idx) => {
+						return {
+							x: ln.x,
+							y: ln.y,
+							mode: 'lines+markers',
+							line: {
+								color: 'red',
+								width: 2
+							},
+							marker: {
+								color: 'black'
+							},
+							name: `f'(x${idx})`
+						};
+					})
+				]}
+			/>
+		{/key}
 	</Card.Content>
 </Card.Root>
 
@@ -75,11 +230,11 @@
 				{/if}
 				<Table.Root>
 					<Table.Caption>
-						<!-- {#if result?.iterations != undefined}
+						{#if result?.iterations != undefined}
 							Total number of iterations: {result.iterations.length}
 						{:else}
 							Please enter the formula
-						{/if} -->
+						{/if}
 					</Table.Caption>
 					<Table.Header>
 						<Table.Head class="w-12">
@@ -96,7 +251,7 @@
 						</Table.Head>
 					</Table.Header>
 					<Table.Body>
-						<!-- {#if result?.iterations}
+						{#if result?.iterations}
 							{@const precision = 6}
 							{#each result.iterations as it, idx}
 								<Table.Row>
@@ -106,7 +261,7 @@
 									<Table.Cell>{parseFloat((Math.abs(it.y) * 100).toFixed(6))}%</Table.Cell>
 								</Table.Row>
 							{/each}
-						{/if} -->
+						{/if}
 					</Table.Body>
 				</Table.Root>
 			</Card.Content>
