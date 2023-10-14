@@ -15,6 +15,16 @@ export function falsePositionMethod(
 ): FalsePositionResult {
 	const result: FalsePositionResult = { result: 0, iter: 0, iterations: [] };
 
+	if (!func || func.trim().length == 0) {
+		result.error = 'Invalid function';
+		return result;
+	}
+
+	if (xStart >= xEnd) {
+		result.error = 'xStart must be less than xEnd';
+		return result;
+	}
+
 	const calculateX1 = (xl: number, xr: number) => {
 		const fr = evaluate(func, { x: xr });
 		const fl = evaluate(func, { x: xl });

@@ -15,6 +15,16 @@ export function bisectionSearch(
 ): BisectionResult {
 	const result: BisectionResult = { result: 0, iter: 0, iterations: [] };
 
+	if (!func || func.trim().length == 0) {
+		result.error = 'Invalid function';
+		return result;
+	}
+
+	if (xStart >= xEnd) {
+		result.error = 'xStart must be less than xEnd';
+		return result;
+	}
+
 	const MAX_ITER = 1000;
 	let iter = 0;
 	let temp = 0;

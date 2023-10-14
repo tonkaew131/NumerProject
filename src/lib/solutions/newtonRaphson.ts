@@ -14,6 +14,11 @@ export function newtonRaphson(
 ): NewtonRaphsonResult {
 	const result: NewtonRaphsonResult = { result: 0, iter: 0, iterations: [] };
 
+	if (!func || func.trim().length == 0) {
+		result.error = 'Invalid function';
+		return result;
+	}
+
 	let f1x = '';
 	try {
 		f1x = derivative(func, 'x').toString();

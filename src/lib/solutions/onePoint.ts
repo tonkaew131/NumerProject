@@ -14,6 +14,11 @@ export function onePointIteration(
 ): OnePointIterationResult {
 	const result: OnePointIterationResult = { result: 0, iter: 0, iterations: [] };
 
+	if (!func || func.trim().length == 0) {
+		result.error = 'Invalid function';
+		return result;
+	}
+
 	try {
 		evaluate(func, { x: xStart });
 	} catch (error) {

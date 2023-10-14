@@ -15,6 +15,11 @@ export function graphicalMethod(
 ): GraphicalResult {
 	const result: GraphicalResult = { result: 0, iter: 0, iterations: [] };
 
+	if (!func || func.trim().length == 0) {
+		result.error = 'Invalid function';
+		return result;
+	}
+
 	if (xStart >= xEnd) {
 		result.error = 'xStart must be less than xEnd';
 		return result;
