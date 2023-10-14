@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import { evaluate } from 'mathjs';
 
 	import Graph from '$lib/components/graph.svelte';
 	import KaTex from '$lib/components/KaTex.svelte';
@@ -7,10 +8,9 @@
 	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Table from '$lib/components/ui/table';
 	import * as Tabs from '$lib/components/ui/tabs';
+	import { newtonRaphson, type NewtonRaphsonResult } from '$lib/solutions/newtonRaphson';
 
 	import Input from './input.svelte';
-	import { newtonRaphson, type NewtonRaphsonResult } from '$lib/solutions/newtonRaphson';
-	import { evaluate } from 'mathjs';
 
 	let inputData = {
 		xStart: '',
