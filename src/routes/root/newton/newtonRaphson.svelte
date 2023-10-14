@@ -253,7 +253,7 @@
 							{#each result.iterations as it, idx}
 								<Table.Row>
 									<Table.Cell>{idx}</Table.Cell>
-									<Table.Cell>{parseFloat(it.x.toFixed(precision))}</Table.Cell>
+									<Table.Cell>{parseFloat(it.x.toFixed(precision * 2))}</Table.Cell>
 									<Table.Cell>{parseFloat(it.y.toFixed(precision))}</Table.Cell>
 									<Table.Cell>{parseFloat((Math.abs(it.y) * 100).toFixed(6))}%</Table.Cell>
 								</Table.Row>

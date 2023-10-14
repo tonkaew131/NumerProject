@@ -17,7 +17,7 @@
 		{#key formula}
 			<KaTex
 				block
-				data={`f(x) = ${formula.replaceAll('x', 'x_{n}') || '...'}`}
+				data={`f(x) = ${formula || '...'}`}
 				class="mx-auto w-fit text-3xl max-w-full overflow-x-auto"
 			/>
 		{/key}
@@ -31,7 +31,7 @@
 	</Label>
 	<Label class="mt-1">
 		<KaTex data={`x_{1}`} />
-		<Input class="bg-white h-11 w-24 mt-2" type="number" bind:value={x1} placeholder="1.00" />
+		<Input class="bg-white h-11 w-24 mt-2" type="number" bind:value={x1} placeholder="1.50" />
 	</Label>
 	<Label class="">
 		Error threshold <KaTex data={'\\epsilon'} />
