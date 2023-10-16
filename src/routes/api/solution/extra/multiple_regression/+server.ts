@@ -87,7 +87,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		);
 	}
 
-	if (output.error) {
+	if ('error' in output && output.error) {
 		return json(
 			{
 				status: 'error',
