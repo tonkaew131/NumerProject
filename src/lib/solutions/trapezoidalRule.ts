@@ -35,6 +35,11 @@ export function trapezoidalRule(
 		return result;
 	}
 
+	if (func.trim() == '') {
+		result.error = 'Invalid function';
+		return result;
+	}
+
 	const h = (xEnd - xStart) / n;
 	let sumAll = 0;
 	// from 1 to n - 1
