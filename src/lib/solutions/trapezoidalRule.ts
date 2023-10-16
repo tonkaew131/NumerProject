@@ -30,7 +30,7 @@ export function trapezoidalRule(
 		return result;
 	}
 
-	if (n > 1000) {
+	if (n > 100) {
 		result.error = 'n too large';
 		return result;
 	}
@@ -52,4 +52,4 @@ export function trapezoidalRule(
 	return result;
 }
 
-console.log(trapezoidalRule(2, 8, '4x^5 - 3x^4 + x^3 - 6x + 2', 6));
+// console.log(trapezoidalRule(2, 8, '4x^5 - 3x^4 + x^3 - 6x + 2', 6));
