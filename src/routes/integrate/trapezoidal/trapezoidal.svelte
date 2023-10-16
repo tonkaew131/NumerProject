@@ -230,7 +230,7 @@
 								width: 2
 							}
 						},
-						...trapezoidLine(result)
+						...trapezoidLine()
 					]
 				}}
 			/>
