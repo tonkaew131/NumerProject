@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { evaluate } from 'mathjs';
+	import type { Shape } from 'plotly.js';
 
 	import Graph from '$lib/components/graph.svelte';
 	import KaTex from '$lib/components/KaTex.svelte';
@@ -9,7 +10,6 @@
 	import type { TrapezoidalResult } from '$lib/solutions/trapezoidalRule';
 
 	import Input from './input.svelte';
-	import type { Shape } from 'plotly.js';
 	let inputData = {
 		xStart: '',
 		xEnd: '',
@@ -24,6 +24,7 @@
 	let loading = false;
 
 	let result: TrapezoidalResult & {
+		input: typeof inputData;
 		graphLine: {
 			x: number[];
 			y: number[];
@@ -100,6 +101,7 @@
 		}
 
 		result = jsonData.data;
+		result.input = inputData;
 		formatResultData();
 	}
 
@@ -245,37 +247,47 @@
 			<div class="w-full flex justify-center py-16">
 				<Icon icon="eos-icons:loading" class="text-center text-6xl text-primary" />
 			</div>
+		{:else}
+			{#key result}
+				{#if result}
+					{@const precision = 6}
+					<KaTex
+						class="w-fit mx-auto"
+						block
+						data={`
+					\\displaystyle
+					\\text{Evaluate} \\quad\\quad
+					I = \\int^{${result.input.xEnd}}_{${result.input.xStart}} f(x) \\space dx
+					\\space = \\int^{${result.input.xEnd}}_{${result.input.xStart}} ${
+							result.input.formula
+						} \\space dx \\\\
+					Here \\quad\\quad\\quad\\space
+					x_0 = a = ${result.input.xStart}; \\space
+					f(x_0) = ${result.input.formula.replaceAll('x', `(${result.input.xStart})`)}
+					= ${result.fx.start} \\\\
+					\\quad\\quad\\quad\\quad\\quad\\space\\space
+					x_1 = b = ${result.input.xEnd}; \\space
+					f(x_1) = ${result.input.formula.replaceAll('x', `(${result.input.xEnd})`)}
+					= ${result.fx.end} \\\\
+					Thus \\kern{3.6em}
+					I = \\dfrac{h}{2}[f(x_0)+f(x_1)] 
+					= \\dfrac{${result.input.xEnd}-(${result.input.xStart})}{2}(${result.fx.start}+${result.fx.end})
+					= ${result.result}
+					`}
+					/>
+					<!-- <KaTex
+					class="w-fit mx-auto"
+					block
+					data={`
+					\\displaystyle
+					\\text{Thus the true error is:} \\\\
+					\\epsilon_t = | \\dfrac{1}{2} | \\times 100\\% = ${0}
+				`}
+				/> -->
+				{:else}
+					<p class="text-center text-sm text-muted-foreground py-8">Please enter the function</p>
+				{/if}
+			{/key}
 		{/if}
-		<!-- {#key result}
-					{#if result}
-						{@const precision = 6}
-						<KaTex
-							class="w-fit mx-auto"
-							block
-							data={`f(x) = ${result.matrixB
-								.map((_, idx) => `a_{${idx}} ${idx != 0 ? 'x' : ''} ${idx > 1 ? `^{${idx}}` : ''}`)
-								.join('+')}
-								`}
-						/>
-						<KaTex
-							class="w-fit mx-auto"
-							data={`${formatMatrix(result.matrixA, precision)}
-							\\begin{Bmatrix}
-							${result.matrixB.map((_, idx) => `a_{${idx}}`).join('\\\\')}
-							\\end{Bmatrix}
-							= 
-							${formatVector(result.matrixB, precision)}`}
-							block
-						/>
-						<KaTex class="w-fit mx-auto" data={formatResult()} block />
-						<KaTex
-							class="w-fit mx-auto"
-							data={`\\therefore f(${result.xValue}) = ${result.result} \\space {\\color{red}\\#}`}
-							block
-						/>
-					{:else}
-						<p class="text-center text-sm text-muted-foreground py-8">Please enter the points</p>
-					{/if}
-				{/key} -->
 	</Card.Content>
 </Card.Root>
