@@ -61,6 +61,16 @@ export class IntegrateProblem extends Problem {
 		}
 		const newN = Number(n);
 
+		if (typeof func != 'string' || func.trim() == '') {
+			return [
+				null,
+				{
+					message: 'f(x) is required!',
+					status: 400
+				}
+			];
+		}
+
 		const newData = {
 			xStart: newXStart,
 			xEnd: newXEnd,

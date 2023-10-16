@@ -205,7 +205,7 @@
 	<meta name="description" content="Single Trapezoidal Rule - Numerical Integration" />
 </svelte:head>
 
-<h3 class="text-center">🥹 Single Trapezoidal Rule</h3>
+<h3 class="text-center">🥹 Composite Trapezoidal Rule</h3>
 
 <Input
 	bind:xStart={inputData.xStart}
