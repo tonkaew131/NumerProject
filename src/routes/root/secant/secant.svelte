@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import { evaluate } from 'mathjs';
 
 	import Graph from '$lib/components/graph.svelte';
 	import KaTex from '$lib/components/KaTex.svelte';
@@ -11,7 +12,6 @@
 	import { secantMethod } from '$lib/solutions/secant';
 
 	import Input from './input.svelte';
-	import { evaluate } from 'mathjs';
 
 	let inputData = {
 		x0: '',

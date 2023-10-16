@@ -1,11 +1,12 @@
 <script lang="ts">
-	import type { Data } from 'plotly.js';
+	import type { Data, Layout } from 'plotly.js';
 	import { onMount } from 'svelte';
 
 	import { browser } from '$app/environment';
 	import Skeleton from '$lib/components/ui/skeleton/skeleton.svelte';
 
 	export let graphData: Data[] = [];
+	export let layout: Partial<Layout> | undefined = {};
 
 	onMount(async () => {
 		const Plotly = await import('plotly.js-dist-min');
@@ -18,7 +19,8 @@
 				graphData,
 				{
 					margin: { t: 0, r: 0 },
-					dragmode: 'pan'
+					dragmode: 'pan',
+					...layout
 				},
 				{
 					scrollZoom: true

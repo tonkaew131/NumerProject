@@ -31,11 +31,11 @@
 <div class="flex items-end justify-center gap-2 mt-6">
 	<Label class="mt-1">
 		<KaTex data={`a = x_{0}`} />
-		<Input class="bg-white h-11 w-24 mt-2" type="number" bind:value={xStart} placeholder="1.00" />
+		<Input class="bg-white h-11 w-24 mt-2" type="number" bind:value={xStart} placeholder="2" />
 	</Label>
 	<Label class="mt-1">
 		<KaTex data={`b = x_{1}`} />
-		<Input class="bg-white h-11 w-24 mt-2" type="number" bind:value={xEnd} placeholder="1.50" />
+		<Input class="bg-white h-11 w-24 mt-2" type="number" bind:value={xEnd} placeholder="8" />
 	</Label>
 	<Button class="h-11" on:click={onClickCalculate}>Calculate!</Button>
 </div>
@@ -47,7 +47,7 @@
 			class="bg-white h-11 w-[19rem] mt-1"
 			type="text"
 			bind:value={formula}
-			placeholder="x^2-7"
+			placeholder="4x^5-3x^4+x^3-6x+2"
 		/>
 	</Label>
 </div>
