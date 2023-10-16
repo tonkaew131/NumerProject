@@ -132,7 +132,7 @@
 						<Select.Item value="extra-regression">Simple Regression</Select.Item>
 						<Select.Item value="extra-multiple_regression">Multiple Regression</Select.Item>
 					{:else if mode === 'integrate'}
-						<Select.Item value="integrate-trapezoidal" disabled>Trapezoidal Rule</Select.Item>
+						<Select.Item value="integrate-trapezoidal">Trapezoidal Rule</Select.Item>
 						<Select.Item value="integrate-composite_trapezoidal" disabled>
 							Composite Trapezoidal Rule
 						</Select.Item>
