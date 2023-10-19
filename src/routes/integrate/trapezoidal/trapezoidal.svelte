@@ -8,6 +8,7 @@
 	import * as Card from '$lib/components/ui/card';
 	import * as Dialog from '$lib/components/ui/dialog';
 	import type { TrapezoidalResult } from '$lib/solutions/trapezoidalRule';
+	import { trapezoidalRule } from '$lib/solutions/trapezoidalRule';
 
 	import Input from './input.svelte';
 	let inputData = {

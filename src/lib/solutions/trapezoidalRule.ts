@@ -57,4 +57,9 @@ export function trapezoidalRule(
 	return result;
 }
 
-// console.log(trapezoidalRule(2, 8, '4x^5 - 3x^4 + x^3 - 6x + 2', 6));
+// console.log({
+// 	single: trapezoidalRule(2, 8, '4x^5 - 3x^4 + x^3 - 6x + 2', 1),
+// 	n2: trapezoidalRule(2, 8, '4x^5 - 3x^4 + x^3 - 6x + 2', 2),
+// 	n4: trapezoidalRule(2, 8, '4x^5 - 3x^4 + x^3 - 6x + 2', 4),
+// 	n6: trapezoidalRule(2, 8, '4x^5 - 3x^4 + x^3 - 6x + 2', 6)
+// });
