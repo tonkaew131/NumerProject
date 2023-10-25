@@ -121,6 +121,9 @@
 						<Select.Item class="hover:cursor-pointer" value="linear-jacobi" disabled>
 							Jacobi Iteration Methods
 						</Select.Item>
+						<Select.Item class="hover:cursor-pointer" value="linear-seidal" disabled>
+							Guass-Seidal Iteration Methods
+						</Select.Item>
 						<Select.Item class="hover:cursor-pointer" value="linear-conjugate" disabled>
 							Conjugate Gradient Methods
 						</Select.Item>
