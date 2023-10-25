@@ -102,3 +102,130 @@ export const generateId = (length = 6): string => {
 	}
 	return output.join('');
 };
+
+export const isValidMatrix = (matrix: unknown): boolean => {
+	if (typeof matrix !== 'object' || typeof matrix == null) {
+		return false;
+	}
+
+	const matrixObj = Object(matrix);
+
+	// not iterable
+	if (typeof matrixObj[Symbol.iterator] !== 'function') {
+		return false;
+	}
+
+	for (const row in matrixObj) {
+		if (typeof row !== 'object' || typeof row == null) {
+			return false;
+		}
+
+		const rowObj = Object(row);
+
+		// not iterable
+		if (typeof rowObj[Symbol.iterator] !== 'function') {
+			return false;
+		}
+
+		for (const col in rowObj) {
+			if (typeof col == null || isNaN(Number(col))) {
+				return false;
+			}
+		}
+	}
+
+	return true;
+};
+
+export const isValidArray = (array: unknown): boolean => {
+	if (typeof array !== 'object' || typeof array == null) {
+		return false;
+	}
+
+	const arrayObj = Object(array);
+
+	// not iterable
+	if (typeof arrayObj[Symbol.iterator] !== 'function') {
+		return false;
+	}
+
+	for (const row in arrayObj) {
+		if (typeof row == null || isNaN(Number(row))) {
+			return false;
+		}
+	}
+
+	return true;
+};
+
+export const formatMatrix = (matrix: unknown): number[][] | null => {
+	if (typeof matrix !== 'object' || typeof matrix == null) {
+		return null;
+	}
+
+	const matrixObj = Object(matrix);
+
+	// not iterable
+	if (typeof matrixObj[Symbol.iterator] !== 'function') {
+		return null;
+	}
+
+	const newMatrix: number[][] = [];
+	const baseCol: number = matrixObj[0].length;
+
+	for (const row in matrixObj) {
+		if (typeof row !== 'object' || typeof row == null) {
+			return null;
+		}
+
+		const rowObj = Object(row);
+
+		// not iterable
+		if (typeof rowObj[Symbol.iterator] !== 'function') {
+			return null;
+		}
+
+		const newRow: number[] = [];
+
+		if (rowObj.length != baseCol) {
+			return null;
+		}
+
+		for (const col in rowObj) {
+			if (typeof col == null || isNaN(Number(col))) {
+				return null;
+			}
+
+			newRow.push(Number(col));
+		}
+
+		newMatrix.push(newRow);
+	}
+
+	return newMatrix;
+};
+
+export const formatArray = (array: unknown): number[] | null => {
+	if (typeof array !== 'object' || typeof array == null) {
+		return null;
+	}
+
+	const arrayObj = Object(array);
+
+	// not iterable
+	if (typeof arrayObj[Symbol.iterator] !== 'function') {
+		return null;
+	}
+
+	const newArray: number[] = [];
+
+	for (const row in arrayObj) {
+		if (typeof row == null || isNaN(Number(row))) {
+			return null;
+		}
+
+		newArray.push(Number(row));
+	}
+
+	return newArray;
+};
