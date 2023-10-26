@@ -5,10 +5,19 @@
 	import { differentiation } from '$lib/solutions/differentiation';
 
 	import Input from './input.svelte';
+
+	let inputData = {
+		order: '',
+		error: '',
+		direction: '',
+		func: ''
+	};
+
 	let modalMessage = {
 		title: '',
 		description: ''
 	};
+	let loading = false;
 </script>
 
 <svelte:head>
@@ -18,7 +27,13 @@
 
 <h3 class="text-center">🥹 Numerical Differentiation</h3>
 
-<Input />
+<Input
+	onClickCalculate={() => console.log('clicked')}
+	bind:order={inputData.order}
+	bind:error={inputData.error}
+	bind:direction={inputData.direction}
+	bind:formula={inputData.func}
+/>
 
 <Dialog.Root>
 	<Dialog.Trigger id="trigger-modal" />
