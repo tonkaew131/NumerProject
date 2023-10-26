@@ -106,10 +106,10 @@
 							Secant methods
 						</Select.Item>
 					{:else if mode === 'linear'}
-						<Select.Item class="hover:cursor-pointer" value="linear-cramer" disabled>
+						<Select.Item class="hover:cursor-pointer" value="linear-cramer">
 							Cramer's rule
 						</Select.Item>
-						<Select.Item class="hover:cursor-pointer" value="linear-guass">
+						<Select.Item class="hover:cursor-pointer" value="linear-guass" disabled>
 							Guass elimination
 						</Select.Item>
 						<Select.Item class="hover:cursor-pointer" value="linear-jordan" disabled>
