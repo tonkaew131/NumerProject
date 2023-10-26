@@ -7,6 +7,7 @@
 	import Guass from '../../linear/guass/guass.svelte';
 	import Graphical from '../../root/graphical/graphical.svelte';
 	import type { PageData } from './$types';
+	import Cramer from '../../linear/cramer/cramer.svelte';
 	export let data: PageData;
 	let result: { status: string; data: any };
 
@@ -18,6 +19,7 @@
 			const jsonData = await res.json();
 			result = jsonData;
 			loading = false;
+
 			console.log(result);
 		};
 
@@ -43,6 +45,8 @@
 			<Graphical result={result.data.output} input={false} />
 		{:else if result.data.solution_type === 'MULTIPLE_REGRESSION'}
 			<MultipleRegression result={result.data.output} input={false} />
+		{:else if result.data.solution_type === 'CRAMER'}
+			<Cramer result={{ ...result.data.output, input: result.data.problem.input }} input={false} />
 		{/if}
 	{/if}
 </div>
