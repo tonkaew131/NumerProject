@@ -116,25 +116,25 @@
 {/if}
 
 <Card.Root class="w-full mt-12">
-	<Card.Content class="">
-		<p class="mb-0">
-			{#if loading}
-				<div class="w-full flex justify-center py-16">
-					<Icon icon="eos-icons:loading" class="text-center text-6xl text-primary" />
-				</div>
-			{:else}
-				{#key result}
-					{#if result}
-						<KaTeX class="pl-6" data={`\\text{Forward Elimination}`} block />
-						{#each result.iterations.filter((e) => e.type !== 'back') as it, idx}
-							{@const oldMatrix =
-								idx != 0
-									? result?.iterations[idx - 1]?.matrix
-									: composeMatrix(result.input.matrixA, result.input.arrayB)}
-							{#if oldMatrix && it.matrix}
-								{#if it.type == 'forw'}
-									<KaTeX
-										data={`
+	<Card.Content class="py-5">
+		<KaTeX class="pl-6" data={`\\text{Solution}`} block />
+		{#if loading}
+			<div class="w-full flex justify-center py-16">
+				<Icon icon="eos-icons:loading" class="text-center text-6xl text-primary" />
+			</div>
+		{:else}
+			{#key result}
+				{#if result}
+					<KaTeX class="pl-6" data={`\\text{Forward Elimination}`} block />
+					{#each result.iterations.filter((e) => e.type !== 'back') as it, idx}
+						{@const oldMatrix =
+							idx != 0
+								? result?.iterations[idx - 1]?.matrix
+								: composeMatrix(result.input.matrixA, result.input.arrayB)}
+						{#if oldMatrix && it.matrix}
+							{#if it.type == 'forw'}
+								<KaTeX
+									data={`
 						\\text{factor}:
 						\\dfrac{a_{${it.j + 1}${it.j + 1}}}
 						{a_{${it.i + 1}${it.j + 1}}} = 
@@ -142,25 +142,25 @@
 						{${parseFloat(oldMatrix[it.i][it.j].toFixed(precision))}} = 
 						${parseFloat(it.factor?.toFixed(precision) || '0')}
 						`}
-										class="flex justify-center"
-										block
-									/>
-									<KaTeX
-										class="flex justify-center"
-										data={`
+									class="flex justify-center"
+									block
+								/>
+								<KaTeX
+									class="flex justify-center"
+									data={`
 										${formatMatrix(oldMatrix, precision, [
 											[it.i, it.j],
 											[it.j, it.j]
 										])}
 										 \\xrightarrow[]{\\text{R${it.i + 1}}\\space \\rArr \\space \\text{f} \\times \\text{R${
-											it.i + 1
-										}}-\\text{R${it.j + 1}}} ${formatMatrix(it.matrix, precision)}`}
-										block
-									/>
-								{:else}
-									<KaTeX
-										class="flex justify-center"
-										data={`
+										it.i + 1
+									}}-\\text{R${it.j + 1}}} ${formatMatrix(it.matrix, precision)}`}
+									block
+								/>
+							{:else}
+								<KaTeX
+									class="flex justify-center"
+									data={`
 											${formatMatrix(oldMatrix, precision)}
 											 \\xrightarrow[]{
 												\\text{R${it.i + 1}} \\space 
@@ -169,16 +169,16 @@
 											} 
 											${formatMatrix(it.matrix, precision)}
 											`}
-										block
-									/>
-								{/if}
+									block
+								/>
 							{/if}
-						{/each}
-						<KaTeX class="pl-6" data={`\\text{Back Subtiution}`} block />
-						{#each result.iterations.filter((e) => e.type == 'back') as it}
-							<KaTeX
-								class="flex justify-center"
-								data={`
+						{/if}
+					{/each}
+					<KaTeX class="pl-6" data={`\\text{Back Subtiution}`} block />
+					{#each result.iterations.filter((e) => e.type == 'back') as it}
+						<KaTeX
+							class="flex justify-center"
+							data={`
 									x_${it.i + 1} = 
 									\\dfrac{
 										b_{${it.i + 1}}${it.sumIdx?.length == 0 ? '' : '-'}
@@ -187,21 +187,20 @@
 									=
 									${parseFloat((it.value || 0).toFixed(precision))}
 								`}
-								block
-							/>
-						{/each}
-						<KaTeX
-							class="flex justify-center"
-							data={result.answers
-								?.map((e, idx) => ` x_${idx + 1} = ${parseFloat(e.toFixed(precision))}`)
-								.join(', \\space')}
 							block
 						/>
-					{:else}
-						<p class="text-center text-sm text-muted-foreground">Please enter the matrix</p>
-					{/if}
-				{/key}
-			{/if}
-		</p>
+					{/each}
+					<KaTeX
+						class="flex justify-center"
+						data={result.answers
+							?.map((e, idx) => ` x_${idx + 1} = ${parseFloat(e.toFixed(precision))}`)
+							.join(', \\space')}
+						block
+					/>
+				{:else}
+					<p class="text-center text-sm text-muted-foreground">Please enter the matrix</p>
+				{/if}
+			{/key}
+		{/if}
 	</Card.Content>
 </Card.Root>
