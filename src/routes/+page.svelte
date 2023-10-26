@@ -68,6 +68,7 @@
 						Extrapolation
 					</Select.Item>
 					<Select.Item class="hover:cursor-pointer" value="integrate">Integration</Select.Item>
+					<Select.Item class="hover:cursor-pointer" value="diff">Differentiation</Select.Item>
 				</Select.Content>
 			</Select.Root>
 		</Label>
