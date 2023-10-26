@@ -173,7 +173,8 @@ export const formatMatrix = (matrix: unknown): number[][] | null => {
 	const newMatrix: number[][] = [];
 	const baseCol: number = matrixObj[0].length;
 
-	for (const row in matrixObj) {
+	for (let i = 0; i < matrixObj.length; i++) {
+		const row = matrixObj[i];
 		if (typeof row !== 'object' || typeof row == null) {
 			return null;
 		}
@@ -191,7 +192,8 @@ export const formatMatrix = (matrix: unknown): number[][] | null => {
 			return null;
 		}
 
-		for (const col in rowObj) {
+		for (let j = 0; j < rowObj.length; j++) {
+			const col = rowObj[j];
 			if (typeof col == null || isNaN(Number(col))) {
 				return null;
 			}
@@ -219,7 +221,9 @@ export const formatArray = (array: unknown): number[] | null => {
 
 	const newArray: number[] = [];
 
-	for (const row in arrayObj) {
+	for (let i = 0; i < arrayObj.length; i++) {
+		const row = arrayObj[i];
+
 		if (typeof row == null || isNaN(Number(row))) {
 			return null;
 		}
