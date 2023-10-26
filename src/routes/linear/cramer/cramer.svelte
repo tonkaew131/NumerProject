@@ -1,16 +1,13 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 
-	import { formatMatrix } from '$lib/components/kaTeX';
-	import KaTeX from '$lib/components/KaTex.svelte';
+	import { formatMatrixPipe } from '$lib/components/kaTeX';
 	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import * as Dialog from '$lib/components/ui/dialog';
-	import * as Tabs from '$lib/components/ui/tabs';
 	import { createArray, createMatrix } from '$lib/utils';
 	import type { CramerResult } from '$lib/solutions/cramer';
-
-	export let precision = 4;
+	import KaTex from '$lib/components/KaTex.svelte';
 
 	let modalMessage = {
 		title: '',
@@ -26,7 +23,7 @@
 
 	export let input = true;
 
-	export let result: CramerResult;
+	export let result: CramerResult & { input: typeof inputData };
 
 	let timeSinceLastCalculate = 0;
 	let COOLDOWN_TIME = 5;
@@ -81,10 +78,9 @@
 		}
 
 		result = jsonData.data;
+		result.input = inputData;
 
 		console.log(result);
-		// result.input = inputData;
-		// formatResultData();
 	}
 </script>
 
@@ -118,73 +114,54 @@
 	</Dialog.Root>
 {/if}
 
-<Card.Root class="w-full mt-12 overflow-auto">
-	<Card.Content class="mb-0 pt-5">
-		Hi :D
-		<!-- {#key result}
-						<KaTeX class="pl-6" data={`\\text{Forward Elimination}`} block />
-						{#if result?.iterations && result?.iterations.length > 0}
-							{#each result.iterations as it}
-								{#if it.matrix && it.matrixk_1}
-									<KaTeX
-										data={`\\text{factor}: \\dfrac{a_{${it.j + 1}${it.j + 1}}}{a_{${it.i + 1}${
-											it.j + 1
-										}}} = \\dfrac{${it.matrixk_1[it.j][it.j].toFixed(precision)}}{${it.matrixk_1[
-											it.i
-										][it.j].toFixed(precision)}} = ${it.factor?.toFixed(precision)}`}
-										class="flex justify-center"
-										block
-									/>
-									<KaTeX
-										class="flex justify-center"
-										data={`${formatMatrix(it.matrixk_1, precision, [
-											[it.i, it.j],
-											[it.j, it.j]
-										])} \\xrightarrow[]{\\text{R${
-											it.i + 1
-										}}\\space \\rArr \\space \\text{f}\\text{R${it.i + 1}}-\\text{R${
-											it.j + 1
-										}}} ${formatMatrix(it.matrix, precision)}`}
-										block
-									/>
-								{/if}
-							{/each}
-						{:else if loading}
-							<div class="w-full flex justify-center py-16">
-								<Icon icon="eos-icons:loading" class="text-center text-6xl text-primary" />
-							</div>
-						{:else}
-							<p class="text-center text-sm text-muted-foreground">Please enter the matrix</p>
-						{/if}
-						<KaTeX class="pl-6" data={`\\text{Back Subtiution}`} block />
-						{#if result?.backIterations}
-							{#each result.backIterations as it}
-								<KaTeX
-									class="flex justify-center"
-									data={`x_${it.i + 1} = \\dfrac{b_{${it.i + 1}}${
-										it.sumIdx?.length == 0 ? '' : '-'
-									}${it.sumIdx?.map((e) => `a_{${it.i + 1}${e + 1}}x_{${e}}`).join('-')}}{a_{${
-										it.i + 1
-									}${it.i + 1}}}`}
-									block
-								/>
-							{/each}
-						{:else if loading}
-							<div class="w-full flex justify-center py-16">
-								<Icon icon="eos-icons:loading" class="text-center text-6xl text-primary" />
-							</div>
-						{:else}
-							<p class="text-center text-sm text-muted-foreground">Please enter the matrix</p>
-						{/if}
-						{#if result?.answers}
-							<KaTeX
-								class="flex justify-center"
-								data={result.answers
-									?.map((e, idx) => ` x_${idx + 1} = ${e.toFixed(precision)}`)
-									.join(', \\space')}
-								block
-							/>
-						{/if}
-					{/key} -->
+<Card.Root class="w-full mt-12">
+	<Card.Content class="py-5">
+		<KaTex class="pl-6" data={`\\text{Solution}`} block />
+		{#if loading}
+			<div class="w-full flex justify-center py-16">
+				<Icon icon="eos-icons:loading" class="text-center text-6xl text-primary" />
+			</div>
+		{:else}
+			{#key result}
+				{#if result}
+					<KaTex
+						class="w-fit mx-auto"
+						data={`\\text{From Cramer's Rule}; \\space x_i = \\dfrac{det(A_i)}{det(A)}`}
+						block
+					/>
+					<KaTex
+						class="w-fit mx-auto"
+						data={`det(A) = ${formatMatrixPipe(result.input.matrixA)} = ${result.detA}`}
+						block
+					/>
+					<KaTex
+						class="w-fit mx-auto"
+						data={`${result.detAi
+							.map((m, idx) => {
+								return `
+								x_{${idx + 1}} = 
+								\\dfrac{det(A_{${idx + 1}})}{det(A)} =
+								\\dfrac{${formatMatrixPipe(result.matrixAi[idx])}}{${result.detA}} =
+								\\dfrac{${m}}{${result.detA}} =
+								${result.result[idx]}`;
+							})
+							.join('\\\\')}
+						`}
+						block
+					/>
+					<KaTex
+						class="w-fit mx-auto"
+						data={`
+						\\therefore
+						(${result.detAi.map((m, idx) => `x_{${idx + 1}}`).join(', ')}) =
+						(${result.result.map((m) => `${m}`).join(', ')})
+						`}
+						block
+					/>
+				{:else}
+					<p class="text-center text-sm text-muted-foreground py-8">Please enter the matrix</p>
+				{/if}
+			{/key}
+		{/if}
 	</Card.Content>
 </Card.Root>
