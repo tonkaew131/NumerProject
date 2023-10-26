@@ -109,7 +109,7 @@
 						<Select.Item class="hover:cursor-pointer" value="linear-cramer">
 							Cramer's rule
 						</Select.Item>
-						<Select.Item class="hover:cursor-pointer" value="linear-guass" disabled>
+						<Select.Item class="hover:cursor-pointer" value="linear-guass">
 							Guass elimination
 						</Select.Item>
 						<Select.Item class="hover:cursor-pointer" value="linear-jordan" disabled>
