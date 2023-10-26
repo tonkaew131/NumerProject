@@ -153,7 +153,7 @@
 						class="w-fit mx-auto"
 						data={`
 						\\therefore
-						(${result.detAi.map((m, idx) => `x_{${idx + 1}}`).join(', ')}) =
+						(${result.detAi.map((_, idx) => `x_{${idx + 1}}`).join(', ')}) =
 						(${result.result.map((m) => `${m}`).join(', ')})
 						`}
 						block

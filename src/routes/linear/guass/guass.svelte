@@ -6,37 +6,25 @@
 	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import * as Dialog from '$lib/components/ui/dialog';
-	import * as Tabs from '$lib/components/ui/tabs';
 	import type { GuassType } from '$lib/solutions/guass';
-
-	export let precision = 4;
-
-	const createMatrix = (matrixSize: number) => {
-		const matrix = new Array(Number(matrixSize));
-		for (let i = 0; i < matrixSize; i++) {
-			matrix[i] = new Array(Number(matrixSize));
-		}
-		return matrix;
-	};
-
-	const createArray = (matrixSize: number) => {
-		const array = new Array(Number(matrixSize));
-		return array;
-	};
+	import { composeMatrix, createArray, createMatrix } from '$lib/utils';
 
 	let modalMessage = {
 		title: '',
 		description: ''
 	};
 
+	export const precision = 6;
 	let matrixSize = 3;
-	let matrixA = createMatrix(matrixSize);
-	let matrixB = createArray(matrixSize);
+	let inputData = {
+		matrixA: createMatrix(matrixSize),
+		arrayB: createArray(matrixSize)
+	};
 
 	export let input = true;
 
 	let loading = false;
-	export let result: GuassType = { iterations: [] };
+	export let result: GuassType & { input: typeof inputData };
 
 	let timeSinceLastCalculate = 0;
 	let COOLDOWN_TIME = 5;
@@ -58,41 +46,58 @@
 		timeSinceLastCalculate = Date.now();
 		loading = true;
 
-		// result = guassEliminationMethods(matrixA, matrixB);
 		const res = await fetch('/api/solution/linear/guass', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ matrix_a: matrixA, array_b: matrixB })
+			body: JSON.stringify({
+				matrixA: inputData.matrixA,
+				arrayB: inputData.arrayB
+			})
 		});
 		const jsonData = await res.json();
 
+		loading = false;
 		if (jsonData.error) {
-			console.log(jsonData.error);
-			return;
+			modalMessage = {
+				title: 'Calculation Error!',
+				description: jsonData.error.message
+			};
+
+			document?.getElementById('trigger-modal')!.click();
+			console.log(jsonData);
+		}
+
+		if (jsonData.warning) {
+			modalMessage = {
+				title: 'Calculation Warning!',
+				description: jsonData.warning.message
+			};
+
+			document?.getElementById('trigger-modal')!.click();
 		}
 
 		result = jsonData.data;
-		loading = false;
+		result.input = inputData;
 
-		result = result;
+		console.log(result);
 	}
 </script>
 
 <svelte:head>
 	<title>Guass Elimination Methods</title>
-	<meta name="description" content="Guass Elimination Methods" />
+	<meta name="description" content="Linear Algebra equation - Guass Elimination Methods" />
 </svelte:head>
 
 <h3 class="text-center">🥹 Guass Elimination Methods</h3>
 
 {#if input}
 	<LinearAlgebraInput
-		bind:matrixA
-		bind:matrixB
+		bind:matrixA={inputData.matrixA}
+		bind:matrixB={inputData.arrayB}
 		bind:matrixSize
-		onClickCalculate={(e) => computeResult()}
+		onClickCalculate={() => computeResult()}
 	/>
 {/if}
 
@@ -110,89 +115,93 @@
 	</Dialog.Root>
 {/if}
 
-<Tabs.Root value="solution" class="w-full mt-12 overflow-auto">
-	<Tabs.List>
-		<Tabs.Trigger value="table">Table</Tabs.Trigger>
-		<Tabs.Trigger value="solution">Solution</Tabs.Trigger>
-	</Tabs.List>
-	<Tabs.Content value="table">
-		<Card.Root class="w-full">
-			<Card.Content>
-				<p class="mb-0">TABLE GOES HERE</p>
-			</Card.Content>
-		</Card.Root>
-	</Tabs.Content>
-	<Tabs.Content value="solution">
-		<Card.Root class="w-full">
-			<Card.Content>
-				<p class="mb-0">
-					{#key result}
+<Card.Root class="w-full mt-12">
+	<Card.Content class="">
+		<p class="mb-0">
+			{#if loading}
+				<div class="w-full flex justify-center py-16">
+					<Icon icon="eos-icons:loading" class="text-center text-6xl text-primary" />
+				</div>
+			{:else}
+				{#key result}
+					{#if result}
 						<KaTeX class="pl-6" data={`\\text{Forward Elimination}`} block />
-						{#if result?.iterations && result?.iterations.length > 0}
-							{#each result.iterations as it}
-								{#if it.matrix && it.matrixk_1}
+						{#each result.iterations.filter((e) => e.type !== 'back') as it, idx}
+							{@const oldMatrix =
+								idx != 0
+									? result?.iterations[idx - 1]?.matrix
+									: composeMatrix(result.input.matrixA, result.input.arrayB)}
+							{#if oldMatrix && it.matrix}
+								{#if it.type == 'forw'}
 									<KaTeX
-										data={`\\text{factor}: \\dfrac{a_{${it.j + 1}${it.j + 1}}}{a_{${it.i + 1}${
-											it.j + 1
-										}}} = \\dfrac{${it.matrixk_1[it.j][it.j].toFixed(precision)}}{${it.matrixk_1[
-											it.i
-										][it.j].toFixed(precision)}} = ${it.factor?.toFixed(precision)}`}
+										data={`
+						\\text{factor}:
+						\\dfrac{a_{${it.j + 1}${it.j + 1}}}
+						{a_{${it.i + 1}${it.j + 1}}} = 
+						\\dfrac{${parseFloat(oldMatrix[it.j][it.j].toFixed(precision))}}
+						{${parseFloat(oldMatrix[it.i][it.j].toFixed(precision))}} = 
+						${parseFloat(it.factor?.toFixed(precision) || '0')}
+						`}
 										class="flex justify-center"
 										block
 									/>
 									<KaTeX
 										class="flex justify-center"
-										data={`${formatMatrix(it.matrixk_1, precision, [
+										data={`
+										${formatMatrix(oldMatrix, precision, [
 											[it.i, it.j],
 											[it.j, it.j]
-										])} \\xrightarrow[]{\\text{R${
+										])}
+										 \\xrightarrow[]{\\text{R${it.i + 1}}\\space \\rArr \\space \\text{f} \\times \\text{R${
 											it.i + 1
-										}}\\space \\rArr \\space \\text{f}\\text{R${it.i + 1}}-\\text{R${
-											it.j + 1
-										}}} ${formatMatrix(it.matrix, precision)}`}
+										}}-\\text{R${it.j + 1}}} ${formatMatrix(it.matrix, precision)}`}
+										block
+									/>
+								{:else}
+									<KaTeX
+										class="flex justify-center"
+										data={`
+											${formatMatrix(oldMatrix, precision)}
+											 \\xrightarrow[]{
+												\\text{R${it.i + 1}} \\space 
+												\\Longleftrightarrow
+												\\text{R${it.j + 1}}
+											} 
+											${formatMatrix(it.matrix, precision)}
+											`}
 										block
 									/>
 								{/if}
-							{/each}
-						{:else if loading}
-							<div class="w-full flex justify-center py-16">
-								<Icon icon="eos-icons:loading" class="text-center text-6xl text-primary" />
-							</div>
-						{:else}
-							<p class="text-center text-sm text-muted-foreground">Please enter the matrix</p>
-						{/if}
+							{/if}
+						{/each}
 						<KaTeX class="pl-6" data={`\\text{Back Subtiution}`} block />
-						{#if result?.backIterations}
-							{#each result.backIterations as it}
-								<KaTeX
-									class="flex justify-center"
-									data={`x_${it.i + 1} = \\dfrac{b_{${it.i + 1}}${
-										it.sumIdx?.length == 0 ? '' : '-'
-									}${it.sumIdx?.map((e) => `a_{${it.i + 1}${e + 1}}x_{${e}}`).join('-')}}{a_{${
-										it.i + 1
-									}${it.i + 1}}}`}
-									block
-								/>
-							{/each}
-						{:else if loading}
-							<div class="w-full flex justify-center py-16">
-								<Icon icon="eos-icons:loading" class="text-center text-6xl text-primary" />
-							</div>
-						{:else}
-							<p class="text-center text-sm text-muted-foreground">Please enter the matrix</p>
-						{/if}
-						{#if result?.answers}
+						{#each result.iterations.filter((e) => e.type == 'back') as it}
 							<KaTeX
 								class="flex justify-center"
-								data={result.answers
-									?.map((e, idx) => ` x_${idx + 1} = ${e.toFixed(precision)}`)
-									.join(', \\space')}
+								data={`
+									x_${it.i + 1} = 
+									\\dfrac{
+										b_{${it.i + 1}}${it.sumIdx?.length == 0 ? '' : '-'}
+										${it.sumIdx?.map((e) => `a_{${it.i + 1}${e + 1}}x_{${e}}`).join('-')}}
+										{a_{${it.i + 1}${it.i + 1}}} 
+									=
+									${parseFloat((it.value || 0).toFixed(precision))}
+								`}
 								block
 							/>
-						{/if}
-					{/key}
-				</p>
-			</Card.Content>
-		</Card.Root>
-	</Tabs.Content>
-</Tabs.Root>
+						{/each}
+						<KaTeX
+							class="flex justify-center"
+							data={result.answers
+								?.map((e, idx) => ` x_${idx + 1} = ${parseFloat(e.toFixed(precision))}`)
+								.join(', \\space')}
+							block
+						/>
+					{:else}
+						<p class="text-center text-sm text-muted-foreground">Please enter the matrix</p>
+					{/if}
+				{/key}
+			{/if}
+		</p>
+	</Card.Content>
+</Card.Root>

@@ -233,3 +233,18 @@ export const formatArray = (array: unknown): number[] | null => {
 
 	return newArray;
 };
+
+export const composeMatrix = (matrixA: number[][], arrayB: number[]): number[][] => {
+	const MATRIX_SIZE = matrixA.length;
+	const matrix: number[][] = [];
+
+	for (let i = 0; i < MATRIX_SIZE; i++) {
+		matrix[i] = [];
+		for (let j = 0; j < MATRIX_SIZE; j++) {
+			matrix[i][j] = matrixA[i][j];
+		}
+		matrix[i][MATRIX_SIZE] = arrayB[i];
+	}
+
+	return matrix;
+};
