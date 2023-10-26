@@ -234,6 +234,14 @@ export const formatArray = (array: unknown): number[] | null => {
 	return newArray;
 };
 
+export const formatNumber = (number: unknown): number | null => {
+	if (typeof number == null || isNaN(Number(number))) {
+		return null;
+	}
+
+	return Number(number);
+};
+
 export const composeMatrix = (matrixA: number[][], arrayB: number[]): number[][] => {
 	const MATRIX_SIZE = matrixA.length;
 	const matrix: number[][] = [];

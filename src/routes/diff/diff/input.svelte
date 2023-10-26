@@ -10,6 +10,8 @@
 	export let order: number | string;
 	export let error: string;
 	export let direction: string;
+	export let xValue: number | string;
+	export let hValue: number | string;
 	export let formula = '';
 
 	function onChangeOrder(e: any) {
@@ -34,7 +36,7 @@
 		{#key formula}
 			<KaTex
 				block
-				data={`f(x) = ${formula || '...'}`}
+				data={`\\dfrac{d}{dy} \\space ${formula || '...'}`}
 				class="mx-auto w-fit text-3xl max-w-full overflow-x-auto"
 			/>
 		{/key}
@@ -87,7 +89,28 @@
 <div class="flex items-end justify-center gap-2 mt-1">
 	<Label class="mt-1">
 		<KaTex data={`f(x)`} />
-		<Input class="bg-white h-11 w-72 mt-1" type="text" bind:value={formula} placeholder="x^2-7" />
+		<Input class="bg-white h-11 w-96 mt-1" type="text" bind:value={formula} placeholder="e^x" />
+	</Label>
+</div>
+
+<div class="flex items-end justify-center gap-2 mt-1">
+	<Label class="">
+		<KaTex data={'x'} />
+		<Input
+			class="bg-white h-11 w-[8.6rem] mt-2"
+			type="number"
+			bind:value={xValue}
+			placeholder="2.00"
+		/>
+	</Label>
+	<Label class="">
+		<KaTex data={'h'} />
+		<Input
+			class="bg-white h-11 w-[8.6rem] mt-2"
+			type="number"
+			bind:value={hValue}
+			placeholder="0.25"
+		/>
 	</Label>
 	<Button class="h-11" on:click={onClickCalculate}>Calculate!</Button>
 </div>

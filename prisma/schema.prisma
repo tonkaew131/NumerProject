@@ -89,6 +89,7 @@ enum ProblemType {
   INTERPOLATION
   EXTRAPOLATION
   INTEGRATION
+  DIFFERENTIATION
 }
 
 enum SolutionType {
