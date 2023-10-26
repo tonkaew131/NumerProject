@@ -2,12 +2,12 @@
 	import Icon from '@iconify/svelte';
 
 	import { formatMatrixPipe } from '$lib/components/kaTeX';
+	import KaTex from '$lib/components/KaTex.svelte';
 	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import * as Dialog from '$lib/components/ui/dialog';
-	import { createArray, createMatrix } from '$lib/utils';
 	import type { CramerResult } from '$lib/solutions/cramer';
-	import KaTex from '$lib/components/KaTex.svelte';
+	import { createArray, createMatrix } from '$lib/utils';
 
 	let modalMessage = {
 		title: '',
