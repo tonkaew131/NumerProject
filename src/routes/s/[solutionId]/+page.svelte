@@ -38,7 +38,7 @@
 		</div>
 	{:else if result?.data != undefined}
 		{#if result.data.solution_type === 'GUASS'}
-			<Guass result={result.data.output} input={false} />
+			<Guass result={{ ...result.data.output, input: result.data.problem.input }} input={false} />
 		{:else if result.data.solution_type === 'SIMPLE_REGRESSION'}
 			<Regression result={result.data.output} input={false} />
 		{:else if result.data.solution_type === 'GRAPHICAL'}
