@@ -240,10 +240,26 @@
 					${formatVector(result.matrixB, precision)}`}
 					block
 				/>
-				<!-- <KaTex class="w-fit mx-auto" data={formatResult()} block /> -->
 				<KaTex
 					class="w-fit mx-auto"
-					data={`\\therefore f(${result.xValue}) = ${result.result} \\space {\\color{red}\\#}`}
+					data={`
+					\\begin{aligned}
+					${Object.keys(result.a)
+						.map((a) => {
+							return `a_${a} & = ${result.a[Number(a)]}\\\\`;
+						})
+						.join('')}
+					\\end{aligned}
+					`}
+					block
+				/>
+				<KaTex
+					class="w-fit mx-auto"
+					data={`\\therefore f(
+						${Object.keys(result.a)
+							.map((_, idx) => `x_{${idx + 1}}`)
+							.join(',')}) 
+					= ${result.result} \\space {\\color{red}\\#}`}
 					block
 				/>
 			{:else}
