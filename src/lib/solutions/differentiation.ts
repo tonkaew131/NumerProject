@@ -256,13 +256,9 @@ export function differentiation(
 		return result;
 	}
 
-	const fx: { [key: number]: number } = {};
 	const calculateFx = (i: number): number => {
-		if (i in fx) return fx[i];
-
 		const xValue = x + i * h;
-		fx[i] = evaluate(func, { x: xValue });
-		return fx[i];
+		return evaluate(func, { x: xValue });
 	};
 
 	const formula = diffFormula[direction][order][error];
