@@ -10,7 +10,7 @@ export interface DifferentiationResult {
 	error?: string;
 }
 
-const diffFormula: {
+export const diffFormula: {
 	[direction: string]: {
 		[order: number]: {
 			[error: string]: {
