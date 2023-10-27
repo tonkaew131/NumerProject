@@ -140,7 +140,7 @@
 						<Select.Item value="integrate-composite_trapezoidal">
 							Composite Trapezoidal Rule
 						</Select.Item>
-						<Select.Item value="integrate-simpson" disabled>Simpson Rule</Select.Item>
+						<Select.Item value="integrate-simpson">Simpson Rule</Select.Item>
 						<Select.Item value="integrate-composite_simpson" disabled>
 							Composite Simpson Rule
 						</Select.Item>

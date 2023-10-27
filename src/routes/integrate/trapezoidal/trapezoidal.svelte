@@ -90,6 +90,7 @@
 
 			document?.getElementById('trigger-modal')!.click();
 			console.log(jsonData);
+			return;
 		}
 
 		if (jsonData.warning) {

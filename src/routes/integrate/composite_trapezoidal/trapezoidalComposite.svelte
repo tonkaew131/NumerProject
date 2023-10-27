@@ -88,6 +88,7 @@
 		result = jsonData.data;
 		result.input = inputData;
 		formatResultData();
+		return;
 	}
 
 	function formatResultData() {
