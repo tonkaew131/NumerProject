@@ -144,6 +144,8 @@
 						<Select.Item value="integrate-composite_simpson" disabled>
 							Composite Simpson Rule
 						</Select.Item>
+					{:else if mode === 'diff'}
+						<Select.Item value="diff-diff">Numerical Differentiation</Select.Item>
 					{:else}
 						<Select.Item class="hover:cursor-pointer" value="none" disabled>
 							Please select type of problem
