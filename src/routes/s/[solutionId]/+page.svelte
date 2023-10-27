@@ -8,6 +8,7 @@
 	import Guass from '../../linear/guass/guass.svelte';
 	import Graphical from '../../root/graphical/graphical.svelte';
 	import type { PageData } from './$types';
+	import Diff from '../../diff/diff/diff.svelte';
 	export let data: PageData;
 	let result: { status: string; data: any };
 
@@ -47,6 +48,8 @@
 			<MultipleRegression result={result.data.output} input={false} />
 		{:else if result.data.solution_type === 'CRAMER'}
 			<Cramer result={{ ...result.data.output, input: result.data.problem.input }} input={false} />
+		{:else if result.data.solution_type === 'DIFFERENTIATION'}
+			<Diff result={{ ...result.data.output, input: result.data.problem.input }} input={false} />
 		{/if}
 	{/if}
 </div>

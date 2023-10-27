@@ -6,7 +6,6 @@
 	import { diffFormula, type DifferentiationResult } from '$lib/solutions/differentiation';
 
 	import Input from './input.svelte';
-	import { to, typeOf } from 'mathjs';
 
 	let inputData = {
 		order: '',
@@ -24,7 +23,8 @@
 	};
 	let loading = false;
 
-	let result: DifferentiationResult & { input: typeof inputData };
+	export let result: DifferentiationResult & { input: typeof inputData };
+	export let input = true;
 
 	let timeSinceLastCalculate = 0;
 	let COOLDOWN_TIME = 5;
@@ -104,15 +104,17 @@
 
 <h3 class="text-center">🥹 Numerical Differentiation</h3>
 
-<Input
-	onClickCalculate={() => computeResult()}
-	bind:order={inputData.order}
-	bind:error={inputData.error}
-	bind:direction={inputData.direction}
-	bind:formula={inputData.func}
-	bind:hValue={inputData.h}
-	bind:xValue={inputData.x}
-/>
+{#if input}
+	<Input
+		onClickCalculate={() => computeResult()}
+		bind:order={inputData.order}
+		bind:error={inputData.error}
+		bind:direction={inputData.direction}
+		bind:formula={inputData.func}
+		bind:hValue={inputData.h}
+		bind:xValue={inputData.x}
+	/>
+{/if}
 
 <Dialog.Root>
 	<Dialog.Trigger id="trigger-modal" />
