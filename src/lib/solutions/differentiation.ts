@@ -228,9 +228,9 @@ export function differentiation(
 	func: string,
 	x: number,
 	h: number,
-	order: 1 | 2 | 3 | 4,
-	error: 'h' | 'h^2' | 'h^4',
-	direction: 'forward' | 'backward' | 'centered'
+	order: 1 | 2 | 3 | 4 | number,
+	error: 'h' | 'h^2' | 'h^4' | string,
+	direction: 'forward' | 'backward' | 'centered' | string
 ): DifferentiationResult {
 	const result: DifferentiationResult = {
 		result: 0,
