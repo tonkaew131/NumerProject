@@ -71,6 +71,7 @@
 
 			document?.getElementById('trigger-modal')!.click();
 			console.log(jsonData);
+			return;
 		}
 
 		if (jsonData.warning) {
@@ -187,7 +188,7 @@
 								return `${frac}${parseFloat(val.toFixed(precision))}`;
 							})
 							.join('')}}
-						{${result.h}} \\\\
+						{${parseFloat(Number(result.h).toFixed(precision * 2))}} \\\\
 						{\\color{white}f${"'".repeat(Number(result.input.order))}(${result.input.x})} =
 						${result.result}
 						`}
