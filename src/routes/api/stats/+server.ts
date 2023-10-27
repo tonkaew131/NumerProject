@@ -1,10 +1,24 @@
 import { json } from '@sveltejs/kit';
 
+import { dev } from '$app/environment';
 import { prisma } from '$lib/server/prisma';
 
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async () => {
+	if (dev) {
+		return json({
+			status: 'success',
+			data: {
+				userCount: 9999,
+				totalProblemSolved: 9999,
+				totalExecutedTime: 9999,
+				totalView: 9999,
+				mostRecentSolutions: []
+			}
+		});
+	}
+
 	const userCount = await prisma.user.count();
 
 	const totalProblems: {

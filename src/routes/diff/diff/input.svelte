@@ -5,6 +5,7 @@
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
 	import * as Select from '$lib/components/ui/select';
+	import { parse } from 'mathjs';
 
 	export let onClickCalculate: (e: MouseEvent) => void;
 	export let order: number | string;
@@ -13,6 +14,14 @@
 	export let xValue: number | string;
 	export let hValue: number | string;
 	export let formula = '';
+
+	let formulaTex = '...';
+	$: try {
+		formulaTex = parse(formula).toTex() || '...';
+		if (formulaTex == 'undefined') formulaTex = '...';
+	} catch (error) {
+		formulaTex = '...';
+	}
 
 	function onChangeOrder(e: any) {
 		const value = e?.value;
@@ -36,7 +45,7 @@
 		{#key formula}
 			<KaTex
 				block
-				data={`\\dfrac{d}{dy} \\space ${formula || '...'}`}
+				data={`\\dfrac{d}{dy} \\space ${formulaTex}`}
 				class="mx-auto w-fit text-3xl max-w-full overflow-x-auto"
 			/>
 		{/key}
