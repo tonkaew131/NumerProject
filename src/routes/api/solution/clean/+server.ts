@@ -8,19 +8,19 @@ import type { RequestHandler } from './$types';
 export const GET: RequestHandler = async ({ request }) => {
 	return json({ status: 'error', message: 'API Disabled' }, { status: 403 });
 
-	if (CLEAN_API_KEY.trim() == '') {
-		return json({ status: 'error', message: 'API Disabled' }, { status: 403 });
-	}
+	// if (CLEAN_API_KEY.trim() == '') {
+	// 	return json({ status: 'error', message: 'API Disabled' }, { status: 403 });
+	// }
 
-	if (request.headers.get('api_key') != CLEAN_API_KEY) {
-		return json({ status: 'error', message: 'Invalid API Key' }, { status: 403 });
-	}
+	// if (request.headers.get('api_key') != CLEAN_API_KEY) {
+	// 	return json({ status: 'error', message: 'Invalid API Key' }, { status: 403 });
+	// }
 
 	// cleanDuplicationSolution();
 	// cleanInvalidOutput();
-	cleanInvalidJson();
+	// cleanInvalidJson();
 
-	return json({ status: 'ok' });
+	// return json({ status: 'ok' });
 };
 
 async function cleanInvalidJson() {
@@ -39,12 +39,16 @@ async function cleanInvalidJson() {
 	for (const sl of solutions) {
 		const { id, output } = sl;
 		console.log('updating', id, '...');
-		await prisma.problemSolved.update({
-			where: { id: id },
-			data: {
-				output: JSON.parse(output)
-			}
-		});
+		try {
+			await prisma.problemSolved.update({
+				where: { id: id },
+				data: {
+					output: JSON.parse(output)
+				}
+			});
+		} catch (error) {
+			console.log('failed to update, id: ' + id + '\n' + error);
+		}
 	}
 }
 
@@ -65,7 +69,11 @@ async function cleanInvalidOutput() {
 	for (const sl of solutions) {
 		const { id } = sl;
 		console.log('deleting', id, '...');
-		await prisma.problemSolved.delete({ where: { id: id } });
+		try {
+			await prisma.problemSolved.delete({ where: { id: id } });
+		} catch (error) {
+			console.log('failed to delete, id: ' + id + '\n' + error);
+		}
 	}
 }
 
@@ -114,16 +122,24 @@ async function cleanDuplicationSolution() {
 
 		for (const id of toDelete) {
 			console.log('deleting', id.id, '...');
-			await prisma.problemSolved.delete({ where: { id: id.id } });
+			try {
+				await prisma.problemSolved.delete({ where: { id: id.id } });
+			} catch (error) {
+				console.log('failed to delete, id: ' + id + '\n' + error);
+			}
 		}
 
-		await prisma.problemSolved.update({
-			where: { id: ids[0].id },
-			data: {
-				solved_count: totalSolve,
-				view_count: totalView,
-				executed_time: totalExec / ids.length
-			}
-		});
+		try {
+			await prisma.problemSolved.update({
+				where: { id: ids[0].id },
+				data: {
+					solved_count: totalSolve,
+					view_count: totalView,
+					executed_time: totalExec / ids.length
+				}
+			});
+		} catch (error) {
+			console.log('failed to update, id: ' + ids[0].id + '\n' + error);
+		}
 	}
 }
