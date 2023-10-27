@@ -141,9 +141,7 @@
 							Composite Trapezoidal Rule
 						</Select.Item>
 						<Select.Item value="integrate-simpson">Simpson Rule</Select.Item>
-						<Select.Item value="integrate-composite_simpson" disabled>
-							Composite Simpson Rule
-						</Select.Item>
+						<Select.Item value="integrate-composite_simpson">Composite Simpson Rule</Select.Item>
 					{:else if mode === 'diff'}
 						<Select.Item value="diff-diff">Numerical Differentiation</Select.Item>
 					{:else}
