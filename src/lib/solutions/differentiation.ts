@@ -294,11 +294,11 @@ export function differentiation(
 	return result;
 }
 
-console.log({
-	'1.1': differentiation('e^x', 2, 0.25, 1, 'h', 'forward'),
-	'1.2': differentiation('e^x', 2, 0.25, 1, 'h', 'backward'),
-	'1.3': differentiation('e^x', 2, 0.25, 1, 'h^2', 'centered'),
-	'2.1': differentiation('e^(x/3)+x^2', -2.5, 0.1, 2, 'h^2', 'forward'),
-	'2.2': differentiation('e^(x/3)+x^2', -2.5, 0.1, 2, 'h^2', 'backward'),
-	'2.3': differentiation('e^(x/3)+x^2', -2.5, 0.1, 2, 'h^4', 'centered')
-});
+// console.log({
+// 	'1.1': differentiation('e^x', 2, 0.25, 1, 'h', 'forward'),
+// 	'1.2': differentiation('e^x', 2, 0.25, 1, 'h', 'backward'),
+// 	'1.3': differentiation('e^x', 2, 0.25, 1, 'h^2', 'centered'),
+// 	'2.1': differentiation('e^(x/3)+x^2', -2.5, 0.1, 2, 'h^2', 'forward'),
+// 	'2.2': differentiation('e^(x/3)+x^2', -2.5, 0.1, 2, 'h^2', 'backward'),
+// 	'2.3': differentiation('e^(x/3)+x^2', -2.5, 0.1, 2, 'h^4', 'centered')
+// });
