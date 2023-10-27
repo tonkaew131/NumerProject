@@ -239,6 +239,10 @@ export const formatNumber = (number: unknown): number | null => {
 		return null;
 	}
 
+	if (typeof number == 'string' && number.trim().length == 0) {
+		return null;
+	}
+
 	return Number(number);
 };
 
