@@ -6,6 +6,7 @@
 	import { diffFormula, type DifferentiationResult } from '$lib/solutions/differentiation';
 
 	import Input from './input.svelte';
+	import { parse } from 'mathjs';
 
 	let inputData = {
 		order: '',
@@ -199,9 +200,9 @@
 					<KaTex
 						class="w-fit mx-auto"
 						data={`
-						\\text{Exact Differentiation; } f(x) = ${result.input.func} \\\\
+						\\text{Exact Differentiation; } f(x) = ${parse(result.input.func).toTex()} \\\\
 						\\text{\\color{white}Exact Differentiation; } 
-						${funcDiff} = ${result.exactFunc} \\\\
+						${funcDiff} = ${parse(result.exactFunc).toTex()} \\\\
 						\\text{At } x = ${result.input.x}; \\space
 						f${"'".repeat(Number(result.input.order))}(${result.input.x}) = ${result.exactResult} \\\\
 						`}
