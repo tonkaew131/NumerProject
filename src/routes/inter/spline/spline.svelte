@@ -32,42 +32,6 @@
 
 	let result: SplineInterpolationResult & {
 		input: typeof inputData;
-	} = {
-		result: 9.681150227462552,
-		resultAt: 1,
-		funcs: {
-			'1': {
-				a: 9.374999999949788e-18,
-				b: 0,
-				c: -0.0000030675000000001803,
-				d: 9.81
-			},
-			'2': {
-				a: -9.375000000110716e-18,
-				b: 2.2500000000124775e-12,
-				c: -0.00000315750000000033,
-				d: 9.811200000000001
-			}
-		},
-		input: {
-			pointSize: 3,
-			xValue: '42235',
-			points: {
-				'0': {
-					x: 0,
-					y: 9.81
-				},
-				'1': {
-					x: 40000,
-					y: 9.6879
-				},
-				'2': {
-					x: 80000,
-					y: 9.5682
-				}
-			},
-			mode: 'cubic'
-		}
 	};
 
 	let timeSinceLastCalculate = 0;
@@ -252,6 +216,34 @@
 					${formatValue(result.funcs[result.resultAt].a, precision)}x^2 + 
 					${formatValue(result.funcs[result.resultAt].b, precision)}x + 
 					${formatValue(result.funcs[result.resultAt].c, precision)}
+					\\\\
+					f(${result.input.xValue}) = ${result.result}
+					`}
+							block
+						/>
+					{/if}
+					{#if result.input.mode == 'cubic'}
+						<KaTex
+							class="w-fit mx-auto"
+							data={`
+					\\begin{aligned}
+					${Object.keys(result.funcs)
+						.map((f) => {
+							return `f_${f}(x) & = 
+								(${formatValue(result.funcs[Number(f)].a, precision)})x^3 + 
+								(${formatValue(result.funcs[Number(f)].b, precision)})x^2 + 
+								(${formatValue(result.funcs[Number(f)].c, precision)})x +
+								(${formatValue(result.funcs[Number(f)].d, precision)});
+								& & ${result.input.points[Number(f) - 1].x} \\le x \\le ${result.input.points[Number(f)].x}
+								\\\\`;
+						})
+						.join('')}
+					\\end{aligned} \\\\~\\\\
+					f(${result.input.xValue}) = 
+					${formatValue(result.funcs[result.resultAt].a, precision)}x^3 + 
+					${formatValue(result.funcs[result.resultAt].b, precision)}x^2 + 
+					${formatValue(result.funcs[result.resultAt].c, precision)}x +
+					${formatValue(result.funcs[result.resultAt].d, precision)}
 					\\\\
 					f(${result.input.xValue}) = ${result.result}
 					`}
