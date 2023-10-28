@@ -256,7 +256,7 @@ export class NewtonDividedDifferenceSolver extends ProblemSolver {
 	}
 }
 
-export class LangrangeInterpolationSolver extends ProblemSolver {
+export class LagrangeInterpolationSolver extends ProblemSolver {
 	constructor(problem: Problem) {
 		super(problem, 'LANGRAGE_INTERPOLATION');
 	}

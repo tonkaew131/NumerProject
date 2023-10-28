@@ -2,9 +2,9 @@ import { json } from '@sveltejs/kit';
 
 import {
 	InterpolationProblem,
-	LangrangeInterpolationSolver,
-	NewtonDividedDifferenceSolver
+	LagrangeInterpolationSolver
 } from '$lib/server/interpolationProblem';
+import { lagrangeInterpolation } from '$lib/solutions/lagrangeInterpolation';
 
 import type { RequestHandler } from './$types';
 
@@ -49,30 +49,55 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	const [problemId, problemIdError] = await problem.getProblemId('create');
 	// WARNING
 	if (problemIdError || problemId == undefined) {
+		const result = lagrangeInterpolation(input.points, input.selected_point, input.x);
+
 		return json(
 			{
-				status: 'error',
-				error: problemIdError || 'Something went wrong!'
+				status: 'warning',
+				data: result,
+				warning: {
+					message: 'There is problem craeting the problem... show the result without saving it.'
+				}
 			},
 			{
-				status: problemIdError?.status || 500
+				status: 200
 			}
 		);
 	}
 
-	const problemSolved = new LangrangeInterpolationSolver(problem);
+	const problemSolved = new LagrangeInterpolationSolver(problem);
 	problemSolved.setUserId(userId);
 
 	const [output, outputError] = await problemSolved.getOutput();
 	// WARNING
 	if (outputError || output == null) {
+		const result = lagrangeInterpolation(input.points, input.selected_point, input.x);
+
+		return json(
+			{
+				status: 'warning',
+				data: result,
+				warning: {
+					message: 'There is problem saving the solution... show the result without saving it.'
+				}
+			},
+			{
+				status: 200
+			}
+		);
+	}
+
+	if ('error' in output && output.error) {
 		return json(
 			{
 				status: 'error',
-				error: outputError?.message || 'Something went wrong!'
+				data: output,
+				error: {
+					message: output.error
+				}
 			},
 			{
-				status: outputError?.status || 500
+				status: 400
 			}
 		);
 	}

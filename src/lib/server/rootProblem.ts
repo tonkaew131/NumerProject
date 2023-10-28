@@ -75,6 +75,16 @@ export class RootOfEquationProblem extends Problem {
 			];
 		}
 
+		if (typeof func != 'string' || func.trim().length == 0) {
+			return [
+				null,
+				{
+					message: 'Invalid function!',
+					status: 400
+				}
+			];
+		}
+
 		try {
 			evaluate(func, { x: newXStart });
 		} catch (err) {
