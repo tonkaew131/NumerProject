@@ -1,6 +1,5 @@
 <script lang="ts">
-	// import Spline from './spline.svelte';
+	import Spline from './spline.svelte';
 </script>
 
-<!-- <Spline />
- -->
+<Spline />

@@ -12,9 +12,9 @@
 
 	export let selectedButton = true;
 
-	export let pointSize = 3;
+	export let pointSize: number | string = 3;
 
-	export let xValue: number;
+	export let xValue: number | string;
 	export let points: {
 		[key: number]: {
 			x: number;

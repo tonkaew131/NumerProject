@@ -325,6 +325,13 @@ export function splineInterpolation(
 				result = a * xValue * xValue * xValue + b * xValue * xValue + c * xValue + d;
 			}
 		}
+	} else {
+		return {
+			funcs: {},
+			result: -1,
+			resultAt: -1,
+			error: 'Invalid mode!'
+		};
 	}
 
 	return {
@@ -334,41 +341,41 @@ export function splineInterpolation(
 	};
 }
 
-console.log({
-	cubic: splineInterpolation(
-		[
-			{ x: 2, y: 9.5 },
-			{ x: 4, y: 8 },
-			{ x: 6, y: 10.5 },
-			{ x: 8, y: 39.5 },
-			{ x: 10, y: 72.5 }
-		],
-		4.5,
-		'cubic'
-	),
-	quadratic: splineInterpolation(
-		[
-			{ x: 2, y: 9.5 },
-			{ x: 4, y: 8 },
-			{ x: 6, y: 10.5 },
-			{ x: 8, y: 39.5 },
-			{ x: 10, y: 72.5 }
-		],
-		4.5,
-		'quadratic'
-	),
-	linear: splineInterpolation(
-		[
-			{ x: 2, y: 9.5 },
-			{ x: 4, y: 8 },
-			{ x: 6, y: 10.5 },
-			{ x: 8, y: 39.5 },
-			{ x: 10, y: 72.5 }
-		],
-		4.5,
-		'linear'
-	)
-});
+// console.log({
+// 	cubic: splineInterpolation(
+// 		[
+// 			{ x: 2, y: 9.5 },
+// 			{ x: 4, y: 8 },
+// 			{ x: 6, y: 10.5 },
+// 			{ x: 8, y: 39.5 },
+// 			{ x: 10, y: 72.5 }
+// 		],
+// 		4.5,
+// 		'cubic'
+// 	),
+// 	quadratic: splineInterpolation(
+// 		[
+// 			{ x: 2, y: 9.5 },
+// 			{ x: 4, y: 8 },
+// 			{ x: 6, y: 10.5 },
+// 			{ x: 8, y: 39.5 },
+// 			{ x: 10, y: 72.5 }
+// 		],
+// 		4.5,
+// 		'quadratic'
+// 	),
+// 	linear: splineInterpolation(
+// 		[
+// 			{ x: 2, y: 9.5 },
+// 			{ x: 4, y: 8 },
+// 			{ x: 6, y: 10.5 },
+// 			{ x: 8, y: 39.5 },
+// 			{ x: 10, y: 72.5 }
+// 		],
+// 		4.5,
+// 		'linear'
+// 	)
+// });
 
 // https://rosettacode.org/wiki/Reduced_row_echelon_form
 // https://github.com/Simsso/Online-Tools/blob/master/src/page/logic/cubic-spline-interpolation.js

@@ -1,5 +1,6 @@
 import { lagrangeInterpolation } from '$lib/solutions/lagrangeInterpolation';
 import { newtonDividedDifference } from '$lib/solutions/newtonDivided';
+import { splineInterpolation } from '$lib/solutions/spline';
 
 import { generateId } from '../utils';
 import { prisma } from './prisma';
@@ -206,6 +207,179 @@ export class InterpolationProblem extends Problem {
 	}
 }
 
+export class InterpolationOrderProblem extends Problem {
+	constructor(input: string) {
+		super(input, 'INTERPOLATION');
+	}
+
+	formatInput(): [
+		null | {
+			points: { x: number; y: number }[];
+			mode: 'linear' | 'quadratic' | 'cubic';
+			x: number;
+		},
+		null | { message: string; status: number }
+	] {
+		let dataJson;
+		try {
+			dataJson = JSON.parse(this.input);
+		} catch (err) {
+			return [
+				null,
+				{
+					message: 'Invalid JSON!',
+					status: 400
+				}
+			];
+		}
+
+		const { points, mode, x } = dataJson;
+
+		if (typeof points != 'object' || points == null) {
+			return [
+				null,
+				{
+					message: 'Points is required!',
+					status: 400
+				}
+			];
+		}
+
+		if (x == null || isNaN(x)) {
+			return [
+				null,
+				{
+					message: 'X is required!',
+					status: 400
+				}
+			];
+		}
+
+		const newX = Number(x);
+		// if points is not array
+		if (typeof points[Symbol.iterator] !== 'function') {
+			return [
+				null,
+				{
+					message: 'Points must be an array!',
+					status: 400
+				}
+			];
+		}
+
+		if (points.length < 2) {
+			return [
+				null,
+				{
+					message: 'At least 2 points is required!',
+					status: 400
+				}
+			];
+		}
+
+		// check all points is valid
+		const newPoints = [];
+		for (const point of points) {
+			if (typeof point.x != 'number' || typeof point.y != 'number') {
+				return [
+					null,
+					{
+						message: 'Invalid point!',
+						status: 400
+					}
+				];
+			}
+
+			newPoints.push({
+				x: point.x,
+				y: point.y
+			});
+		}
+
+		if (mode != 'linear' && mode != 'quadratic' && mode != 'cubic') {
+			return [
+				null,
+				{
+					message: 'Invalid mode!',
+					status: 400
+				}
+			];
+		}
+
+		const newData = {
+			points: newPoints,
+			mode: mode,
+			x: newX
+		};
+
+		this.input = JSON.stringify(newData);
+		return [newData, null];
+	}
+
+	async getProblemId(
+		mode: 'select' | 'create' = 'select'
+	): Promise<[null | string | undefined, null | { message: string; status: number }]> {
+		if (this.problemId != undefined) return [this.problemId, null];
+
+		const jsonBody = JSON.parse(this.input);
+		const { points, x } = jsonBody;
+		const problemMode = jsonBody.mode;
+
+		let problem;
+		try {
+			problem = await prisma.problem.findFirst({
+				where: {
+					AND: [
+						{
+							input: {
+								path: '$.points',
+								equals: points
+							}
+						},
+						{
+							input: {
+								path: '$.mode',
+								equals: problemMode
+							}
+						},
+						{
+							input: {
+								path: '$.x',
+								equals: x
+							}
+						},
+						{
+							problem_type: 'INTERPOLATION'
+						}
+					]
+				}
+			});
+		} catch (err) {
+			return [null, { message: 'Something went wrong!', status: 500 }];
+		}
+
+		let problemId = problem?.id;
+		if (mode == 'create' && !problem) {
+			problemId = generateId();
+			try {
+				await prisma.problem.create({
+					data: {
+						id: problemId,
+						problem_type: 'INTERPOLATION',
+						input: JSON.parse(this.input),
+						user_id: this.userId
+					}
+				});
+			} catch (err) {
+				return [null, { message: 'Something went wrong!', status: 500 }];
+			}
+		}
+
+		this.problemId = problemId;
+		return [problemId, null];
+	}
+}
+
 export class NewtonDividedDifferenceSolver extends ProblemSolver {
 	constructor(problem: Problem) {
 		super(problem, 'NEWTON_DIVIDED_DIFFERENCE');
@@ -306,52 +480,53 @@ export class LagrangeInterpolationSolver extends ProblemSolver {
 	}
 }
 
-// export class SplineInterpolationSolver extends ProblemSolver {
-// 	constructor(problem: Problem) {
-// 		super(problem, 'SPLINE_INTERPOLATION');
-// 	}
+export class SplineInterpolationSolver extends ProblemSolver {
+	constructor(problem: Problem) {
+		super(problem, 'SPLINE_INTERPOLATION');
+	}
 
-// 	async getOutput(): Promise<[object | null, { message: string; status: number } | null]> {
-// 		const [solverId, solverIdError] = await this.getProblemSolverId();
-// 		if (solverIdError) return [null, solverIdError];
+	async getOutput(): Promise<[object | null, { message: string; status: number } | null]> {
+		const [solverId, solverIdError] = await this.getProblemSolverId();
+		if (solverIdError) return [null, solverIdError];
 
-// 		const [problemId, problemIdError] = await this.problem.getProblemId('select');
-// 		if (problemIdError) return [null, problemIdError];
-// 		if (!problemId) return [null, { message: 'Something went wrong!', status: 500 }];
+		const [problemId, problemIdError] = await this.problem.getProblemId('select');
+		if (problemIdError) return [null, problemIdError];
+		if (!problemId) return [null, { message: 'Something went wrong!', status: 500 }];
 
-// 		if (solverId == undefined) {
-// 			const input = JSON.parse(this.problem.getInput());
-// 			const startTime = Date.now(); // ms
-// 			const output = SplineInterpolationSolver(input.points, input.selected_point, input.x);
-// 			const endTime = Date.now(); // ms
+		if (solverId == undefined) {
+			const input = JSON.parse(this.problem.getInput());
+			const startTime = Date.now(); // ms
 
-// 			this.problemSolverId = generateId();
-// 			await prisma.problemSolved.create({
-// 				data: {
-// 					id: this.problemSolverId,
-// 					output: JSON.parse(JSON.stringify(output)),
-// 					solution_type: 'SPLINE_INTERPOLATION',
-// 					executed_time: endTime - startTime,
-// 					user_id: this.userId,
-// 					problem_id: problemId,
-// 					iteration_count: 0
-// 				}
-// 			});
-// 			return [output, null];
-// 		}
+			const output = splineInterpolation(input.points, input.x, input.mode);
+			const endTime = Date.now(); // ms
 
-// 		await prisma.problemSolved.update({
-// 			where: {
-// 				id: this.problemSolverId
-// 			},
-// 			data: {
-// 				solved_count: {
-// 					increment: 1
-// 				}
-// 			}
-// 		});
+			this.problemSolverId = generateId();
+			await prisma.problemSolved.create({
+				data: {
+					id: this.problemSolverId,
+					output: JSON.parse(JSON.stringify(output)),
+					solution_type: 'SPLINE_INTERPOLATION',
+					executed_time: endTime - startTime,
+					user_id: this.userId,
+					problem_id: problemId,
+					iteration_count: 0
+				}
+			});
+			return [output, null];
+		}
 
-// 		if (this.output != undefined) return [JSON.parse(this.output), null];
-// 		return [null, { message: 'Something went wrong!', status: 500 }];
-// 	}
-// }
+		await prisma.problemSolved.update({
+			where: {
+				id: this.problemSolverId
+			},
+			data: {
+				solved_count: {
+					increment: 1
+				}
+			}
+		});
+
+		if (this.output != undefined) return [JSON.parse(this.output), null];
+		return [null, { message: 'Something went wrong!', status: 500 }];
+	}
+}
