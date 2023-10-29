@@ -1,7 +1,7 @@
 import { copyMatrix } from '$lib/utils';
 
 export interface GuassJordanType {
-	iterations: RowOperationType[];
+	iterations?: RowOperationType[];
 	answers?: number[];
 	matrix?: number[][];
 	error?: string;
@@ -75,7 +75,7 @@ export function guassJordanMethod(matrixA: number[][], arrayB: number[]): GuassJ
 			mat[r] = tmp;
 
 			iter.matrix = copyMatrix(mat);
-			result.iterations.push(iter);
+			if (result.iterations) result.iterations.push(iter);
 		}
 
 		let val = mat[r][lead];
@@ -90,7 +90,7 @@ export function guassJordanMethod(matrixA: number[][], arrayB: number[]): GuassJ
 			mat[r][j] = mat[r][j] / val;
 		}
 		iter.matrix = copyMatrix(mat);
-		result.iterations.push(iter);
+		if (result.iterations) result.iterations.push(iter);
 
 		for (let i = 0; i < mat.length; i++) {
 			if (i == r) continue;
@@ -109,7 +109,7 @@ export function guassJordanMethod(matrixA: number[][], arrayB: number[]): GuassJ
 				mat[i][j] = mat[i][j] - val * mat[r][j];
 			}
 			iter.matrix = copyMatrix(mat);
-			result.iterations.push(iter);
+			if (result.iterations) result.iterations.push(iter);
 		}
 		lead++;
 	}

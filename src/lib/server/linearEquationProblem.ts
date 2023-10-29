@@ -238,6 +238,8 @@ export class GuassJordanSolver extends ProblemSolver {
 			const output = guassJordanMethod(input.matrixA, input.arrayB);
 			const endTime = Date.now(); // ms
 
+			delete output.iterations;
+
 			this.problemSolverId = generateId();
 			await prisma.problemSolved.create({
 				data: {
@@ -251,7 +253,9 @@ export class GuassJordanSolver extends ProblemSolver {
 				}
 			});
 
-			return [output, null];
+			const outputIteration = guassJordanMethod(input.matrixA, input.arrayB);
+
+			return [outputIteration, null];
 		}
 
 		await prisma.problemSolved.update({
