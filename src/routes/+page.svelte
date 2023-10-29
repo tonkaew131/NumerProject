@@ -119,6 +119,12 @@
 						<Select.Item class="hover:cursor-pointer" value="linear-inversion" disabled>
 							Matrix Inversion
 						</Select.Item>
+						<Select.Item class="hover:cursor-pointer" value="linear-lu" disabled>
+							LU Decomposition Methods
+						</Select.Item>
+						<Select.Item class="hover:cursor-pointer" value="linear-cholesky" disabled>
+							Cholesky Decomposition Methods
+						</Select.Item>
 						<Select.Item class="hover:cursor-pointer" value="linear-jacobi" disabled>
 							Jacobi Iteration Methods
 						</Select.Item>
