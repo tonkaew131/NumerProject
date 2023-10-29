@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+
 	import InterpolationInput from '$lib/components/interpolationInput.svelte';
 	import KaTex from '$lib/components/KaTex.svelte';
 	import * as Card from '$lib/components/ui/card';

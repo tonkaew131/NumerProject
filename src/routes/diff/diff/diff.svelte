@@ -1,12 +1,13 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import { parse } from 'mathjs';
+
 	import KaTex from '$lib/components/KaTex.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import * as Dialog from '$lib/components/ui/dialog';
-	import { diffFormula, type DifferentiationResult } from '$lib/solutions/differentiation';
+	import { type DifferentiationResult,diffFormula } from '$lib/solutions/differentiation';
 
 	import Input from './input.svelte';
-	import { parse } from 'mathjs';
 
 	let inputData = {
 		order: '',

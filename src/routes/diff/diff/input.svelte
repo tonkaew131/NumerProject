@@ -1,11 +1,12 @@
 <script lang="ts">
+	import { parse } from 'mathjs';
+
 	import KaTex from '$lib/components/KaTex.svelte';
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import Label from '$lib/components/ui/label/label.svelte';
 	import * as Select from '$lib/components/ui/select';
-	import { parse } from 'mathjs';
 
 	export let onClickCalculate: (e: MouseEvent) => void;
 	export let order: number | string;

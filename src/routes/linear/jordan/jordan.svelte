@@ -1,14 +1,14 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import { matrix } from 'mathjs';
 
 	import { formatMatrix } from '$lib/components/kaTeX';
 	import KaTeX from '$lib/components/KaTex.svelte';
 	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import * as Dialog from '$lib/components/ui/dialog';
-	import { composeMatrix, createArray, createMatrix } from '$lib/utils';
 	import { guassJordanMethod, type GuassJordanType } from '$lib/solutions/guassJordan';
-	import { matrix } from 'mathjs';
+	import { composeMatrix, createArray, createMatrix } from '$lib/utils';
 
 	let modalMessage = {
 		title: '',

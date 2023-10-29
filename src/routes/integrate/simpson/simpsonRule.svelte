@@ -7,9 +7,9 @@
 	import KaTex from '$lib/components/KaTex.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import * as Dialog from '$lib/components/ui/dialog';
+	import type { SimpsonResult } from '$lib/solutions/simpsonRule';
 
 	import Input from './input.svelte';
-	import type { SimpsonResult } from '$lib/solutions/simpsonRule';
 
 	let inputData = {
 		xStart: '',
