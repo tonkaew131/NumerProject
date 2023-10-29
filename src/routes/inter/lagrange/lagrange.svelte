@@ -25,7 +25,7 @@
 			y: number;
 		}[];
 	}
-	let result: resultType & LangrangeInterpolationResult;
+	let result: resultType & LagrangeInterpolationResult;
 
 	let modalMessage = {
 		title: '',
@@ -93,7 +93,7 @@
 	}
 
 	function formatResult(
-		result: resultType & LangrangeInterpolationResult,
+		result: resultType & LagrangeInterpolationResult,
 		precision: number
 	): string[] {
 		let formula = '';
