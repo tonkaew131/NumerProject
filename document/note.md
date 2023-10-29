@@ -17,12 +17,12 @@
   - [x] อธิบายส่วนของโปรแกรมที่มี
     - [x] Constructor
     - [x] Encapsulation
-    - [ ] Composition
-    - [ ] Polymorphism
-    - [ ] Abstract
-    - [ ] Inheritance
-  - [ ] หน้าจอ GUI อธิบายส่วนประกอบของ GUI โครงสร้างของ GUI ประกอบด้วย Component อะไรบ้าง
-  - [ ] อธิบาย Event handling ที่มีในหน้าจอ
+    - [x] Composition
+    - [x] Polymorphism
+    - [x] Abstract
+    - [x] Inheritance
+  - [ ] ~~หน้าจอ GUI อธิบายส่วนประกอบของ GUI โครงสร้างของ GUI ประกอบด้วย Component อะไรบ้าง~~
+  - [ ] ~~อธิบาย Event handling ที่มีในหน้าจอ~~
   - [ ] อธิบายอัลกอริทึมที่สำคัญในโปรแกรม
 - [ ] บทที่ 3 **สรุป**
   - [ ] ปัญหาที่พบระหว่างการพัฒนา
