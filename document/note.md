@@ -13,10 +13,10 @@
 - [ ] บทที่ 2 **ส่วนการพัฒนา**
   - [ ] ~~เนื้อเรื่องย่อหรือวิธิการเล่น (กรณีเกมส์)~~
   - [x] คลาสไดอะแกรม พร้อมคำอธิบาย
-  - [ ] รูปแบบการพัฒนา Application / Applet
-  - [ ] อธิบายส่วนของโปรแกรมที่มี
-    - [ ] Constructor
-    - [ ] Encapsulation
+  - [x] รูปแบบการพัฒนา Application / Applet
+  - [x] อธิบายส่วนของโปรแกรมที่มี
+    - [x] Constructor
+    - [x] Encapsulation
     - [ ] Composition
     - [ ] Polymorphism
     - [ ] Abstract
