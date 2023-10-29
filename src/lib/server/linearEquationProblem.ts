@@ -2,6 +2,7 @@ import { cramerRule } from '$lib/solutions/cramer';
 import { guassEliminationMethods } from '$lib/solutions/guass';
 import { formatArray, formatMatrix, generateId } from '$lib/utils';
 
+import { guassJordanMethod } from '../solutions/guassJordan';
 import { prisma } from './prisma';
 import { Problem, ProblemSolver } from './problem';
 
@@ -192,6 +193,57 @@ export class GuassEliminationSolver extends ProblemSolver {
 					id: this.problemSolverId,
 					output: JSON.parse(JSON.stringify(output)),
 					solution_type: 'GUASS',
+					executed_time: endTime - startTime,
+					user_id: this.userId,
+					problem_id: problemId,
+					iteration_count: 0
+				}
+			});
+
+			return [output, null];
+		}
+
+		await prisma.problemSolved.update({
+			where: {
+				id: this.problemSolverId
+			},
+			data: {
+				solved_count: {
+					increment: 1
+				}
+			}
+		});
+
+		if (this.output != undefined) return [JSON.parse(this.output), null];
+		return [null, { message: 'Something went wrong!', status: 500 }];
+	}
+}
+
+export class GuassJordanSolver extends ProblemSolver {
+	constructor(problem: Problem) {
+		super(problem, 'GUASS_JORDAN');
+	}
+
+	async getOutput(): Promise<[object | null, { message: string; status: number } | null]> {
+		const [solverId, solverIdError] = await this.getProblemSolverId();
+		if (solverIdError) return [null, solverIdError];
+
+		const [problemId, problemIdError] = await this.problem.getProblemId('select');
+		if (problemIdError) return [null, problemIdError];
+		if (!problemId) return [null, { message: 'Something went wrong!', status: 500 }];
+
+		if (solverId == undefined) {
+			const input = JSON.parse(this.problem.getInput());
+			const startTime = Date.now(); // ms
+			const output = guassJordanMethod(input.matrixA, input.arrayB);
+			const endTime = Date.now(); // ms
+
+			this.problemSolverId = generateId();
+			await prisma.problemSolved.create({
+				data: {
+					id: this.problemSolverId,
+					output: JSON.parse(JSON.stringify(output)),
+					solution_type: 'GUASS_JORDAN',
 					executed_time: endTime - startTime,
 					user_id: this.userId,
 					problem_id: problemId,
