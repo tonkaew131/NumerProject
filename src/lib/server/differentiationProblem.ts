@@ -211,7 +211,14 @@ export class DifferentiationSolver extends ProblemSolver {
 		if (solverId == undefined) {
 			const input = JSON.parse(this.problem.getInput());
 			const startTime = Date.now(); // ms
-			const output = differentiation(input.func, input.x, input.h, input.order, input.error, input.direction);
+			const output = differentiation(
+				input.func,
+				input.x,
+				input.h,
+				input.order,
+				input.error,
+				input.direction
+			);
 			const endTime = Date.now(); // ms
 
 			this.problemSolverId = generateId();

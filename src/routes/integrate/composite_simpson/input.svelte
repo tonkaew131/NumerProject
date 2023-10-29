@@ -32,7 +32,12 @@
 <div class="flex items-end justify-center gap-2 mt-6">
 	<Label class="mt-1">
 		<KaTex data={`a = x_{0}`} />
-		<Input class="bg-white h-11 w-[5.5rem] mt-2" type="number" bind:value={xStart} placeholder="2" />
+		<Input
+			class="bg-white h-11 w-[5.5rem] mt-2"
+			type="number"
+			bind:value={xStart}
+			placeholder="2"
+		/>
 	</Label>
 	<Label class="mt-1">
 		<KaTex data={`b = x_{1}`} />
