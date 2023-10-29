@@ -1,0 +1,271 @@
+<mxfile host="app.diagrams.net" modified="2023-10-29T14:35:43.682Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0" etag="OW05i4viIOOXbKmviBHk" version="22.0.8" type="device">
+  <diagram name="Page-1" id="59fGY38XJbvUTvU4bKwt">
+    <mxGraphModel dx="4891" dy="2303" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-17" value="" style="group;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="160" y="10" width="240" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-13" value="&lt;div&gt;&lt;i&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;ProblemType&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;glass=0;shadow=0;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-17">
+          <mxGeometry width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-15" value="ROOT_OF_EQUATION&lt;br&gt;LINEAR_ALGEBRA_EQUATION&lt;br&gt;INTERPOLATION&lt;br&gt;EXTRAPOLATION&lt;br&gt;INTEGRATION&lt;br&gt;DIFFERENTIATION" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;fontStyle=0" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-17">
+          <mxGeometry y="50" width="240" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-18" value="" style="group;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="170" y="330" width="260" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-1" value="&lt;div&gt;&lt;i&gt;&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;Problem&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;glass=0;shadow=0;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-18">
+          <mxGeometry x="-20" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-9" value="&lt;div&gt;#problemId: &lt;b&gt;string&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;#userId: &lt;b&gt;string&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;#input: &lt;b&gt;string&lt;/b&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-18">
+          <mxGeometry x="-20" y="50" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-10" value="&lt;div&gt;Problem(input:&lt;b&gt;string&lt;/b&gt;, problemType: &lt;b&gt;ProblemType&lt;/b&gt;)&lt;/div&gt;&lt;div&gt;&lt;i&gt;getProblemId(mode: &lt;b&gt;&#39;select&#39; | &#39;create&#39;&lt;/b&gt;): &lt;b&gt;string&lt;/b&gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;setUserId(userId:&lt;b&gt;string&lt;/b&gt;): &lt;b&gt;void&lt;/b&gt;&lt;/div&gt;&lt;div&gt;getInput(): &lt;b&gt;string&lt;br&gt;&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;spacingRight=10;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-18">
+          <mxGeometry x="-20" y="120" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" edge="1" parent="1" source="GjvuEu1e9dv1N1N5pgB6-1" target="GjvuEu1e9dv1N1N5pgB6-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="410" y="420" as="sourcePoint" />
+            <mxPoint x="600" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-20" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-19">
+          <mxGeometry x="-0.8511" y="3" relative="1" as="geometry">
+            <mxPoint x="13" y="-7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-21" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-19">
+          <mxGeometry x="0.6526" y="2" relative="1" as="geometry">
+            <mxPoint x="13" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-22" value="#problemType" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-19">
+          <mxGeometry x="0.0211" y="3" relative="1" as="geometry">
+            <mxPoint x="48" y="4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-23" value="" style="group;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="-260" y="330" width="260" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-24" value="&lt;div&gt;&lt;i&gt;&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;&lt;/i&gt;&lt;/div&gt;&lt;b&gt;ProblemSolver&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;glass=0;shadow=0;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-23">
+          <mxGeometry x="-20" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-25" value="&lt;div&gt;#problemSolverId: &lt;b&gt;string&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;#userId: &lt;b&gt;string&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;#output: &lt;b&gt;string&lt;/b&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-23">
+          <mxGeometry x="-20" y="50" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-26" value="&lt;div&gt;ProblemSolver(problem: &lt;b&gt;Problem&lt;/b&gt;, solutionType: &lt;b&gt;SolutionType&lt;/b&gt;)&lt;/div&gt;&lt;div&gt;&lt;i&gt;getOutput(): &lt;b&gt;string&lt;/b&gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;setUserId(userId:&lt;b&gt;string&lt;/b&gt;): &lt;b&gt;void&lt;/b&gt;&lt;/div&gt;&lt;div&gt;getProblemSolverId(): &lt;b&gt;string&lt;br&gt;&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;spacingRight=10;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-23">
+          <mxGeometry x="-20" y="120" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" edge="1" parent="1" source="GjvuEu1e9dv1N1N5pgB6-24" target="GjvuEu1e9dv1N1N5pgB6-29">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-31" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-30">
+          <mxGeometry x="0.758" y="-5" relative="1" as="geometry">
+            <mxPoint x="5" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-32" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-30">
+          <mxGeometry x="-0.8435" y="-3" relative="1" as="geometry">
+            <mxPoint x="7" y="-12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-33" value="#solutionType" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-30">
+          <mxGeometry x="-0.0101" relative="1" as="geometry">
+            <mxPoint x="42" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=diamond;endFill=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" edge="1" parent="1" source="GjvuEu1e9dv1N1N5pgB6-9" target="GjvuEu1e9dv1N1N5pgB6-25">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-37" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-36">
+          <mxGeometry x="-0.8672" y="-2" relative="1" as="geometry">
+            <mxPoint y="-13" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-38" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-36">
+          <mxGeometry x="0.7261" y="1" relative="1" as="geometry">
+            <mxPoint x="-13" y="-16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-39" value="#problem" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-36">
+          <mxGeometry x="0.0941" relative="1" as="geometry">
+            <mxPoint x="13" y="-15" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-40" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="-270" y="-100" width="240" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-28" value="&lt;div&gt;&lt;i&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;SolutionType&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;glass=0;shadow=0;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-40">
+          <mxGeometry width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-29" value="GRAPHICAL&lt;br&gt;BISECTION&lt;br&gt;FALSE_POSITION&lt;br&gt;ONE_POINT_ITERATION&lt;br&gt;NEWTON_RAPHSON&lt;br&gt;SECANT&lt;br&gt;CRAMER&lt;br&gt;GUASS&lt;br&gt;GUASS_JORDAN&lt;br&gt;NEWTON_DIVIDED_DIFFERENCE&lt;br&gt;LANGRAGE_INTERPOLATION&lt;br&gt;SPLINE_INTERPOLATION&lt;br&gt;SIMPLE_REGRESSION&lt;br&gt;MULTIPLE_REGRESSION&lt;br&gt;TRAPEZOIDAL_RULE&lt;br&gt;SIMPSON_RULE&lt;br&gt;DIFFERENTIATION" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;fontStyle=0" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-40">
+          <mxGeometry y="50" width="240" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-41" value="" style="group;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="-750" y="70" width="260" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-42" value="&lt;div&gt;&lt;i&gt;&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;Problem&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;glass=0;shadow=0;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-41">
+          <mxGeometry x="-20" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-43" value="&lt;div&gt;#problemId: &lt;b&gt;string&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;#userId: &lt;b&gt;string&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;#input: &lt;b&gt;string&lt;/b&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-41">
+          <mxGeometry x="-20" y="50" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-44" value="&lt;div&gt;Problem(input:&lt;b&gt;string&lt;/b&gt;, problemType: &lt;b&gt;ProblemType&lt;/b&gt;)&lt;/div&gt;&lt;div&gt;&lt;i&gt;getProblemId(mode: &lt;b&gt;&#39;select&#39; | &#39;create&#39;&lt;/b&gt;): &lt;b&gt;string&lt;/b&gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;setUserId(userId:&lt;b&gt;string&lt;/b&gt;): &lt;b&gt;void&lt;/b&gt;&lt;/div&gt;&lt;div&gt;getInput(): &lt;b&gt;string&lt;br&gt;&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;spacingRight=10;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-41">
+          <mxGeometry x="-20" y="120" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-45" value="" style="group;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="-1180" y="70" width="260" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-46" value="&lt;div&gt;&lt;i&gt;&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;&lt;/i&gt;&lt;/div&gt;&lt;b&gt;ProblemSolver&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;glass=0;shadow=0;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-45">
+          <mxGeometry x="-20" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-47" value="&lt;div&gt;#problemSolverId: &lt;b&gt;string&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;#userId: &lt;b&gt;string&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;#output: &lt;b&gt;string&lt;/b&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-45">
+          <mxGeometry x="-20" y="50" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-48" value="&lt;div&gt;ProblemSolver(problem: &lt;b&gt;Problem&lt;/b&gt;, solutionType: &lt;b&gt;SolutionType&lt;/b&gt;)&lt;/div&gt;&lt;div&gt;&lt;i&gt;getOutput(): &lt;b&gt;string&lt;/b&gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;setUserId(userId:&lt;b&gt;string&lt;/b&gt;): &lt;b&gt;void&lt;/b&gt;&lt;/div&gt;&lt;div&gt;getProblemSolverId(): &lt;b&gt;string&lt;br&gt;&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;spacingRight=10;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-45">
+          <mxGeometry x="-20" y="120" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-49" value="" style="group;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="-750" y="360" width="260" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-50" value="&lt;b&gt;RootOfEquationProblem&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;glass=0;shadow=0;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-49">
+          <mxGeometry x="-20" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-51" value="" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-49">
+          <mxGeometry x="-20" y="50" width="260" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-52" value="&lt;div&gt;formatInput(): &lt;b&gt;{&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;xStart: number,&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;xEnd: number,&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;errorFactor: number,&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;func: string&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;}&lt;/b&gt;&lt;/div&gt;getProblemId(mode: &lt;b&gt;&#39;select&#39; | &#39;create&#39;&lt;/b&gt;): &lt;b&gt;string&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;spacingRight=10;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-49">
+          <mxGeometry x="-20" y="60" width="260" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="GjvuEu1e9dv1N1N5pgB6-50" target="GjvuEu1e9dv1N1N5pgB6-44">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-54" value="" style="group;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="-1180" y="360" width="260" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-55" value="&lt;b&gt;GraphicalMethodSolver&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;glass=0;shadow=0;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-54">
+          <mxGeometry x="-20" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-56" value="" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-54">
+          <mxGeometry x="-20" y="50" width="260" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-57" value="&lt;div&gt;&lt;i&gt;getOutput(): &lt;b&gt;string&lt;/b&gt;&lt;/i&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;spacingRight=10;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-54">
+          <mxGeometry x="-20" y="60" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="GjvuEu1e9dv1N1N5pgB6-55" target="GjvuEu1e9dv1N1N5pgB6-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=diamond;endFill=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-770" y="160" as="sourcePoint" />
+            <mxPoint x="-940" y="160" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-60" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-59">
+          <mxGeometry x="-0.8672" y="-2" relative="1" as="geometry">
+            <mxPoint y="-13" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-61" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-59">
+          <mxGeometry x="0.7261" y="1" relative="1" as="geometry">
+            <mxPoint x="-13" y="-16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-62" value="#problem" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-59">
+          <mxGeometry x="0.0941" relative="1" as="geometry">
+            <mxPoint x="13" y="-15" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=diamond;endFill=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-770" y="440" as="sourcePoint" />
+            <mxPoint x="-940" y="440" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-64" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-63">
+          <mxGeometry x="-0.8672" y="-2" relative="1" as="geometry">
+            <mxPoint y="-13" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-65" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-63">
+          <mxGeometry x="0.7261" y="1" relative="1" as="geometry">
+            <mxPoint x="-13" y="-16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-66" value="#problem" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-63">
+          <mxGeometry x="0.0941" relative="1" as="geometry">
+            <mxPoint x="13" y="-15" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-67" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" edge="1" parent="1" target="GjvuEu1e9dv1N1N5pgB6-73" source="GjvuEu1e9dv1N1N5pgB6-46">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-140" y="340" as="sourcePoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-68" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-67">
+          <mxGeometry x="0.758" y="-5" relative="1" as="geometry">
+            <mxPoint x="5" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-69" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-67">
+          <mxGeometry x="-0.8435" y="-3" relative="1" as="geometry">
+            <mxPoint x="7" y="-12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-70" value="#solutionType" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-67">
+          <mxGeometry x="-0.0101" relative="1" as="geometry">
+            <mxPoint x="42" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-71" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="-1190" y="-360" width="240" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-72" value="&lt;div&gt;&lt;i&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;SolutionType&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;glass=0;shadow=0;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-71">
+          <mxGeometry width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-73" value="GRAPHICAL&lt;br&gt;BISECTION&lt;br&gt;FALSE_POSITION&lt;br&gt;ONE_POINT_ITERATION&lt;br&gt;NEWTON_RAPHSON&lt;br&gt;SECANT&lt;br&gt;CRAMER&lt;br&gt;GUASS&lt;br&gt;GUASS_JORDAN&lt;br&gt;NEWTON_DIVIDED_DIFFERENCE&lt;br&gt;LANGRAGE_INTERPOLATION&lt;br&gt;SPLINE_INTERPOLATION&lt;br&gt;SIMPLE_REGRESSION&lt;br&gt;MULTIPLE_REGRESSION&lt;br&gt;TRAPEZOIDAL_RULE&lt;br&gt;SIMPSON_RULE&lt;br&gt;DIFFERENTIATION" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;fontStyle=0" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-71">
+          <mxGeometry y="50" width="240" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-74" value="" style="group;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="-760" y="-200" width="240" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-75" value="&lt;div&gt;&lt;i&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;ProblemType&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;glass=0;shadow=0;" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-74">
+          <mxGeometry width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-76" value="ROOT_OF_EQUATION&lt;br&gt;LINEAR_ALGEBRA_EQUATION&lt;br&gt;INTERPOLATION&lt;br&gt;EXTRAPOLATION&lt;br&gt;INTEGRATION&lt;br&gt;DIFFERENTIATION" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;fillColor=default;fontStyle=0" vertex="1" parent="GjvuEu1e9dv1N1N5pgB6-74">
+          <mxGeometry y="50" width="240" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-77" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" edge="1" parent="1" target="GjvuEu1e9dv1N1N5pgB6-76" source="GjvuEu1e9dv1N1N5pgB6-42">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="340" as="sourcePoint" />
+            <mxPoint x="610" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-78" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-77">
+          <mxGeometry x="-0.8511" y="3" relative="1" as="geometry">
+            <mxPoint x="13" y="-7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-79" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-77">
+          <mxGeometry x="0.6526" y="2" relative="1" as="geometry">
+            <mxPoint x="13" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GjvuEu1e9dv1N1N5pgB6-80" value="#problemType" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontFamily=Noto sans Thai;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DNoto%2Bsans%2BThai;" vertex="1" connectable="0" parent="GjvuEu1e9dv1N1N5pgB6-77">
+          <mxGeometry x="0.0211" y="3" relative="1" as="geometry">
+            <mxPoint x="48" y="4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
