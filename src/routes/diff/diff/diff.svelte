@@ -5,7 +5,7 @@
 	import KaTex from '$lib/components/KaTex.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import * as Dialog from '$lib/components/ui/dialog';
-	import { type DifferentiationResult,diffFormula } from '$lib/solutions/differentiation';
+	import { type DifferentiationResult, diffFormula } from '$lib/solutions/differentiation';
 
 	import Input from './input.svelte';
 

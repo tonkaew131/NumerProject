@@ -116,7 +116,7 @@
 						<Select.Item class="hover:cursor-pointer" value="linear-jordan">
 							Guass Jordan elimination
 						</Select.Item>
-						<Select.Item class="hover:cursor-pointer" value="linear-inversion" disabled>
+						<Select.Item class="hover:cursor-pointer" value="linear-inversion">
 							Matrix Inversion
 						</Select.Item>
 						<Select.Item class="hover:cursor-pointer" value="linear-lu" disabled>
