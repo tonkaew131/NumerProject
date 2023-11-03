@@ -1,20 +1,41 @@
-# create-svelte
+# NumerProject
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Fullstack website that calculate numerical methods problem with beautiful graph, step-by-step solution built on [SvelteKit](https://kit.svelte.dev/), [PlanetScale](https://planetscale.com/), [Prisma](https://www.prisma.io/), [TailwindCSS](https://tailwindcss.com/), [Plotly.js](https://plotly.com/javascript/), Typescript, [Vercel](https://vercel.com), [Lucia Auth](https://lucia-auth.com/), [math.js](https://mathjs.org/), [KaTeX](https://katex.org/), [shadcn-svelte](https://github.com/huntabyte/shadcn-svelte). It can solve for
 
-## Creating a project
+- Root of Equation
+  - Graphical method
+  - Bisection search
+  - One-point iteration method
+  - Newton-Raphson method
+  - Secant method
+- Linear Algebra Equation
+  - Cramer's rule
+  - Guass elimination
+  - Guass Jordan elimination
+  - Matrix Inversion
+  - LU decomposition method
+  - Cholesky decomposition method
+  - Jacobi iteration method
+  - Guass-Seidal iteration method
+  - Conjugate gradient method
+- Interpolation
+  - Newton divided-difference
+  - Lagrange interpolation
+  - Spline interpolation
+- Extrapolation
+  - Simple regression
+  - Multiple regression
+- Integration
+  - Trapezoidal rule
+  - Composite trapezoidal rule
+  - Simpson rule
+  - Composite Simpson rule
+- Differentiation
+  - Numerical differentiation
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Installation
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
+### Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
@@ -25,7 +46,7 @@ npm run dev
 npm run dev -- --open
 ```
 
-## Building
+### Building
 
 To create a production version of your app:
 
@@ -33,6 +54,14 @@ To create a production version of your app:
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+## Contributing
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Feel free to fix my error.
+
+## Authors
+
+* **Athicha Leksansern** - *Initial work* - [Tonkaew](https://github.com/tonkaew131/)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
