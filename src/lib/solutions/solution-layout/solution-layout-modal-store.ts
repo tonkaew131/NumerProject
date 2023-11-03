@@ -14,7 +14,8 @@ function setStore(title: string, description: string) {
 	}
 }
 
-export default {
+const modalStore = {
 	subscribe,
 	set: setStore
 };
+export default modalStore;

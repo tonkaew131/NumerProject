@@ -1,20 +1,23 @@
 <script lang="ts">
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { cn } from '$lib/utils';
+	import Icon from '@iconify/svelte';
 
 	import Input from './solution-layout-input.svelte';
 	import modal from './solution-layout-modal-store';
 	import Result from './solution-layout-result.svelte';
+	import { ProblemData, SolutionData, type SolutionType } from './solution-type';
 
 	interface $$Props {
 		class?: string;
-		problemType: string;
-		solutionType: string;
+		solutionType: SolutionType;
 	}
 
 	let className: $$Props['class'] = undefined;
-	export let problemType: $$Props['problemType'] = '';
-	export let solutionType: $$Props['solutionType'] = '';
+	export let solutionType: $$Props['solutionType'];
+
+	const solutionData = SolutionData[solutionType];
+	const problemData = ProblemData[solutionData.problemType];
 
 	const C = {
 		Input,
@@ -25,11 +28,22 @@
 </script>
 
 <svelte:head>
-	<title>{solutionType}</title>
-	<meta name="description" content="{problemType} - {solutionType}" />
+	<title>{solutionData.name}</title>
+	<meta name="description" content="{problemData.name} - {solutionData.name}" />
 </svelte:head>
 
-<h3 class="text-center">🥹 {solutionType}</h3>
+<!-- Breadcrumbs -->
+<div class="flex gap-4 items-center">
+	<a href={problemData.url} class="text-primary font-noto text-sm">
+		{problemData.name}
+	</a>
+	<Icon icon="mingcute:right-fill" />
+	<span class="text-primary font-noto text-sm">
+		{solutionData.name}
+	</span>
+</div>
+
+<h3 class="text-center mt-0">🥹 {solutionData.name}</h3>
 
 <Dialog.Root>
 	<Dialog.Trigger id="trigger-modal" />

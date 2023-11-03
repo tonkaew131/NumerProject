@@ -19,7 +19,7 @@
 	}
 </script>
 
-<SolutionLayout let:C problemType="Linear Algebra Equation" solutionType="Matrix Inversion">
+<SolutionLayout let:C solutionType="MATRIX_INVERSION">
 	<C.Input>
 		<LinearAlgebraInput
 			bind:matrixA={inputData.matrixA}
