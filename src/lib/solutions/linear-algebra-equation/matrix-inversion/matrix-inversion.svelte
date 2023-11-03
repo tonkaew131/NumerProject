@@ -2,6 +2,7 @@
 	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
 	import SolutionLayout from '$lib/solutions/solution-layout/solution-layout.svelte';
 	import * as Card from '$lib/components/ui/card';
+	import modalStore from '$lib/solutions/solution-layout/solution-layout-modal-store';
 
 	let inputData = {
 		matrixA: [
@@ -14,28 +15,11 @@
 	};
 
 	function computeResult() {
-		toggleModal('hi', 'me');
-	}
-
-	let modalMessage = {
-		title: '',
-		description: ''
-	};
-	function toggleModal(title: string, description: string) {
-		modalMessage = {
-			title,
-			description
-		};
-		document?.getElementById('trigger-modal')!.click();
+		modalStore.set('Hello', 'World!');
 	}
 </script>
 
-<SolutionLayout
-	let:C
-	{modalMessage}
-	problemType="Linear Algebra Equation"
-	solutionType="Matrix Inversion"
->
+<SolutionLayout let:C problemType="Linear Algebra Equation" solutionType="Matrix Inversion">
 	<C.Input>
 		<LinearAlgebraInput
 			bind:matrixA={inputData.matrixA}

@@ -60,7 +60,7 @@ Feel free to fix my error.
 
 ## Authors
 
-* **Athicha Leksansern** - *Initial work* - [Tonkaew](https://github.com/tonkaew131/)
+- **Athicha Leksansern** - _Initial work_ - [Tonkaew](https://github.com/tonkaew131/)
 
 ## License
 
