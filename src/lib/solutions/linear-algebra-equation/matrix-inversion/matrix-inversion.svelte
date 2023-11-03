@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
-	import SolutionLayout from '$lib/solutions/solution-layout/solution-layout.svelte';
 	import * as Card from '$lib/components/ui/card';
+	import SolutionLayout from '$lib/solutions/solution-layout/solution-layout.svelte';
 	import modalStore from '$lib/solutions/solution-layout/solution-layout-modal-store';
 
 	let inputData = {

@@ -3,8 +3,8 @@
 	import { cn } from '$lib/utils';
 
 	import Input from './solution-layout-input.svelte';
-	import Result from './solution-layout-result.svelte';
 	import modal from './solution-layout-modal-store';
+	import Result from './solution-layout-result.svelte';
 
 	interface $$Props {
 		class?: string;
