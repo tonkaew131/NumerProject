@@ -8,6 +8,8 @@ import type { JacobiIterationMethodResult } from './jacobi-iteration';
 interface inputData {
 	matrixA: number[][];
 	arrayB: number[];
+	arrayX: number[];
+	epsilon: number;
 	matrixSize: number;
 }
 
@@ -19,6 +21,8 @@ const store = writable<{
 	input: {
 		matrixA: createMatrix(3),
 		arrayB: createArray(3),
+		arrayX: createArray(3),
+		epsilon: 0.000001,
 		matrixSize: 3
 	},
 	loading: false,
@@ -50,6 +54,15 @@ const fetchSolution = async () => {
 	timeSinceLastCalculate = Date.now();
 	setLoading(true);
 
+	update((value) => ({
+		...value,
+		input: {
+			...value.input,
+			epsilon: Number(value.input.epsilon),
+			matrixSize: Number(value.input.matrixSize)
+		}
+	}));
+
 	const res = await fetch('/api/solution/linear/jacobi', {
 		method: 'POST',
 		headers: {
@@ -57,7 +70,9 @@ const fetchSolution = async () => {
 		},
 		body: JSON.stringify({
 			matrixA: get(store).input.matrixA,
-			arrayB: get(store).input.arrayB
+			arrayB: get(store).input.arrayB,
+			initialX: get(store).input.arrayX,
+			epsilon: get(store).input.epsilon
 		})
 	});
 	const jsonData = await res.json();
