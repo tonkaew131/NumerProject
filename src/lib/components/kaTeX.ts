@@ -7,7 +7,7 @@ export function formatVector(matrix: MathArray | Matrix | number[] | string[], p
 			out += `${m} \\\\`;
 			return;
 		}
-		
+
 		out += `${parseFloat(Number(m).toFixed(precision))} \\\\`;
 	});
 

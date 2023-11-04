@@ -7,7 +7,7 @@
 	import SolutionLayout from '$lib/solutions/solution-layout/solution-layout.svelte';
 
 	import store from './matrix-inversion-store';
-	import { formatMatrix, formatMatrixPipe, formatVector } from '$lib/components/kaTeX';
+	import { formatMatrix, formatVector } from '$lib/components/kaTeX';
 </script>
 
 <SolutionLayout let:C solutionType="MATRIX_INVERSION">
