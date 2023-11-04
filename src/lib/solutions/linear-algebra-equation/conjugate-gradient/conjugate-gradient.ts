@@ -14,7 +14,7 @@ export interface ConjugateGradientResult {
 		ek: number;
 	}[];
 	answers?: number[] | math.Matrix | math.MathArray;
-	error?: 'Not Symmetric Matrix' | 'Max Iterations Reached';
+	error?: 'Not Symmetric Matrix' | 'Max Iterations Reached' | 'Not Positive Definite Matrix';
 }
 
 export function conjugateGradientMethods(
@@ -100,6 +100,18 @@ export function conjugateGradientMethods(
 	if (math.matrix(matrixA).toString() != math.transpose(math.matrix(matrixA)).toString()) {
 		result.error = 'Not Symmetric Matrix';
 		return result;
+	}
+
+	for (let i = 0; i < matrixA.length; i++) {
+		const subsetMatrix = math.subset(
+			math.matrix(matrixA),
+			math.index(math.range(0, i + 1), math.range(0, i + 1))
+		);
+
+		if (math.det(subsetMatrix) <= 0) {
+			result.error = 'Not Positive Definite Matrix';
+			return result;
+		}
 	}
 
 	// this is the first iteration
