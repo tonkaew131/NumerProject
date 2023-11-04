@@ -9,7 +9,6 @@
 	import * as Table from '$lib/components/ui/table';
 
 	import store from './jacobi-iteration-store';
-	import { formatVector } from '$lib/components/kaTeX';
 </script>
 
 <SolutionLayout let:C solutionType="JACOBI_ITERATION_METHOD">
@@ -84,6 +83,11 @@
 																let errStr = '';
 																if (err == null) errStr = '\\infty';
 																else errStr = err.toString();
+
+																if (errStr.includes('e')) {
+																	errStr = errStr.replace('e', '\\times 10^{');
+																	errStr += '}';
+																}
 
 																return `e_{${idx + 1}} = ${errStr}\\\\`;
 															})

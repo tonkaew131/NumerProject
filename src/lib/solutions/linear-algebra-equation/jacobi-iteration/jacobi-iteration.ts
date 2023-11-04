@@ -61,7 +61,7 @@ export function jacobiIterationMethod(
 			let sum = 0;
 			for (let j = 0; j < n; j++) {
 				if (i !== j) {
-					sum += matrixA[i][j] * arrayXNew[j];
+					sum += matrixA[i][j] * arrayXOld[j];
 				}
 			}
 			arrayXNew[i] = (arrayB[i] - sum) / matrixA[i][i];
@@ -87,16 +87,16 @@ export function jacobiIterationMethod(
 	return resultData;
 }
 
-// console.log(
-// 	jacobiIterationMethod(
-// 		[
-// 			[5, 2, 0, 0],
-// 			[2, 5, 2, 0],
-// 			[0, 2, 5, 2],
-// 			[0, 0, 2, 5]
-// 		],
-// 		[12, 17, 14, 7],
-// 		[0, 0, 0, 0],
-// 		0.000001
-// 	)
-// );
+console.log(
+	jacobiIterationMethod(
+		[
+			[5, 2, 0, 0],
+			[2, 5, 2, 0],
+			[0, 2, 5, 2],
+			[0, 0, 2, 5]
+		],
+		[12, 17, 14, 7],
+		[0, 0, 0, 0],
+		0.000001
+	)
+);
