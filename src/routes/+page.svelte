@@ -128,10 +128,10 @@
 						<Select.Item class="hover:cursor-pointer" value="linear-jacobi">
 							Jacobi Iteration Methods
 						</Select.Item>
-						<Select.Item class="hover:cursor-pointer" value="linear-seidal" disabled>
+						<!-- <Select.Item class="hover:cursor-pointer" value="linear-seidal" disabled>
 							Guass-Seidal Iteration Methods
-						</Select.Item>
-						<Select.Item class="hover:cursor-pointer" value="linear-conjugate" disabled>
+						</Select.Item> -->
+						<Select.Item class="hover:cursor-pointer" value="linear-conjugate">
 							Conjugate Gradient Methods
 						</Select.Item>
 					{:else if mode === 'interpolation'}

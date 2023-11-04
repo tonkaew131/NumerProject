@@ -6,6 +6,7 @@ import { matrixInversion } from '$lib/solutions/linear-algebra-equation/matrix-i
 import { formatArray, formatMatrix, formatNumber, generateId } from '$lib/utils';
 
 import { guassJordanMethod } from '../solutions/guassJordan';
+import { conjugateGradientMethods } from '../solutions/linear-algebra-equation/conjugate-gradient/conjugate-gradient';
 import { prisma } from './prisma';
 import { Problem, ProblemSolver } from './problem';
 
@@ -586,6 +587,77 @@ export class JacobiIterationSolver extends ProblemSolver {
 		});
 
 		const outputIteration = jacobiIterationMethod(
+			input.matrixA,
+			input.arrayB,
+			input.initialX,
+			input.epsilon
+		);
+
+		if (this.output != undefined) return [outputIteration, null];
+		return [null, { message: 'Something went wrong!', status: 500 }];
+	}
+}
+
+export class ConjugateGradientSolver extends ProblemSolver {
+	constructor(problem: Problem) {
+		super(problem, 'CONJUGATE_GRADIENT');
+	}
+
+	async getOutput(): Promise<[object | null, { message: string; status: number } | null]> {
+		const [solverId, solverIdError] = await this.getProblemSolverId();
+		if (solverIdError) return [null, solverIdError];
+
+		const [problemId, problemIdError] = await this.problem.getProblemId('select');
+		if (problemIdError) return [null, problemIdError];
+		if (!problemId) return [null, { message: 'Something went wrong!', status: 500 }];
+
+		const input = JSON.parse(this.problem.getInput());
+		if (solverId == undefined) {
+			const startTime = Date.now(); // ms
+			const output = conjugateGradientMethods(
+				input.matrixA,
+				input.arrayB,
+				input.initialX,
+				input.epsilon
+			);
+			const endTime = Date.now(); // ms
+
+			delete output.iterations;
+
+			this.problemSolverId = generateId();
+			await prisma.problemSolved.create({
+				data: {
+					id: this.problemSolverId,
+					output: JSON.parse(JSON.stringify(output)),
+					solution_type: 'CONJUGATE_GRADIENT',
+					executed_time: endTime - startTime,
+					user_id: this.userId,
+					problem_id: problemId,
+					iteration_count: 0
+				}
+			});
+
+			const outputIteration = conjugateGradientMethods(
+				input.matrixA,
+				input.arrayB,
+				input.initialX,
+				input.epsilon
+			);
+			return [outputIteration, null];
+		}
+
+		await prisma.problemSolved.update({
+			where: {
+				id: this.problemSolverId
+			},
+			data: {
+				solved_count: {
+					increment: 1
+				}
+			}
+		});
+
+		const outputIteration = conjugateGradientMethods(
 			input.matrixA,
 			input.arrayB,
 			input.initialX,

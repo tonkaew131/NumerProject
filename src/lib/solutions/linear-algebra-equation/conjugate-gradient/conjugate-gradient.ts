@@ -3,7 +3,7 @@ import { all, create } from 'mathjs';
 const config = {};
 const math = create(all, config);
 
-export interface ConjugateType {
+export interface ConjugateGradientResult {
 	iterations: {
 		iter: number;
 		alpha?: number | math.MathType;
@@ -23,7 +23,7 @@ export function conjugateGradientMethods(
 	initialX: number[],
 	errorPercentage: number,
 	logging = false
-): ConjugateType {
+): ConjugateGradientResult {
 	const calculateResidual = (
 		A: number[][] | math.Matrix,
 		B: number[] | math.Matrix,
@@ -93,7 +93,7 @@ export function conjugateGradientMethods(
 	const r0 = calculateResidual(matrixA, matrixB, initialX);
 	const d0 = calculateDistance0(r0);
 
-	const result: ConjugateType = {
+	const result: ConjugateGradientResult = {
 		iterations: []
 	};
 
