@@ -18,5 +18,10 @@
 		<p class="text-muted-foreground mt-0">
 			{data.user.userId}
 		</p>
+		<img
+			src="https://i.pinimg.com/originals/f2/d5/5a/f2d55ae2cd07ae2a4b5aa61cde061d4c.gif"
+			alt="Cat Dancing GIF"
+			loading="lazy"
+		/>
 	{/if}
 </div>
