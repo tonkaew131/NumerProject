@@ -54,6 +54,13 @@ To create a production version of your app:
 npm run build
 ```
 
+## File stucture
+
+- [src/](/src/)
+  - [lib/](/src/lib/): Library / Components
+    - [server/](/src/lib/server/): Server logic
+    - [solutions/](/src/lib/solutions/): Each solution component
+
 ## Contributing
 
 Feel free to fix my error.
