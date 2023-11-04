@@ -125,7 +125,7 @@
 						<!-- <Select.Item class="hover:cursor-pointer" value="linear-cholesky" disabled>
 							Cholesky Decomposition Methods
 						</Select.Item> -->
-						<Select.Item class="hover:cursor-pointer" value="linear-jacobi" disabled>
+						<Select.Item class="hover:cursor-pointer" value="linear-jacobi">
 							Jacobi Iteration Methods
 						</Select.Item>
 						<Select.Item class="hover:cursor-pointer" value="linear-seidal" disabled>

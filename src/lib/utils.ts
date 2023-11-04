@@ -80,6 +80,14 @@ export const copyMatrix = (matrix: number[][]) => {
 	return newMatrix;
 };
 
+export const copyArray = (array: number[]) => {
+	const newArray: number[] = [];
+	for (let i = 0; i < array.length; i++) {
+		newArray.push(array[i]);
+	}
+	return newArray;
+};
+
 export const getMatrixSize = (
 	matrix: number[][]
 ): [{ row: number; col: number } | null, Error | null] => {
