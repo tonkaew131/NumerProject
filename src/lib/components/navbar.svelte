@@ -41,7 +41,7 @@
 		<p class="px-8 font-black text-red-500 hover:cursor-pointer">TKW</p>
 	</a>
 	<a href="/users" class="mx-auto ml-0">
-		<p class="px-2 font-bold hover:cursor-pointer text-sm text-primary">Users</p>
+		<p class="px-2 font-bold hover:cursor-pointer text-sm text-primary hover:underline">Users</p>
 	</a>
 	{#if data.user}
 		<DropdownMenu.Root>
