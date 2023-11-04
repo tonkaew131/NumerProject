@@ -119,7 +119,7 @@
 						<Select.Item class="hover:cursor-pointer" value="linear-inversion">
 							Matrix Inversion
 						</Select.Item>
-						<Select.Item class="hover:cursor-pointer" value="linear-lu" disabled>
+						<Select.Item class="hover:cursor-pointer" value="linear-lu">
 							LU Decomposition Methods
 						</Select.Item>
 						<Select.Item class="hover:cursor-pointer" value="linear-cholesky" disabled>
