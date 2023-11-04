@@ -49,13 +49,13 @@ export function cramerRule(matrixA: number[][], arrayB: number[]): CramerResult 
 	return result;
 }
 
-console.log(
-	cramerRule(
-		[
-			[-2, 3, 1],
-			[3, 4, -5],
-			[1, -2, 1]
-		],
-		[9, 0, -4]
-	)
-);
+// console.log(
+// 	cramerRule(
+// 		[
+// 			[-2, 3, 1],
+// 			[3, 4, -5],
+// 			[1, -2, 1]
+// 		],
+// 		[9, 0, -4]
+// 	)
+// );
