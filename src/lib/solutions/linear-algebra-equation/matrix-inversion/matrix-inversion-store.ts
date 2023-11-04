@@ -75,7 +75,7 @@ const fetchSolution = async () => {
 	}
 
 	setResult(jsonData.data);
-	console.log(jsonData.data);
+	console.log(get(store));
 
 	// formatResultData();
 	return;

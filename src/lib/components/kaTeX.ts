@@ -1,8 +1,13 @@
 import type { MathArray, Matrix } from 'mathjs';
 
-export function formatVector(matrix: MathArray | Matrix | number[], precision = 6) {
+export function formatVector(matrix: MathArray | Matrix | number[] | string[], precision = 6) {
 	let out = '';
 	matrix.forEach((m) => {
+		if (typeof m == 'string') {
+			out += `${m} \\\\`;
+			return;
+		}
+		
 		out += `${parseFloat(Number(m).toFixed(precision))} \\\\`;
 	});
 

@@ -194,7 +194,7 @@ export const formatMatrix = (matrix: unknown): number[][] | null => {
 
 		for (let j = 0; j < rowObj.length; j++) {
 			const col = rowObj[j];
-			if (typeof col == null || isNaN(Number(col))) {
+			if (col == null || isNaN(Number(col))) {
 				return null;
 			}
 
@@ -224,7 +224,7 @@ export const formatArray = (array: unknown): number[] | null => {
 	for (let i = 0; i < arrayObj.length; i++) {
 		const row = arrayObj[i];
 
-		if (typeof row == null || isNaN(Number(row))) {
+		if (row == null || isNaN(Number(row))) {
 			return null;
 		}
 
