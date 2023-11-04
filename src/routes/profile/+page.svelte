@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-	<title>Profile</title>
+	<title>Profile | TKW</title>
 </svelte:head>
 
 <div class="prose mx-auto max-w-6xl pt-16 pb-48 w-11/12">

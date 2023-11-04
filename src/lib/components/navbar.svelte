@@ -36,9 +36,12 @@
 	</Sheet.Content>
 </Sheet.Root>
 
-<div class="bg-white w-full border border-border py-2 flex items-center">
-	<a href="/" class="mx-auto ml-0">
+<div class="bg-white w-full border border-border py-2 flex items-center font-noto">
+	<a href="/" class="mx-auto ml-0 mr-0">
 		<p class="px-8 font-black text-red-500 hover:cursor-pointer">TKW</p>
+	</a>
+	<a href="/users" class="mx-auto ml-0">
+		<p class="px-2 font-bold hover:cursor-pointer text-sm text-primary">Users</p>
 	</a>
 	{#if data.user}
 		<DropdownMenu.Root>
