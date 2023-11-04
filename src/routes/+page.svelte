@@ -122,9 +122,9 @@
 						<Select.Item class="hover:cursor-pointer" value="linear-lu">
 							LU Decomposition Methods
 						</Select.Item>
-						<Select.Item class="hover:cursor-pointer" value="linear-cholesky" disabled>
+						<!-- <Select.Item class="hover:cursor-pointer" value="linear-cholesky" disabled>
 							Cholesky Decomposition Methods
-						</Select.Item>
+						</Select.Item> -->
 						<Select.Item class="hover:cursor-pointer" value="linear-jacobi" disabled>
 							Jacobi Iteration Methods
 						</Select.Item>
