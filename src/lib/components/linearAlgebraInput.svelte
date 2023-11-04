@@ -21,6 +21,19 @@
 
 	export let onClickCalculate: (e: MouseEvent) => void;
 
+	function onClickReset() {
+		matrixA = createMatrix(matrixSize);
+		matrixB = createArray(matrixSize);
+		matrixX = createArray(matrixSize);
+
+		const inputs = document.getElementsByClassName('matrix-input');
+		for (let i = 0; i < inputs.length; i++) {
+			const el = inputs[i];
+			(el as HTMLInputElement).value = '';
+		}
+		return;
+	}
+
 	function onMatrixAInput(e: InputEvent, idx: number) {
 		const target = e.target as HTMLInputElement;
 		const value = Number(target.value);
@@ -56,7 +69,7 @@
 			class="w-40 placeholder:text-gray-300 bg-white mt-2"
 		/>
 	</Label>
-	<Button variant="destructive" size="icon">
+	<Button variant="destructive" size="icon" on:click={onClickReset}>
 		<Icon icon="bx:reset" class="text-xl" />
 	</Button>
 	<Button class="mt-2" on:click={onClickCalculate}>Calculate!</Button>
@@ -83,7 +96,7 @@
 			{#each Array(Math.pow(matrixSize, 2)) as _, i (`matrix_a_${i}`)}
 				<Input
 					on:input={(e) => onMatrixAInput(e, i)}
-					class="h-20 w-20 text-center placeholder:text-gray-300 bg-white"
+					class="h-20 w-20 text-center placeholder:text-gray-300 bg-white matrix-input"
 					placeholder={`a${Math.floor(i / matrixSize) + 1}${(i % matrixSize) + 1}`}
 				/>
 			{/each}
@@ -117,7 +130,7 @@
 			{#each Array(Number(matrixSize)) as _, i (`matrix_b_${i}`)}
 				<Input
 					on:input={(e) => onMatrixBInput(e, i)}
-					class="h-20 w-20 text-center placeholder:text-gray-300 bg-white"
+					class="h-20 w-20 text-center placeholder:text-gray-300 bg-white matrix-input"
 					placeholder={`b${i + 1}`}
 				/>
 			{/each}
@@ -133,7 +146,7 @@
 				{#each Array(Number(matrixSize)) as _, i (`matrix_b_${i}`)}
 					<Input
 						on:input={(e) => onMatrixXInput(e, i)}
-						class="h-20 w-20 text-center placeholder:text-gray-300 bg-white"
+						class="h-20 w-20 text-center placeholder:text-gray-300 bg-white matrix-input"
 						placeholder={`x${i + 1}`}
 					/>
 				{/each}
