@@ -1,13 +1,13 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 
+	import { formatMatrix, formatVector } from '$lib/components/kaTeX';
 	import KaTeX from '$lib/components/KaTex.svelte';
 	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import SolutionLayout from '$lib/solutions/solution-layout/solution-layout.svelte';
 
 	import store from './matrix-inversion-store';
-	import { formatMatrix, formatVector } from '$lib/components/kaTeX';
 </script>
 
 <SolutionLayout let:C solutionType="MATRIX_INVERSION">
