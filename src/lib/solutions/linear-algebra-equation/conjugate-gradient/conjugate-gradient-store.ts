@@ -17,6 +17,11 @@ const store = writable<{
 	input: inputData;
 	loading: boolean;
 	result: ConjugateGradientResult | null;
+	graphContour: {
+		x: number[];
+		y: number[];
+		z: number[][];
+	};
 }>({
 	input: {
 		matrixA: createMatrix(3),
@@ -24,6 +29,11 @@ const store = writable<{
 		arrayX: createArray(3),
 		epsilon: 0.000001,
 		matrixSize: 3
+	},
+	graphContour: {
+		x: [],
+		y: [],
+		z: []
 	},
 	loading: false,
 	result: null
