@@ -6,6 +6,8 @@
 	import Label from '$lib/components/ui/label/label.svelte';
 	import { createArray, createMatrix } from '$lib/utils';
 
+	import KaTeX from './KaTex.svelte';
+
 	export let matrixSize = 3;
 	export let matrixA = createMatrix(matrixSize);
 	$: matrixA = createMatrix(matrixSize);
@@ -50,7 +52,7 @@
 
 <div class="flex items-center gap-2 mt-2 justify-center">
 	<Label class="text-center">
-		[A]
+		<KaTeX data="[A]" />
 		<div
 			class="grid auto-cols-auto gap-1 mt-2"
 			style={`grid-template-columns: repeat(${matrixSize}, minmax(0, 5rem));`}
@@ -65,8 +67,8 @@
 		</div>
 	</Label>
 
-	<Label class="text-center"
-		>&lcub;X&rcub;
+	<Label class="text-center">
+		<KaTeX data={`\\{x\\}`} />
 		<div
 			class="grid auto-cols-auto gap-1 mt-2"
 			style="grid-template-columns: repeat(1, minmax(0, 5rem));"
@@ -81,10 +83,10 @@
 		</div>
 	</Label>
 
-	<p>=</p>
+	<p><KaTeX data="=" /></p>
 
-	<Label class="text-center"
-		>&lcub;B&rcub;
+	<Label class="text-center">
+		<KaTeX data={`\\{B\\}`} />
 		<div
 			class="grid auto-cols-auto gap-1 mt-2"
 			style="grid-template-columns: repeat(1, minmax(0, 5rem));"

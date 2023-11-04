@@ -1,7 +1,8 @@
 <script lang="ts">
+	import Icon from '@iconify/svelte';
+
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { cn } from '$lib/utils';
-	import Icon from '@iconify/svelte';
 
 	import Input from './solution-layout-input.svelte';
 	import modal from './solution-layout-modal-store';
