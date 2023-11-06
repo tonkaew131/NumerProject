@@ -1,13 +1,13 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 
+	import { formatMatrix, formatVector } from '$lib/components/kaTeX';
 	import KaTeX from '$lib/components/KaTex.svelte';
 	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import SolutionLayout from '$lib/solutions/solution-layout/solution-layout.svelte';
 
 	import store from './lu-decomposition-store';
-	import { formatMatrix, formatVector } from '$lib/components/kaTeX';
 
 	function createEmptyLUMatrix(size: number, type: 'L' | 'U' | 'A'): string {
 		let str = '';

@@ -1,10 +1,12 @@
 <script lang="ts">
-	import * as Table from '$lib/components/ui/table';
-	import * as Card from '$lib/components/ui/card';
-	import * as Avatar from '$lib/components/ui/avatar';
 	import { onMount } from 'svelte';
-	import createUsersStore from './users-store';
+
+	import * as Avatar from '$lib/components/ui/avatar';
+	import * as Card from '$lib/components/ui/card';
+	import * as Table from '$lib/components/ui/table';
 	import ProblemTypeBar from '$lib/components/users/problem-type-bar/problem-type-bar.svelte';
+
+	import createUsersStore from './users-store';
 
 	onMount(() => {
 		createUsersStore.fetchUsers();

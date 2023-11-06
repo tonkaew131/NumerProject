@@ -86,7 +86,7 @@ export const GET: RequestHandler = async () => {
 		},
 		{
 			headers: {
-				'Cache-Control': 'public, s-maxage=60'
+				'Cache-Control': 'public, s-maxage=180'
 			}
 		}
 	);

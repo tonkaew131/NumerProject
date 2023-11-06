@@ -4,9 +4,9 @@
 	import KaTeX from '$lib/components/KaTex.svelte';
 	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
 	import * as Card from '$lib/components/ui/card';
-	import SolutionLayout from '$lib/solutions/solution-layout/solution-layout.svelte';
-	import * as Tabs from '$lib/components/ui/tabs';
 	import * as Table from '$lib/components/ui/table';
+	import * as Tabs from '$lib/components/ui/tabs';
+	import SolutionLayout from '$lib/solutions/solution-layout/solution-layout.svelte';
 
 	import store from './jacobi-iteration-store';
 </script>

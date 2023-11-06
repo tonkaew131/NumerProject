@@ -1,16 +1,16 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 
+	import Graph from '$lib/components/graph.svelte';
+	import { formatVector } from '$lib/components/kaTeX';
 	import KaTeX from '$lib/components/KaTex.svelte';
 	import LinearAlgebraInput from '$lib/components/linearAlgebraInput.svelte';
 	import * as Card from '$lib/components/ui/card';
-	import SolutionLayout from '$lib/solutions/solution-layout/solution-layout.svelte';
-	import * as Tabs from '$lib/components/ui/tabs';
 	import * as Table from '$lib/components/ui/table';
+	import * as Tabs from '$lib/components/ui/tabs';
+	import SolutionLayout from '$lib/solutions/solution-layout/solution-layout.svelte';
 
 	import store from './conjugate-gradient-store';
-	import { formatVector } from '$lib/components/kaTeX';
-	import Graph from '$lib/components/graph.svelte';
 </script>
 
 <SolutionLayout let:C solutionType="CONJUGATE_GRADIENT_METHOD">
