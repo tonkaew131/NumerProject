@@ -24,7 +24,6 @@
 				<Table.Caption>A list of our top users.</Table.Caption>
 				<Table.Header>
 					<Table.Row>
-						<Table.Head class="w-[100px]">User Id</Table.Head>
 						<Table.Head>Name</Table.Head>
 						<Table.Head>Solutions solved</Table.Head>
 						<Table.Head>Problem Type</Table.Head>
@@ -34,13 +33,17 @@
 					{#if $createUsersStore.data}
 						{#each $createUsersStore.data.data.users as us}
 							<Table.Row>
-								<Table.Cell class="font-medium">{us.id}</Table.Cell>
 								<Table.Cell class="flex items-center gap-4">
 									<Avatar.Root>
 										<Avatar.Image src={us.google_profile} alt="@{us.id}" class="!my-0" />
 										<Avatar.Fallback>FK</Avatar.Fallback>
 									</Avatar.Root>
-									{us.google_name}
+									<span class="font-bold">
+										{us.google_name}
+									</span>
+									<span class="font-medium text-muted-foreground bg-muted px-2 py-1 rounded-md"
+										>{us.id}</span
+									>
 								</Table.Cell>
 								<Table.Cell>
 									<KaTeX data={`\\infty`} />
