@@ -5,9 +5,13 @@ const { set, subscribe, update } = writable<{
 	data: {
 		data: {
 			users: {
-				id: string;
+				id: number;
 				google_name: string;
+				google_email: string;
 				google_profile: string;
+				solutions: {
+					[solutionType: string]: number;
+				};
 			}[];
 		};
 	} | null;
@@ -35,6 +39,7 @@ const fetchUsers = async () => {
 		return;
 	}
 
+	console.log(json);
 	update((value) => ({
 		...value,
 		data: json

@@ -25,7 +25,7 @@
 				<Table.Header>
 					<Table.Row>
 						<Table.Head>Name</Table.Head>
-						<Table.Head>Solutions solved</Table.Head>
+						<Table.Head class="text-center">Problems asked</Table.Head>
 						<Table.Head>Problem Type</Table.Head>
 					</Table.Row>
 				</Table.Header>
@@ -36,17 +36,21 @@
 								<Table.Cell class="flex items-center gap-4">
 									<Avatar.Root>
 										<Avatar.Image src={us.google_profile} alt="@{us.id}" class="!my-0" />
-										<Avatar.Fallback>FK</Avatar.Fallback>
+										<Avatar.Fallback>TK</Avatar.Fallback>
 									</Avatar.Root>
 									<span class="font-bold">
 										{us.google_name}
 									</span>
-									<span class="font-medium text-muted-foreground bg-muted px-2 py-1 rounded-md"
-										>{us.id}</span
-									>
+									<span class="font-medium text-muted-foreground bg-muted px-2 py-1 rounded-md">
+										{us.id}
+									</span>
 								</Table.Cell>
-								<Table.Cell>
-									<KaTeX data={`\\infty`} />
+								<Table.Cell class="text-center font-mono">
+									{Object.values(us.solutions)
+										.reduce((acc, cur) => {
+											return acc + cur;
+										}, 0)
+										.toString()}
 								</Table.Cell>
 								<Table.Cell>
 									<div class="w-[12em] dark bg-background h-2 rounded-full flex overflow-clip">
