@@ -4,7 +4,7 @@
 	import * as Avatar from '$lib/components/ui/avatar';
 	import { onMount } from 'svelte';
 	import createUsersStore from './users-store';
-	import KaTeX from '$lib/components/KaTex.svelte';
+	import ProblemTypeBar from '$lib/components/users/problem-type-bar/problem-type-bar.svelte';
 
 	onMount(() => {
 		createUsersStore.fetchUsers();
@@ -53,12 +53,7 @@
 										.toString()}
 								</Table.Cell>
 								<Table.Cell>
-									<div class="w-[12em] dark bg-background h-2 rounded-full flex overflow-clip">
-										<div class="h-full w-[20%] bg-red-500 left-0" />
-										<div class="h-full w-[50%] bg-lime-500" />
-										<div class="h-full w-[5%] bg-yellow-500" />
-										<div class="h-full w-[50%] bg-cyan-500" />
-									</div>
+									<ProblemTypeBar problemCount={us.solutions} />
 								</Table.Cell>
 							</Table.Row>
 						{/each}
