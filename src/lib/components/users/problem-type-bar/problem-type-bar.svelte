@@ -44,7 +44,10 @@
 				<Card.Root
 					class="absolute z-30 left-1/2 -translate-x-1/2 -top-12 group-hover:opacity-100 opacity-0"
 				>
-					<Card.Content class="pb-0 py-2 whitespace-nowrap flex items-center">
+					<Card.Content class="pb-0 py-2 whitespace-nowrap flex items-center relative">
+						<div
+							class="w-3 h-3 bg-background absolute left-1/2 z-10 -translate-x-1/2 bottom-0 translate-y-[0.3em] rotate-45"
+						/>
 						<div class="w-2 h-2 mr-2 {getColor(sl)} rounded-full" />
 						{ProblemData[sl].name} ({problemCount[sl]})
 					</Card.Content>
