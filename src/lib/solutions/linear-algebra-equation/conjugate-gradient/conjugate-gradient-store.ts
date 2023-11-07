@@ -1,9 +1,10 @@
 import { get, writable } from 'svelte/store';
 
+import { cramerRule } from '$lib/solutions/cramer';
 import modalStore from '$lib/solutions/solution-layout/solution-layout-modal-store';
 import { createArray, createMatrix } from '$lib/utils';
 
-import type { ConjugateGradientResult } from './conjugate-gradient';
+import { type ConjugateGradientResult, conjugateGraph } from './conjugate-gradient';
 
 interface inputData {
 	matrixA: number[][];
@@ -73,6 +74,8 @@ const fetchSolution = async () => {
 		}
 	}));
 
+	console.log('hello world!', drawControurGraph());
+
 	const res = await fetch('/api/solution/linear/conjugate', {
 		method: 'POST',
 		headers: {
@@ -104,6 +107,66 @@ const fetchSolution = async () => {
 
 	// formatResultData();
 	return;
+};
+
+const drawControurGraph = () => {
+	const matrixA = get(store).input.matrixA;
+	const arrayB = get(store).input.arrayB;
+	const arrayX = cramerRule(matrixA, arrayB).result;
+
+	const size = matrixA.length;
+	if (size != 2) {
+		console.log('Cannot draw contour graph for matrix size != 2');
+		return;
+	}
+
+	if (arrayX == undefined) {
+		console.log('Cannot draw contour graph for undefined arrayX');
+		return;
+	}
+
+	const center: {
+		x: number;
+		y: number;
+		range: number;
+	} = {
+		x: 0 in arrayX ? Number(arrayX[0]) : 0,
+		y: 1 in arrayX ? Number(arrayX[1]) : 0,
+		range: 10
+	};
+	const graph: {
+		x: number[];
+		y: number[];
+		z: number[][];
+	} = {
+		x: [],
+		y: [],
+		z: []
+	};
+	for (let i = 0; i < center.range; i++) {
+		const x = center.x - center.range / 2 + i;
+		const y = center.y - center.range / 2 + i;
+
+		graph.z.push([]);
+		graph.x.push(x);
+		graph.y.push(y);
+		for (let j = 0; j < center.range; j++) {
+			const y = center.y - center.range / 2 + j;
+
+			graph.z[i].push(conjugateGraph(matrixA, arrayB, x, y).z);
+		}
+	}
+
+	console.log(graph);
+
+	update((value) => ({
+		...value,
+		graphContour: {
+			x: graph.x,
+			y: graph.y,
+			z: graph.z
+		}
+	}));
 };
 
 const createJacobiIterationStore = { subscribe, set, update, fetchSolution };

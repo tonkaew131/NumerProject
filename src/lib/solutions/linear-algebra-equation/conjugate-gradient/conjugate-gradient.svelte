@@ -26,27 +26,23 @@
 		/>
 	</C.Input>
 	<C.Result>
-		<!-- <Card.Root class="mt-12">
-			<Card.Content class="py-5">
-				<KaTeX data={'\\text{Contour Graph}'} class="pl-6" block />
-				<Graph
-					graphData={[
-						{
-							z: [
-								[10, 10.625, 12.5, 15.625, 20],
-								[5.625, 6.25, 8.125, 11.25, 15.625],
-								[2.5, 3.125, 5, 8.125, 12.5],
-								[0.625, 1.25, 3.125, 6.25, 10.625],
-								[0, 0.625, 2.5, 5.625, 10]
-							],
-							x: [-9, -6, -5, -3, -1],
-							y: [0, 1, 4, 5, 7],
-							type: 'contour'
-						}
-					]}
-				/>
-			</Card.Content>
-		</Card.Root> -->
+		{#key $store.graphContour}
+			<Card.Root class="mt-12">
+				<Card.Content class="py-5">
+					<KaTeX data={'\\text{Contour Graph}'} class="pl-6" block />
+					<Graph
+						graphData={[
+							{
+								x: $store.graphContour.x,
+								y: $store.graphContour.y,
+								z: $store.graphContour.z,
+								type: 'contour'
+							}
+						]}
+					/>
+				</Card.Content>
+			</Card.Root>
+		{/key}
 
 		<Tabs.Root value="table" class="w-full mt-12">
 			<Tabs.List>

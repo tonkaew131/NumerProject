@@ -180,6 +180,35 @@ export function conjugateGradientMethods(
 	return result;
 }
 
+export function conjugateGraph(
+	matrixA: number[][],
+	matrixB: number[],
+	x: number,
+	y: number
+): {
+	error?: string;
+	z: number;
+} {
+	const result = { z: 0, error: '' };
+
+	if (matrixA.length != 2) {
+		result.error = 'Matrix A must be 2x2';
+		return result;
+	}
+
+	const a = matrixA[0][0];
+	const b = matrixA[0][1];
+	const c = matrixA[1][0];
+	const d = matrixA[1][1];
+
+	const e = matrixB[0];
+	const f = matrixB[1];
+
+	result.z = 0.5 * (x * (a * x + y * c) + y * (x * b + y * d)) - e * x - f * y;
+
+	return result;
+}
+
 // const matrixA = [
 // 	[5, 2, 0, 0],
 // 	[2, 5, 2, 0],
